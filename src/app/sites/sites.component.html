@@ -1,0 +1,353 @@
+<h1>{{ens.nom_ens}}</h1>
+<button (click)="close()"> back to cards</button>
+
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="right">
+                    <div class="my-2">
+                        <button pButton pRipple label="New" icon="pi pi-plus" (click)="opennew()"class="p-button-success mr-2" ></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedsite()" [disabled]="!selectedsites || !selectedsites.length"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="sites" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedsites" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Liste des Comptes</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="nomsite">Site<p-sortIcon field="nomsite"></p-sortIcon></th>
+                        <th pSortableColumn="email_site">email <p-sortIcon field="email_site"></p-sortIcon></th>
+                        <th pSortableColumn="tel">Telephone <p-sortIcon field="tel"></p-sortIcon></th>
+                        <th pSortableColumn="adresse_site">Adresse<p-sortIcon field="adresse_site"></p-sortIcon></th>
+                        <th pSortableColumn="codepostal_site">Code Postal <p-sortIcon field="codepostal_site"></p-sortIcon></th>
+                        <th pSortableColumn="manager_site">Manager <p-sortIcon field="manager_site"></p-sortIcon></th>
+                        <th pSortableColumn="numerofax">Fax <p-sortIcon field="numerofax"></p-sortIcon></th>
+                        <th pSortableColumn="canalDistribSite">Canal Distribution<p-sortIcon field="canalDistribSite"></p-sortIcon></th>
+                        <th pSortableColumn="latitude_site">Latitude <p-sortIcon field="latitude_site"></p-sortIcon></th>
+                        <th pSortableColumn="longitude_site">longitude<p-sortIcon field="longitude_site"></p-sortIcon></th>
+                        <th pSortableColumn="modepaimentSite">Mode Paiment <p-sortIcon field="modepaimentSite"></p-sortIcon></th>
+                        <th pSortableColumn="conditionPaimentSite">Condition Paiment<p-sortIcon field="cconditionPaimentSite"></p-sortIcon></th>
+                        <th pSortableColumn="reference_erp_site"> Reference erp <p-sortIcon field="reference_erp_site"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-sites>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="sites"></p-tableCheckbox>
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Site</span>
+                            {{sites.nomsite}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">email</span>
+                            {{sites.email_site}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Telephone</span>
+                            {{sites.tel}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Adresse</span>
+                            {{ sites.adresse_site }} 
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Code Postal </span>
+                           {{sites.codepostal_site}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Manager</span>
+                            {{ sites.manager_site }} 
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Fax</span>
+                            {{ sites.numerofax }} 
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Canal Distribution</span>
+                            {{ sites.canalDistribSite}} 
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Latitude</span>
+                            {{ sites.latitude_site }} 
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">longitude</span>
+                            {{ sites.longitude_site }} 
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Mode Paiment</span>
+                            {{ sites.modepaimentSite}} 
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Condition Paiment</span>
+                            {{ sites.conditionPaimentSite }} 
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Reference erp </span>
+                            {{ sites.reference_erp_site}} 
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openedit(sites.id)"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletesite(sites.id)"  ></button>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+        
+        <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
+
+    <p-dialog [(visible)]="siteaddDialog" [style]="{width: '500px'}" header="Ajouter Site" [draggable]="false" [modal]="true" class="p-fluid">
+        <ng-template pTemplate="content">
+          <form #sitesForm="ngForm" (ngSubmit)="saveUser(sitesForm)" >
+            <div class="formgrid grid">
+                <div class="field col">
+                  <label for="nomsite">Nom Site</label>
+                  <input type="text" pInputText id="nomsite" name="nomsite" [(ngModel)]="site.nomsite" required autofocus [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['nomsite'].valid}" />
+                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['nomsite'].valid">Nom Site est obligatoire.</small>
+                </div>
+                <div class="field col">
+                  <label for="email_site">Email Site</label>
+                  <input type="email" id="email_site" pInputText name="email_site" [(ngModel)]="site.email_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['email_site'].valid}" />
+                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['email_site'].valid">Valid Email Site est obligatoire.</small>
+                </div>
+              </div>
+              <div class="formgrid grid">
+                <div class="field col">
+                  <label for="tel">Téléphone</label>
+                  <input type="tel" id="tel" pInputText name="tel" [(ngModel)]="site.tel" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['tel'].valid}" />
+                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['tel'].valid">Téléphone est obligatoire.</small>
+                </div>
+                <div class="field col">
+                    <label for="adresse_site">Adresse Site</label>
+                    <input pInputText type="text" id="adresse_site" name="adresse_site" [(ngModel)]="site.adresse_site" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !sitesForm.controls['adresse_site'].valid}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['adresse_site'].valid">Code postal est obligatoire.</small>
+                  </div>
+              </div>
+              <div class="formgrid grid">
+                <div class="field col">
+                  <label for="numerofax">Numéro Fax</label>
+                  <input type="tel" id="numerofax" pInputText name="numerofax" [(ngModel)]="site.numerofax" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['numerofax'].valid}" />
+                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['numerofax'].valid">Numéro Fax est obligatoire.</small>
+                </div>
+              <div class="field col">
+                <label for="codepostal_site">Code Postal</label>
+                <input pInputText type="text" id="codepostal_site" name="codepostal_site" [(ngModel)]="site.codepostal_site" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !sitesForm.controls['codepostal_site'].valid}" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['codepostal_site'].valid">Code postal est obligatoire.</small>
+              </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="manager_site">Manager Site</label>
+                    <input type="text" id="manager_site" pInputText name="manager_site" [(ngModel)]="site.manager_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['manager_site'].valid}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['manager_site'].valid">Manager Site est obligatoire.</small>
+                </div>
+                <div class="field col">
+                    <label for="canalDistribSite">Canal Disribution</label>
+                    <input type="text" id="canalDistribSite" pInputText name="canalDistribSite" [(ngModel)]="site.canalDistribSite" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['canalDistribSite'].valid}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['canalDistribSite'].valid">Manager Site est obligatoire.</small>
+                </div>
+            </div>  
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="modepaimentSite">Mode Paiment</label>
+                    <input type="text" id="modepaimentSite" pInputText name="modepaimentSite" [(ngModel)]="site.modepaimentSite" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['modepaimentSite'].valid}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['modepaimentSite'].valid">Manager Site est obligatoire.</small>
+                </div>
+                <div class="field col">
+                    <label for="conditionPaimentSite">Condition Paiment Site</label>
+                    <input type="text" id="canalDistribSite" pInputText name="conditionPaimentSite" [(ngModel)]="site.conditionPaimentSite" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['conditionPaimentSite'].valid}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['conditionPaimentSite'].valid">Manager Site est obligatoire.</small>
+                </div>
+            </div>  
+            <div class="formgrid grid">
+                <div class="field col">
+                    <label for="latitude_site">Latitude Site</label>
+                    <input type="text" id="latitude_site" pInputText name="latitude_site" [(ngModel)]="site.latitude_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['latitude_site'].valid}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['latitude_site'].valid">Manager Site est obligatoire.</small>
+                </div>
+                <div class="field col">
+                    <label for="longitude_site">Longitude Site</label>
+                    <input type="text" id="longitude_site" pInputText name="longitude_site" [(ngModel)]="site.longitude_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['longitude_site'].valid}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['longitude_site'].valid">Manager Site est obligatoire.</small>
+                </div>
+                <div class="field col">
+                    <label for="reference_erp_site">Reference ERP Site</label>
+                    <input type="text" id="reference_erp_site" pInputText name="reference_erp_site" [(ngModel)]="site.reference_erp_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['reference_erp_site'].valid}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['reference_erp_site'].valid">Manager Site est obligatoire.</small>
+                </div>
+            </div> 
+          </form>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button type="submit" pButton pRipple label="Save" icon="pi pi-check" (click)="saveUser(sitesForm)" class="p-button-text"  > </button>
+        </ng-template>
+      </p-dialog>
+        
+      <p-dialog [(visible)]="siteupdDialog" [style]="{width: '550px' , height: '80%'}" [draggable]="false"  header="Modifier Site" [modal]="true" class="p-fluid">
+        <ng-template pTemplate="content">
+            <form [formGroup]="editForm" >
+                <div class="formgrid grid">
+                    <div class="field col">
+              <div class="form-group">
+                <label for="nomsite">Nom User</label>
+                <input type="text" pInputText formControlName="nomsite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nomsite'].errors }" />
+                <div *ngIf="submitted && f['nomsite'].errors" class="invalid-feedback">
+                  <div *ngIf="f['nomsite'].errors['required']">Nom User est obligatoire.</div>
+                </div>
+              </div>
+            </div>
+            <div class="field col">
+              <div class="form-group">
+                <label for="email_site">Email Site</label>
+                <input type="email" pInputText formControlName="email_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email_site'].errors }" />
+                <div *ngIf="submitted && f['email_site'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email_site'].errors['required']">Email est obligatoire.</div>
+                  <div *ngIf="f['email_site'].errors">Email must be a valid email address.</div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+              <div class="form-group">
+                <label for="tel">Telephone</label>
+                <input type="text" pInputText formControlName="tel" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['tel'].errors }" />
+                <div *ngIf="submitted && f['tel'].errors" class="invalid-feedback">
+                  <div *ngIf="f['tel'].errors['required']">Telephone est obligatoire.</div>
+                </div>
+              </div>
+            </div>
+            <div class="field col">
+              <div class="form-group">
+                <label for="adresse_site">Adresse Site</label>
+                <input type="text" pInputText formControlName="adresse_site" [ngClass]="{ 'is-invalid': submitted && f['adresse_site'].errors }" />
+             </div>
+            </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+             <div class="form-group">
+                <label for="numerofax">Numéro Fax</label>
+                <input type="text" pInputText formControlName="numerofax" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['numerofax'].errors }" />
+                <div *ngIf="submitted && f['numerofax'].errors" class="invalid-feedback">
+                  <div *ngIf="f['numerofax'].errors['required']">Numero Fax est obligatoire.</div>
+                </div>
+              </div>
+            </div>
+            <div class="field col">
+              <div class="form-group">
+                <label for="codepostal_site"> Code Postal</label>
+                <input type="text" pInputText formControlName="codepostal_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['codepostal_site'].errors }" />
+                <div *ngIf="submitted && f['codepostal_site'].errors" class="invalid-feedback">
+                  <div *ngIf="f['codepostal_site'].errors['required']">Code Postal est obligatoire.</div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+              <div class="form-group">
+                <label for="manager_site"> Manager Site</label>
+                <input type="text" pInputText formControlName="manager_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['manager_site'].errors }" />
+                <div *ngIf="submitted && f['manager_site'].errors" class="invalid-feedback">
+                  <div *ngIf="f['manager_site'].errors['required']">Manager Site est obligatoire.</div>
+                </div>
+              </div>
+            </div>
+            <div class="field col">
+              <div class="form-group">
+                <label for="canalDistribSite"> Canal Distribution</label>
+                <input type="text" pInputText formControlName="canalDistribSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['canalDistribSite'].errors }" />
+                <div *ngIf="submitted && f['canalDistribSite'].errors" class="invalid-feedback">
+                  <div *ngIf="f['canalDistribSite'].errors['required']">Canal Distribution est obligatoire.</div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="formgrid grid">
+            <div class="field col">
+              <div class="form-group">
+                <label for="modepaimentSite"> Mode Paiment Site</label>
+                <input type="text" pInputText formControlName="modepaimentSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['modepaimentSite'].errors }" />
+                <div *ngIf="submitted && f['modepaimentSite'].errors" class="invalid-feedback">
+                  <div *ngIf="f['modepaimentSite'].errors['required']">Mode Paiment est obligatoire.</div>
+                </div>
+              </div>
+            </div> 
+            <div class="field col">
+              <div class="form-group">
+                <label for="conditionPaimentSite"> Condition Paiment Site</label>
+                <input type="text" pInputText formControlName="conditionPaimentSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['conditionPaimentSite'].errors }" />
+                <div *ngIf="submitted && f['conditionPaimentSite'].errors" class="invalid-feedback">
+                  <div *ngIf="f['conditionPaimentSite'].errors['required']">Condition Paiment est obligatoire.</div>
+                </div>
+              </div>
+            </div>
+        </div>   
+        <div class="formgrid grid">
+            <div class="field col">
+              <div class="form-group">
+                <label for="latitude_site"> Latitude Site</label>
+                <input type="text" pInputText formControlName="latitude_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['latitude_site'].errors }" />
+                <div *ngIf="submitted && f['latitude_site'].errors" class="invalid-feedback">
+                  <div *ngIf="f['latitude_site'].errors['required']">Latitude Site est obligatoire.</div>
+                </div>
+              </div>
+            </div> 
+            <div class="field col">
+              <div class="form-group">
+                <label for="longitude_site"> Longitude Site</label>
+                <input type="text" pInputText formControlName="longitude_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['longitude_site'].errors }" />
+                <div *ngIf="submitted && f['longitude_site'].errors" class="invalid-feedback">
+                  <div *ngIf="f['longitude_site'].errors['required']">Longitude Site est obligatoire.</div>
+                </div>
+              </div>
+            </div>  
+           
+        <div class="field col">
+              <div class="form-group">
+                <label for="reference_erp_site"> Reference ERP Site</label>
+                <input type="text" pInputText formControlName="reference_erp_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reference_erp_site'].errors }" />
+                <div *ngIf="submitted && f['reference_erp_site'].errors" class="invalid-feedback">
+                  <div *ngIf="f['reference_erp_site'].errors['required']">Reference ERP Site est obligatoire.</div>
+                </div>
+              </div>
+            </div> 
+        </div>
+            </form>          
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button type="submit" pButton pRipple label="Save" icon="pi pi-check" (click)="editsite()" class="p-button-text"  > </button>
+        </ng-template>
+      </p-dialog>
+      
+    </div>
+</div>
+

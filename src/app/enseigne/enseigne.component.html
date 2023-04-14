@@ -1,0 +1,25 @@
+<app-sites [ens]="ensdata" *ngIf="ensID>=0" (closeEvent)="ensID = -1"></app-sites>
+
+<div *ngIf="ensID<=0">
+    <p-toast></p-toast>
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="right">
+            <div class="my-2">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" ></button>
+                <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"  ></button>
+            </div>
+        </ng-template>
+    </p-toolbar>        
+<div class="grid">
+    <mat-card class="enseigne-card col-6" *ngFor="let ens of enseigne"(click)="showcomponent(ens.id,ens)">
+    <a (click)="showcomponent(ens.id,ens)">
+       
+        <img mat-card-sm-image src="/assets/noun-rules-4146171.png" alt="Photo of a Shiba Inu">
+        <mat-card-title class="card-title">{{ens.nom_ens}}</mat-card-title>
+        </a>  
+    </mat-card>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
+</div>
+    

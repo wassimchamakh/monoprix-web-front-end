@@ -1,0 +1,54 @@
+<p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="right">
+        <div class="my-2">
+            <button pButton pRipple label="New" icon="pi pi-plus"(click)="openNew()" class="p-button-success mr-2"></button>
+        </div>
+    </ng-template>
+</p-toolbar> 
+<div class="grid">
+<mat-card class="example-card col-6" *ngFor="let role of roles" >
+<a (click)="dialogrole(role.id)">
+
+    <img mat-card-sm-image src="/assets/noun-rules-4146171.png" alt="Photo of a Shiba Inu">
+    <mat-card-title class="card-title">{{role.design_r}}</mat-card-title>
+    </a>  
+</mat-card>
+</div>
+
+<p-dialog [(visible)]="roledialog1" [style]="{width: '500px'}" header="Ajouter Role" [draggable]="false" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+      <form #roleForm="ngForm"  >
+        <div class="field">
+          <label for="design_r">Designation</label>
+          <input type="text" pInputText id="design_r" name="design_r" [(ngModel)]="role.design_r" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !roleForm.controls['design_r'].valid}"/>
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !roleForm.controls['design_r'].valid">Designation is required.</small>
+        </div>
+        
+      </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button  pButton pRipple label="Save" icon="pi pi-check" (click)="saveUser(roleForm)" class="p-button-text"  > </button>
+    </ng-template>
+  </p-dialog>
+  
+
+<p-dialog [(visible)]="roledialog" [style]="{width: '550px' }" [draggable]="false"  header="Edit User" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="editForm" >
+          <div class="form-group">
+            <label for="designation">designation</label>
+            <input type="text" pInputText formControlName="designation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['designation'].errors }" />
+            <div *ngIf="submitted && f['designation'].errors" class="invalid-feedback">
+              <div *ngIf="f['designation'].errors['required']">Nom User is required.</div>
+            </div>
+          </div>
+         </form>          
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button  pButton pRipple label="Save" icon="pi pi-check"  class="p-button-text" (click)="editrole()" > </button>
+    </ng-template>
+  </p-dialog>
+
+

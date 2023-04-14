@@ -1,0 +1,26 @@
+
+.example-card {
+  width: 28%;
+  height: 45% ; 
+  background-image: linear-gradient(red, rgb(246, 191, 191));
+  margin-top: 2% ; 
+  margin-right: 2%;
+  }
+  img  {
+    width:  40% ; 
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-top: 60px;
+  }
+
+  .card-title {
+    font-weight: bold;
+    text-decoration: none ;
+    color: #333;
+    height:auto ; 
+    display: block ; 
+    margin : 0 auto ; 
+    text-align: center;
+  }
+ 

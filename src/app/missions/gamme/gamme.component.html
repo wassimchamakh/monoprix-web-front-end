@@ -1,0 +1,103 @@
+<app-ajout *ngIf="missID>0"> </app-ajout>
+<div *ngIf="missID<0">
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="right">
+                    <div class="my-2">
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedmiss()" [disabled]="!selectedmission || !selectedmission.length"></button>
+                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success mr-2"  (click)="opennew()"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="gamme" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedmission" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Liste des Relevé sur gamme    </h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="Mission_id">Mission Id<p-sortIcon field="Mission_id"></p-sortIcon></th>
+                        <th pSortableColumn="nom_miss">Nom <p-sortIcon field="nom_miss"></p-sortIcon></th>
+                        <th pSortableColumn="descrip_miss">Description <p-sortIcon field="descrip_miss"></p-sortIcon></th>
+                        <th pSortableColumn="etat">Etat <p-sortIcon field="etat"></p-sortIcon></th>
+                        <th pSortableColumn="maxdiff">Max Diff<p-sortIcon field="maxdiff"></p-sortIcon></th>
+                        <th pSortableColumn="tags">tags <p-sortIcon field="tags"></p-sortIcon></th>
+                        <th pSortableColumn="nonreconnue">Non Reconnus ? <p-sortIcon field="nonreconnue"></p-sortIcon></th>
+                        <th pSortableColumn="rupture">En rupture ? <p-sortIcon field="rupture"></p-sortIcon></th>
+                        <th pSortableColumn="date_miss">Date <p-sortIcon field="date_miss"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-gamme>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="gamme"></p-tableCheckbox>
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Mission ID</span>
+                            {{gamme.id}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Nom Mission</span>
+                            {{gamme.nom_miss}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Description</span>
+                            {{gamme.descrip_miss}}
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">etat </span>
+                            {{gamme.etat}}
+                         </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Max Diff % </span>
+                           {{gamme.maxdiff}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">tags</span>
+                            {{ gamme.tags}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Non Reconnus ?</span>
+                            {{ gamme.nonreconnue}}
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">En Rupture ? </span>
+                            {{gamme.rupture}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Date </span>
+                            {{gamme.date_miss}}
+                         </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" (click)="openedit()" class="p-button-rounded p-button-success mr-2" ></button>
+                                <button pButton pRipple icon="pi pi-trash" (click)="deletegamme(gamme.id)" class="p-button-rounded p-button-warning"  ></button>
+                                <p-button (click)="toggle()" label="..."></p-button>
+                                <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-4 surface-overlay shadow-2 border-round">
+                                    Content
+                                </p-overlay>
+                            </div>
+                        </td>
+                    </tr>
+        
+                </ng-template>
+
+            </p-table>
+        </div>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
+</div>       
+</div>

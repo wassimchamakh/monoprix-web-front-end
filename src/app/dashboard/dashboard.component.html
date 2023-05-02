@@ -109,6 +109,16 @@
 <div *ngIf="current_component=='Non Reconnus'">
 <app-article-nonrecconus></app-article-nonrecconus>
 </div>
+<div *ngIf="current_component=='Relevé sur prix'">
+  <app-gamme></app-gamme>
+</div>
+
+<div *ngIf="current_component=='Relevé sur gamme'">
+  <app-ajout></app-ajout>
+</div>
+<div *ngIf="current_component=='Relevé par liste d\'articles'">
+  <app-stat></app-stat>
+</div>
 
   </main>
   <!-- MAIN -->

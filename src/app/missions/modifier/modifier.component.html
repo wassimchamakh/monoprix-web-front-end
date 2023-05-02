@@ -1,0 +1,24 @@
+<p>modifier works!</p>
+
+<form>
+    <mat-form-field class="example-chip-list" appearance="fill">
+      <mat-label>Liste des Utilisateurs</mat-label>
+      <mat-chip-grid #chipGrid aria-label="user selection">
+        <mat-chip-row *ngFor="let users of user" (removed)="remove(users)">
+          {{users}}
+          <button matChipRemove [attr.aria-label]="'remove ' + user">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      </mat-chip-grid>
+      <input placeholder="New user..." #userInput [formControl]="userCtrl"
+        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"/>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" >
+        <mat-option *ngFor="let user of allusers " [value]="user">
+          {{user}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>

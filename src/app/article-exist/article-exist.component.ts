@@ -61,15 +61,14 @@ export class ArticleExistComponent implements OnInit {
 
 loadArticles() {
    this.articleservice.getAllArticles().subscribe( data => {
-     this.article=data  
-      ; 
-
+     this.article=data ; 
     console.log(this.article) }
    )
 }
 
 hideDialog() {
-
+  this.articleAddDialog=false ; 
+  this.articleUpdDialog=false ; 
 }
 deleteselectedarticle() {
   if (this.selectedarticles && this.selectedarticles.length > 0) {

@@ -43,6 +43,32 @@ import { EnseigneComponent } from './enseigne/enseigne.component';
 import { SitesComponent } from './sites/sites.component';
 import { ArticleExistComponent } from './article-exist/article-exist.component';
 import { ArticleNonrecconusComponent } from './article-nonrecconus/article-nonrecconus.component';
+import { PrixComponent } from './missions/prix/prix.component';
+import { GammeComponent } from './missions/gamme/gamme.component';
+import { ListearticleComponent } from './missions/listearticle/listearticle.component';
+import { StatComponent } from './compte/stat/stat.component';
+import { ConsulterarticleComponent } from './missions/consulterarticle/consulterarticle.component';
+import { AjoutComponent } from './missions/ajout/ajout.component';
+import { ModifierComponent } from './missions/modifier/modifier.component';
+import { CalendarModule } from 'primeng/calendar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatOptionModule } from '@angular/material/core';
+import { TagModule } from 'primeng/tag';
+import { OverlayModule } from 'primeng/overlay';
+import { TreeModule } from 'primeng/tree';
+import { KnobModule } from 'primeng/knob';
+import { MatListModule } from '@angular/material/list';
+
+
+
+
+
+
+
+
 
 
 
@@ -74,6 +100,13 @@ import { ArticleNonrecconusComponent } from './article-nonrecconus/article-nonre
     SitesComponent,
     ArticleExistComponent,
     ArticleNonrecconusComponent,
+    PrixComponent,
+    GammeComponent,
+    ListearticleComponent,
+    StatComponent,
+    ConsulterarticleComponent,
+    AjoutComponent,
+    ModifierComponent,
 
   ],
   imports: [
@@ -111,7 +144,23 @@ import { ArticleNonrecconusComponent } from './article-nonrecconus/article-nonre
     RadioButtonModule,
     InputNumberModule,
     InputTextareaModule,
-    RippleModule
+    RippleModule,
+    CalendarModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    TagModule,
+    OverlayModule, 
+    TreeModule,
+    KnobModule,
+    MatListModule
+
+
+
+    
+
 
     
     

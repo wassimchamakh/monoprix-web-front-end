@@ -110,5 +110,18 @@ export class article  {
       usercreation:any ; 
 }
 
+export class mission {
+  id!:number ; 
+  nom_miss!:string ; 
+  descrip_miss!:string ; 
+  maxdiff!:number ; 
+  tags!:string ; 
+  usercreation:any ; 
+  userupdate:any ; 
+  users:any ; 
+  site:any[]=[] ; 
+  date_miss!:Date ; 
+}
+
 
 

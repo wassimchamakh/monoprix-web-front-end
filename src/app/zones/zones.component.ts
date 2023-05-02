@@ -1,10 +1,15 @@
-import { Component , OnInit } from '@angular/core';
+import { Component , OnInit , ElementRef, ViewChild } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators  } from '@angular/forms' ; 
  import {Table } from 'primeng/table' ;
  import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
  import { ZonesService} from 'src/app/service/zones.service' ; 
  import {zones, zonesadd} from 'src/app/user';
  import {Route, Router} from '@angular/router'  ; 
+ import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 
 @Component({
@@ -34,17 +39,19 @@ zonesget: any ;
 nameusers: string[] = [] ; 
 zonesupd: zonesadd = new zonesadd ; 
 editnom:any ; 
- 
 
 
-    constructor(private zoneservice:ZonesService , private formBuilder:FormBuilder , private confirmationService:ConfirmationService , private messageService: MessageService) {  this.zonesadd = [];}
+
+
+    constructor(private zoneservice:ZonesService , private formBuilder:FormBuilder , private confirmationService:ConfirmationService , private messageService: MessageService) {  this.zonesadd = [];
+    }
     ngOnInit( ) {
     this.cols = [
       { field: 'id', header: 'id' },
       { field: 'design_z', header: 'design_z' },
       { field: 'id_user', header: 'id_user' }
   ];
-
+ 
   this.editForm= new FormGroup( {
     id: new FormControl,
     design_z : new FormControl , 
@@ -54,6 +61,9 @@ editnom:any ;
 this.loadproduct() ; 
   
   }
+  
+
+
 
   loadproduct() {
     this.zoneservice.getAllZones().subscribe(data => {

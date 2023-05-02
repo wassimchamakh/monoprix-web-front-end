@@ -13,6 +13,7 @@ export class ArticleService {
    private addurl="http://localhost:8084/articles/add" ;
    private updateurl="http://localhost:8084/articles/update" ;
    private findurl="http://localhost:8084/articles/find" ;
+   private gammeurl="http://localhost:8084/articles/getgamme"
 
 
 
@@ -37,4 +38,7 @@ export class ArticleService {
   deletearticle(id:number) :Observable<any> {
     return this.http.delete(this.deleteurl+"/"+id) ;
   }
+ getgamme() :Observable<any> {
+  return this.http.get(this.gammeurl) ; 
+ }
 }

@@ -1,10 +1,11 @@
-import { Component , OnInit} from '@angular/core';
+import { Component , OnInit } from '@angular/core';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { Product, User, Userupdate } from 'src/app/user';
 import { Table } from 'primeng/table';
 import { SignupuserService } from 'src/app/service/signupuser.service';
 import { HttpClient } from '@angular/common/http' ;
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms' ; 
+import {Router} from '@angular/router'
 import {Userput } from 'src/app/user'
 
 @Component({
@@ -17,7 +18,8 @@ import {Userput } from 'src/app/user'
 
 
 export class AddComponent  {
-
+    idUser:number=-1
+    UserStat:any ; 
     productDialog: boolean = false;
     productDialog1: boolean = false ; 
 
@@ -45,7 +47,7 @@ export class AddComponent  {
 
     private deleteurl='http://localhost:8084/api/delete' ;
 
-    constructor(private formBuilder:FormBuilder ,private http:HttpClient ,private productService: SignupuserService, private confirmationService:ConfirmationService , private messageService: MessageService) { }
+    constructor(private route:Router ,private formBuilder:FormBuilder ,private http:HttpClient ,private productService: SignupuserService, private confirmationService:ConfirmationService , private messageService: MessageService) { }
 
     ngOnInit() {
         this.loadProducts() ; 
@@ -55,9 +57,8 @@ export class AddComponent  {
           password: new FormControl(), 
           id_role: new FormControl(), 
           actif: new FormControl()
-
-
         })
+
         this.cols = [
             { field: 'id', header: 'id' },
             { field: 'nomuser', header: 'nomuser' },
@@ -72,7 +73,10 @@ export class AddComponent  {
             { label: 'OUTOFSTOCK', value: '3' }
         ];
     }
-
+   showcomponent(id:number , userss:Userput) {
+    this.idUser=id ; 
+    this.UserStat=userss ; 
+   }
     openNew() {
         this.product = {};
         this.submitted = false;
@@ -221,7 +225,8 @@ export class AddComponent  {
     loadProducts(): void {
         this.productService.getAllUser().subscribe(data => {
             this.users= data;
-          console.log(this.users); });
+          console.log(this.users);
+         });
     }
 
 delete1(id:number) {

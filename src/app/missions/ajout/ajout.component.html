@@ -1,0 +1,126 @@
+<br>
+<mat-card>
+    <form [formGroup]="addform"   class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Type Mission (disabled)</mat-label>
+          <input matInput  disabled  value="Relevé sur prix">
+        </mat-form-field>
+      
+        <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>Nom Mission</mat-label>
+            <input matInput formControlName="nom_miss">
+          </mat-form-field></td>
+          
+        </tr></table>
+      
+        <p>
+          <mat-form-field class="example-full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="descrip_miss" placeholder="Ex. mission geant"></textarea>
+          </mat-form-field>
+        </p>
+      
+        <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>% max diff</mat-label>
+            <input matInput formControlName="maxdiff" placeholder="10%">
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>tags</mat-label>
+            <input formControlName="tags" matInput placeholder="">
+          </mat-form-field></td>
+       
+        </tr></table>
+      
+
+      <p><mat-checkbox formControlName="nonreconnus">Prendre en compte les articles non reconnus</mat-checkbox></p>
+      <p><mat-checkbox formControlName="rupture">Rupture en stock</mat-checkbox></p>
+      <h5>Calendrier</h5>
+<div class="card flex justify-content-center">
+    <p-calendar formControlName="date_miss"  [showIcon]="true" [(ngModel)]="date" [showTime]="true" [showSeconds]="false"> </p-calendar>
+</div>
+
+</form>
+<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+<p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="true"
+      [resizable]="false">
+
+      <div class="card flex flex-column align-items-center justify-content-center">
+        <p-tree #tree [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem"
+          [(selection)]="selectedFiles"></p-tree>
+      </div>
+
+      <form>
+        <mat-form-field class="example-chip-list" appearance="fill">
+          <mat-label>Liste des Utilisateurs</mat-label>
+          <mat-chip-grid #chipGrid aria-label="user selection">
+            <mat-chip-row *ngFor="let users of user" (removed)="remove(users)">
+              {{users}}
+              <button matChipRemove [attr.aria-label]="'remove ' + user">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input placeholder="New user..." #userInput [formControl]="userCtrl" [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)" />
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let user of allusers" [value]="user">
+              {{user}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </p-dialog>
+
+
+<p-button (click)="showArticleDialog()" icon="pi pi-external-link" label="Add Articles"></p-button>
+<p-dialog header="Add Articles" [(visible)]="articleDialogVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+  <div class="card flex flex-column align-items-center justify-content-center">
+    <p-tree  #treee [value]="gammeArticle" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>
+  </div>
+  <!--<div class="card flex flex-column align-items-center justify-content-center">
+    <!-- List of Articles by Gamme 
+    <div *ngFor="let gamme of gammes">
+      <h6>{{ gamme }}</h6>
+      
+      <mat-list>
+        <mat-list-item *ngFor="let article of articles">
+          <div *ngIf="gamme==article.gamme_art" >
+          <mat-checkbox [(ngModel)]="article.selected" (change)="selectArticle(article)">{{ article.design_art }}</mat-checkbox>
+        </div>
+        </mat-list-item>
+      </mat-list>
+    
+    </div>
+  </div> -->
+  <p-button (click)="Okbutton()" icon="pi pi-external-link" label="OK"></p-button>
+</p-dialog>
+
+<p-button (click)="showUserDialog()" icon="pi pi-external-link" label="Add Users"></p-button>
+<p-dialog header="Add Users" [(visible)]="userDialogVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+  <div class="card flex flex-column align-items-center justify-content-center">
+    <!-- Add Users for Sites -->
+    <div *ngFor="let site of enseignesSites">
+      <h6>{{ site }}</h6>
+      <mat-form-field>
+        <mat-label>Select Users</mat-label>
+        <mat-select multiple formControlName="selectedUsers">
+          <mat-option *ngFor="let user of getuser" [value]="user.id">{{ user.nomuser }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</p-dialog>
+<p-button (click)="rayonDialogVisible=!rayonDialogVisible" icon="pi pi-external-link" label="Ajouter rayon"></p-button>
+<p-dialog header="ajouter rayon" [(visible)]="rayonDialogVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+
+</p-dialog>
+
+
+
+
+<button  type="button" (click)="saveadd()" >ENREGISTRER</button>
+</mat-card>
+

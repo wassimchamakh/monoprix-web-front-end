@@ -6,26 +6,26 @@ import {CompteComponent} from './compte/compte.component' ;
 import{AddComponent } from './compte/add/add.component'
 import { RoleComponent } from './role/role.component';
 import { SitesComponent } from './sites/sites.component';
+import { ModifierComponent } from './missions/modifier/modifier.component';
+import { StatComponent } from './compte/stat/stat.component';
 
 const routes: Routes = [
-  {
-    path:'sign-in',
-    component:SignUpComponent
-  },
-  {
-    path:'dashboard', 
-    component:DashboardComponent
-  },
-  {
-     path:'compte',
-     component:CompteComponent 
-  },
+  { path:'sign-in',
+    component:SignUpComponent},
+  { path:'dashboard', 
+    component:DashboardComponent},
+  { path:'compte',
+    component:CompteComponent},
   { path:'ajouteruser', 
-  component:AddComponent} ,
+    component:AddComponent},
   { path:'roles',
-   component:RoleComponent},
-   {path:'sites',
-  component:SitesComponent}
+    component:RoleComponent},
+  { path:'sites',
+    component:SitesComponent},
+  { path:'modifier',
+    component:ModifierComponent},
+  { path:'stats', 
+    component:StatComponent}
 
 ];
 

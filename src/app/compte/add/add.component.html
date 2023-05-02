@@ -1,3 +1,5 @@
+<app-stat [User]="UserStat"   *ngIf="idUser>=0"></app-stat>
+<div *ngIf="idUser==-1" >
 <div class="grid">
     <div class="col-12">
         <div class="card px-6 py-6">
@@ -60,15 +62,15 @@
                             
                         </td>
                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Role </span>
-                           {{users.userUpdate}}
-                           
-
+                          <p-tag value={{users.id_role.design_r}} [rounded]="true"></p-tag>
                         </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product,users.id)"></button>
                                     <button pButton pRipple icon="pi pi-trash" (click)="delete1(users.id)" class="p-button-rounded p-button-warning"  ></button>
-                                
+                                    <p-button label="Mision details" (click)="showcomponent(users.id,users)" styleClass="p-button-raised p-button-text" ></p-button>
+
+
                             </div>
                         </td>
                     </tr>
@@ -160,5 +162,7 @@
       
         
     </div>
+</div>
+
 </div>
 

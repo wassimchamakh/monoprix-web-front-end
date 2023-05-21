@@ -1,0 +1,24 @@
+<mat-card>
+
+  <form [formGroup]="paramForm" >
+    <div class="form-group">
+      <label for="nomuser">Nom User</label>
+      <input type="text" pInputText formControlName="nomuser" class="form-control"  />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" pInputText formControlName="email" class="form-control"  />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="text" pInputText formControlName="password" class="form-control"  />
+    </div>
+
+   </form>          
+
+   <button  type="button" (click)="saveadd()" >ENREGISTRER</button>
+</mat-card>
+
+

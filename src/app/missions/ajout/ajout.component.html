@@ -43,12 +43,10 @@
 
 </form>
 <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-<p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="true"
-      [resizable]="false">
+<p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="true" [resizable]="false">
 
       <div class="card flex flex-column align-items-center justify-content-center">
-        <p-tree #tree [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem"
-          [(selection)]="selectedFiles"></p-tree>
+        <p-tree #tree [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem"  [(selection)]="selectedFiles"></p-tree>
       </div>
 
       <form>
@@ -57,7 +55,7 @@
           <mat-chip-grid #chipGrid aria-label="user selection">
             <mat-chip-row *ngFor="let users of user" (removed)="remove(users)">
               {{users}}
-              <button matChipRemove [attr.aria-label]="'remove ' + user">
+              <button matChipRemove [attr.aria-label]="'remove' + user">
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
@@ -72,7 +70,8 @@
           </mat-autocomplete>
         </mat-form-field>
       </form>
-    </p-dialog>
+
+ </p-dialog>
 
 
 <p-button (click)="showArticleDialog()" icon="pi pi-external-link" label="Add Articles"></p-button>
@@ -98,21 +97,7 @@
   <p-button (click)="Okbutton()" icon="pi pi-external-link" label="OK"></p-button>
 </p-dialog>
 
-<p-button (click)="showUserDialog()" icon="pi pi-external-link" label="Add Users"></p-button>
-<p-dialog header="Add Users" [(visible)]="userDialogVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-  <div class="card flex flex-column align-items-center justify-content-center">
-    <!-- Add Users for Sites -->
-    <div *ngFor="let site of enseignesSites">
-      <h6>{{ site }}</h6>
-      <mat-form-field>
-        <mat-label>Select Users</mat-label>
-        <mat-select multiple formControlName="selectedUsers">
-          <mat-option *ngFor="let user of getuser" [value]="user.id">{{ user.nomuser }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-</p-dialog>
+
 <p-button (click)="rayonDialogVisible=!rayonDialogVisible" icon="pi pi-external-link" label="Ajouter rayon"></p-button>
 <p-dialog header="ajouter rayon" [(visible)]="rayonDialogVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
 

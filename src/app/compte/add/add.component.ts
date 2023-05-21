@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http' ;
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms' ; 
 import {Router} from '@angular/router'
 import {Userput } from 'src/app/user'
+import { RoleService } from 'src/app/service/role.service';
 
 @Component({
   selector: 'app-add',
@@ -18,7 +19,9 @@ import {Userput } from 'src/app/user'
 
 
 export class AddComponent  {
-    idUser:number=-1
+
+    idUser:number=-1;
+    closed:string='close component';
     UserStat:any ; 
     productDialog: boolean = false;
     productDialog1: boolean = false ; 
@@ -38,16 +41,18 @@ export class AddComponent  {
     userup: Userput= new Userput ; 
     userupd: Userupdate= new Userupdate ; 
     submitted: boolean = false;
+    showPassword:boolean = false ; 
 
     cols: any[] = [];
 
     statuses: any[] = [];
 
     rowsPerPageOptions = [5, 10, 20];
+    roles:any[]=[] ; 
 
     private deleteurl='http://localhost:8084/api/delete' ;
 
-    constructor(private route:Router ,private formBuilder:FormBuilder ,private http:HttpClient ,private productService: SignupuserService, private confirmationService:ConfirmationService , private messageService: MessageService) { }
+    constructor(private productService: SignupuserService,private RoleService: RoleService,private route:Router ,private formBuilder:FormBuilder ,private http:HttpClient, private confirmationService:ConfirmationService , private messageService: MessageService) { }
 
     ngOnInit() {
         this.loadProducts() ; 
@@ -72,6 +77,11 @@ export class AddComponent  {
             { label: 'LOWSTOCK', value: '2' },
             { label: 'OUTOFSTOCK', value: '3' }
         ];
+        this.RoleService.getAllUser().subscribe(data => {
+          this.roles=data ; 
+          this.roles = data.map((role:any) => ({label: role.design_r, value: role}));
+          console.log(data) ; 
+        })
     }
    showcomponent(id:number , userss:Userput) {
     this.idUser=id ; 
@@ -80,7 +90,7 @@ export class AddComponent  {
     openNew() {
         this.product = {};
         this.submitted = false;
-        this.productDialog = true;
+        this.productDialog = true;  
     }
 
     editProduct(product: Product , id:number) :void{
@@ -95,16 +105,17 @@ export class AddComponent  {
     nomuser: [this.userget.nomuser, Validators.required],
     email: [this.userget.email, [Validators.required, Validators.email]],
     password: [this.userget.password, Validators.required],
-    id_role: [this.userget.role, Validators.required],
+    id_role: [this.userget.id_role.design_r, Validators.required],
     actif: [this.userget.actif, Validators.required],
     usercreation: [this.userget.usercreation] ,
     userupdate :[this.userget.userupdate ],
-    datecreation: [this.userget.datecreation]
+    datecreation: [this.userget.datecreation],
 
   });
+  this.editForm.controls['id_role'].setValue(this.roles[0].value);
 });
     }
-
+    
     deleteProduct(product: Product) {
         this.deleteProductDialog = true;
         this.product = { ...product };
@@ -113,11 +124,11 @@ export class AddComponent  {
       deleteSelectedProducts1(): void {
             if (this.selectedProducts && this.selectedProducts.length > 0) {
               this.confirmationService.confirm({
-                message: 'Are you sure you want to delete the selected products?',
-                header: 'Delete Confirmation',
+                message: 'Êtes-vous sûr(e) de vouloir supprimer les utilisateurs sélectionnés ?',
+                header: 'Confirmation de suppression',
                 icon: 'pi pi-info-circle',
                 accept: () => {
-                  const deletedProductIds: number[] = [];
+                  const deleteduserIds: number[] = [];
                   const deleteErrors: any[] = [];
           
                   // Loop through selected products and send DELETE request for each one
@@ -125,28 +136,28 @@ export class AddComponent  {
                     const url = `${this.deleteurl}/${product.id}`;
                     this.http.delete(url).subscribe(
                       () => {
-                        deletedProductIds.push(this.users.id);
-                        if (deletedProductIds.length === this.selectedProducts.length) {
-                          // All delete requests completed successfully
+                        deleteduserIds.push(this.users.id);
+                        if (deleteduserIds.length === this.selectedProducts.length) {
+                          // All delete requests completed Succèsfully
                           this.loadProducts();
                           this.selectedProducts = [];
                           this.messageService.add({
-                            severity: 'success',
-                            summary: 'Success',
-                            detail: 'Products deleted successfully'
+                            severity: 'Succès',
+                            summary: 'Succès',
+                            detail: 'Products deleted Succèsfully'
                           });
                         }
                       },
                       (error) => {
                         deleteErrors.push(error);
-                        if ((deletedProductIds.length + deleteErrors.length) === this.selectedProducts.length) {
-                          // All delete requests completed (successfully or with errors)
+                        if ((deleteduserIds.length + deleteErrors.length) === this.selectedProducts.length) {
+                          // All delete requests completed (Succèsfully or with errors)
                           this.loadProducts();
                           this.selectedProducts = [];
                           const errorMessage = 'Error deleting some products: ' + deleteErrors.map((err) => err.message).join('; ');
                           this.messageService.add({
                             severity: 'warn',
-                            summary: 'Partial success',
+                            summary: 'Partial Succès',
                             detail: errorMessage
                           });
                         }
@@ -159,7 +170,7 @@ export class AddComponent  {
               this.messageService.add({
                 severity: 'warn',
                 summary: 'Warning',
-                detail: 'No products selected'
+                detail: 'No user selected'
               });
             }
           }   
@@ -178,7 +189,7 @@ export class AddComponent  {
                 // @ts-ignore
                 this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
                 this.products[this.findIndexById(this.users.id)] = this.product;
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+                this.messageService.add({ severity: 'Succès', summary: 'Succèsful', detail: 'Product Updated', life: 3000 });
             } else {
                 this.users.id = this.createId();
                 this.product.password = this.createId();
@@ -186,7 +197,7 @@ export class AddComponent  {
                 // @ts-ignore
                 this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
                 this.products.push(this.product);
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+                this.messageService.add({ severity: 'Succès', summary: 'Succèsful', detail: 'Product Created', life: 3000 });
             }
 
             this.products = [...this.products];
@@ -196,17 +207,6 @@ export class AddComponent  {
     }*/
 
     get f() { return this.editForm.controls; }
-
-    findIndexById(id: number): number {
-        let index = -1;
-        for (let i = 0; i < this.users.length; i++) {
-            if (this.users[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
 
     createId(): number {
         let id = '';
@@ -219,8 +219,10 @@ export class AddComponent  {
     }
 
     onGlobalFilter(table: Table, event: Event) {
+      console.log(table);
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
+
     
     loadProducts(): void {
         this.productService.getAllUser().subscribe(data => {
@@ -232,8 +234,8 @@ export class AddComponent  {
 delete1(id:number) {
 
     this.confirmationService.confirm({
-        message: 'Do you want to delete this user?',
-        header: 'Delete Confirmation',
+        message: 'Souhaitez-vous supprimer cet utilisateur ?',
+        header: 'Confirmation de suppression',
         icon: 'pi pi-info-circle',
         accept: () => {
           const url = `${this.deleteurl}/${id}` ; 
@@ -247,19 +249,19 @@ delete1(id:number) {
                 }
                 num++
               }
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Utilisateur Supprimé' });
           }, error:(e) => {
             console.log('Error deleting user:', e);
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Unable to delete record' }); }
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Impossible de supprimer l/utilisateur.' }); }
           });
         }, 
         reject: (type:any) => {
             switch (type) {
                 case ConfirmEventType.REJECT:
-                    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Vous avez rejeté la demande.' });
                     break;
                 case ConfirmEventType.CANCEL:
-                    this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                    this.messageService.add({ severity: 'warn', summary: 'Annuler', detail: 'Vous avez annuler la demande.' });
                     break;
             }
         } 
@@ -268,7 +270,6 @@ delete1(id:number) {
 
   saveUser(UserForm:NgForm) :void {
    
-
     this.submitted = true;
     if (!this.user.nomuser || !this.user.password || !this.user.email) {
       return; // prevent form submission if required fields are empty
@@ -278,7 +279,8 @@ delete1(id:number) {
       next: (v) => {
       console.log(this.user);
       this.submitted = true;
-      this.messageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
+      this.messageService.add({severity: 'Succès',summary: 'Succès',detail: 'User ajouté',life: 3000 });
+      this.loadProducts() ; 
       this.hideDialog();
     },
     error: (e) => {
@@ -291,26 +293,25 @@ delete1(id:number) {
 
   edituser() {
   this.submitted = true;
-
   // stop here if form is invalid
   if (this.editForm.invalid) {
     return;
   }
-this.userupd.id=this.editForm.value.id ;
-this.userupd.nomuser=this.editForm.value.nomuser ;
-this.userupd.email=this.editForm.value.email ;
-this.userupd.password=this.editForm.value.password ;
-this.userupd.actif=this.editForm.value.actif ;
-this.userupd.id_role=this.editForm.value.id_role ;
-this.userupd.usercreation=this.editForm.value.usercreation ;
-this.userupd.datecreation=this.editForm.value.datecreation ;
-this.userupd.datecreation=this.editForm.value.datecreation ;
-
+this.userupd=this.editForm.value ; 
 console.log(this.userupd) ; 
-  this.productService.updateUser(this.userupd).subscribe(() => {
-    this.messageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
-  });
+  this.productService.updateUser(this.userupd).subscribe({next : (v) => {
+    this.messageService.add({severity: 'Succès',summary: 'Succès',detail: 'User Modifier',life: 3000 });
+    this.loadProducts() ; 
+    this.hideDialog();
+  },
+  error: (e) => {
+    console.log(e);
+    this.submitted = false;
+    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'user',    life: 3000
+   });
+  }});
+}
 
-}      
-    
+
+
 }

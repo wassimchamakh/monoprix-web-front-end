@@ -61,6 +61,15 @@ import { OverlayModule } from 'primeng/overlay';
 import { TreeModule } from 'primeng/tree';
 import { KnobModule } from 'primeng/knob';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ParametreComponent } from './parametre/parametre.component';
+import { MatTableModule } from '@angular/material/table';
+import {MatButton, MatButtonModule} from '@angular/material/button';
+
+
+
+
+
 
 
 
@@ -107,6 +116,7 @@ import { MatListModule } from '@angular/material/list';
     ConsulterarticleComponent,
     AjoutComponent,
     ModifierComponent,
+    ParametreComponent,
 
   ],
   imports: [
@@ -155,7 +165,11 @@ import { MatListModule } from '@angular/material/list';
     OverlayModule, 
     TreeModule,
     KnobModule,
-    MatListModule
+    MatListModule, 
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatButtonModule 
 
 
 

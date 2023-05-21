@@ -1,24 +1,18 @@
-<p>modifier works!</p>
+<h2>BONJOOOUR</h2>
+<p-button icon="pi pi-external-link" label="Show" (click)="visible=!visible" ></p-button>
 
-<form>
-    <mat-form-field class="example-chip-list" appearance="fill">
-      <mat-label>Liste des Utilisateurs</mat-label>
-      <mat-chip-grid #chipGrid aria-label="user selection">
-        <mat-chip-row *ngFor="let users of user" (removed)="remove(users)">
-          {{users}}
-          <button matChipRemove [attr.aria-label]="'remove ' + user">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
-      </mat-chip-grid>
-      <input placeholder="New user..." #userInput [formControl]="userCtrl"
-        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)"/>
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" >
-        <mat-option *ngFor="let user of allusers " [value]="user">
-          {{user}}
-        </mat-option>
-      </mat-autocomplete>
+<p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '60vw' , height: '80%' }" [draggable]="true" 
+[resizable]="false" appendTo="body">
+    <mat-form-field appearance="fill"  class="mat-select-container">
+      <mat-label>Toppings</mat-label>
+      <mat-select  multiple class="mat-select-overlay">
+          {{toppings.value?.[0] || ''}}
+          <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
+            (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+          </span>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+
+      </mat-select>
+
     </mat-form-field>
-  </form>
+</p-dialog>

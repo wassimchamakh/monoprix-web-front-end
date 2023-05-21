@@ -5,20 +5,40 @@
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="right">
             <div class="my-2">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" ></button>
-                <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"  ></button>
+                <button pButton pRipple label="Ajouter" (click)="openNew()" icon="pi pi-plus" class="p-button-success mr-2" ></button>
+                <button pButton pRipple label="Supprimer" icon="pi pi-trash" (click)="deleteselected()" class="p-button-danger" [disabled]="selectedens.length === 0" ></button>
             </div>
         </ng-template>
-    </p-toolbar>        
-<div class="grid">
-    <mat-card class="enseigne-card col-6" *ngFor="let ens of enseigne"(click)="showcomponent(ens.id,ens)">
-    <a (click)="showcomponent(ens.id,ens)">
-       
+    </p-toolbar>   
+      
+<div class="grid" >
+    <mat-card class="enseigne-card col-6" *ngFor="let ens of enseigne" >
+      <a (click)="showcomponent(ens.id,ens)">
         <img mat-card-sm-image src="/assets/noun-rules-4146171.png" alt="Photo of a Shiba Inu">
         <mat-card-title class="card-title">{{ens.nom_ens}}</mat-card-title>
-        </a>  
-    </mat-card>
+      </a>
+      <mat-card-content>
+        <mat-checkbox [(ngModel)]="ens.selectedens"  [value]="ens" (change)="updateSelectedCards($event.checked, ens)"></mat-checkbox>
+      </mat-card-content>  
+    </mat-card> 
 </div>
+
+<p-dialog [(visible)]="ensDialog" [style]="{width: '500px'}" header="Ajouter Enseigne" [draggable]="false" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+      <form #ensForm="ngForm"  >
+        <div class="field">
+          <label for="nomens">Enseigne</label>
+          <input type="text" pInputText id="nomens" name="nomens" [(ngModel)]="ens.nom_ens" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !ensForm.controls['nomens'].valid}"/>
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !ensForm.controls['nomens'].valid">Enseigne est obligatoirer;</small>
+        </div>
+      </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="ensDialog=!ensDialog"></button> 
+      <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveens()" class="p-button-text"  > </button>
+    </ng-template>
+  </p-dialog>
+
 <p-toast></p-toast>
 <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
 </div>

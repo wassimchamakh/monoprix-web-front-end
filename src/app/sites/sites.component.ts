@@ -171,7 +171,8 @@ export class SitesComponent implements OnInit {
        next :(v) => { 
         this.messageservice.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
         this.hideDialog()  ;
-        this.loadSites() ; 
+        this.loadSites() ;
+        this.site = new sites ;  
        },error :(e) => {
         console.log(e) ; 
         this.submitted = false;

@@ -1,29 +1,4 @@
-<!--<div class="field col-12 md:col-4 grid">
-    <div class="col">
-        <label for="inputtext">Email: </label>
-        <input type="text" class="input-login" id="inputtext" pInputText [(ngModel)]="form.value.email">
-    </div>
-    <div class="col">
-        <label for="inputtext">Password: </label>
-        <p-password  class="input-login" [(ngModel)]="form.value.password" [toggleMask]="true" [feedback]="false"></p-password>
-    </div>
 
-</div>
-<p style="color: red;" *ngIf="dirty">this field is required</p> -->
- 
-<!--<table>
-    <tr>
-        <th>name</th>
-        <th>details</th>
-        <th>writre</th>
-    </tr>
-    <tr *ngFor="post of MyPosts">
-        <td>{{post.name}}</td>
-        <td>{{post.details}}</td>
-        <td>{{post.writer}}</td>
-    </tr>
-</table>
--->
 <body class="sign-in-body">
     <img
       src="/assets/logomonoprix.png"
@@ -38,18 +13,20 @@
                 <input type="email" matInput name="email" [(ngModel)]="form.value.email" formControlName="email"
                        placeholder="Ex. pat@example.com">
                 <mat-error *ngIf="!form.hasError('email')">
-                  Please enter a valid email address
+               S'il vous plaît, mettez une adresse email valide
                 </mat-error>
                 <mat-error *ngIf="!form.hasError('required')">
-                  Email is <strong>required</strong>
                 </mat-error>
               </mat-form-field> -->
               <mat-form-field appearance="outline" class="example-full-width">
-                <mat-label>IdUser</mat-label>
-                      <input type="text" matInput  formControlName="id" 
-                       placeholder="Ex. 123">
+                <mat-label>Email</mat-label>
+                      <input type="email" matInput name="email" [(ngModel)]="form.value.email" formControlName="email" 
+                       placeholder="Ex. commercial@monorix.tn">
+                       <mat-error *ngIf="!form.hasError('email')">
+                        S'il vous plaît, mettez une adresse email valide
+                         </mat-error>
                 <mat-error *ngIf="!form.hasError('required')">
-                    IdUser is <strong>required</strong> 
+                    Email est <strong>obligatoire</strong> 
                 </mat-error>
             </mat-form-field>  
         
@@ -57,12 +34,11 @@
                 <mat-label>Password</mat-label>
                 <input type="password" matInput  formControlName="password" 
                        placeholder="Password">
-              
                 <mat-error *ngIf="!form.hasError('required')">
-                  password is <strong>required</strong>
+                  Password est <strong>obligatoire</strong>
                 </mat-error>
               </mat-form-field>
-              <button  type="button" (click)="submit()" >LOGIN</button>
+              <button  type="button" (click)="submit()" >Se Connecter</button>
               <p-messages  [(value)]="msgs" [closable]="false" ></p-messages>
         
         </form>

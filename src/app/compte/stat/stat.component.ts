@@ -14,6 +14,8 @@ import { HomeService } from 'src/app/service/home.service';
 })
 export class StatComponent implements OnInit {
   @Input() User:any;
+  @Output() public closeEvent = new EventEmitter
+
    MissionUser:any ; 
    cols:any; 
    selectedMissionUsers:any ;
@@ -38,6 +40,10 @@ export class StatComponent implements OnInit {
   }
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains'); }
+
+    close() {
+      this.closeEvent.emit('close event') ; 
+    }
 
 openedit(id:number) {}
 deleteMissionUser(id:number) {}

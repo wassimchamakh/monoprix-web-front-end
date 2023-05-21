@@ -1,4 +1,4 @@
-<app-ajout *ngIf="missID>0"> </app-ajout>
+<app-listearticle *ngIf="missID>0"> </app-listearticle>
 <div *ngIf="missID<0">
 <div class="grid">
     <div class="col-12">
@@ -7,7 +7,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
                     <div class="my-2">
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedmiss()" [disabled]="!selectedmission || !selectedmission.length"></button>
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedmiss()" [disabled]="!selectedmission || !selectedmission.length"></button>
                         <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success mr-2"  (click)="opennew()"></button>
                     </div>
                 </ng-template>
@@ -82,12 +82,13 @@
                          </td>
                         <td>
                             <div class="flex">
+                                <button pButton pRipple icon="bx bx-barcode-reader" (click)=" showcomponent(gamme.id,gamme)" class="p-button-rounded p-button-success mr-2" ></button>
                                 <button pButton pRipple icon="pi pi-pencil" (click)="openedit()" class="p-button-rounded p-button-success mr-2" ></button>
                                 <button pButton pRipple icon="pi pi-trash" (click)="deletegamme(gamme.id)" class="p-button-rounded p-button-warning"  ></button>
-                                <p-button (click)="toggle()" label="..."></p-button>
+                               <!-- <p-button (click)="toggle()" label="..."></p-button>
                                 <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-4 surface-overlay shadow-2 border-round">
                                     Content
-                                </p-overlay>
+                                </p-overlay>-->
                             </div>
                         </td>
                     </tr>
@@ -97,7 +98,151 @@
             </p-table>
         </div>
 </div>
+
+<p-dialog [(visible)]="AddDialog" [style]="{width: '500px'}" header="Ajouter User" [draggable]="false" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="addform"   class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Type Mission (disabled)</mat-label>
+              <input matInput  disabled  value="Relevé sur prix">
+            </mat-form-field>
+          
+            <table class="example-full-width" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width">
+                <mat-label>Nom Mission</mat-label>
+                <input matInput formControlName="nom_miss">
+              </mat-form-field></td>
+              
+            </tr></table>
+          
+            <p>
+              <mat-form-field class="example-full-width">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="descrip_miss" placeholder="Ex. mission geant"></textarea>
+              </mat-form-field>
+            </p>
+          
+            <table class="example-full-width" cellspacing="0"><tr>
+              <td><mat-form-field class="example-full-width">
+                <mat-label>% max diff</mat-label>
+                <input matInput formControlName="maxdiff" placeholder="10%">
+              </mat-form-field></td>
+              <td><mat-form-field class="example-full-width">
+                <mat-label>tags</mat-label>
+                <input formControlName="tags" matInput placeholder="">
+              </mat-form-field></td>
+           
+            </tr></table>
+          
+    
+          <p><mat-checkbox formControlName="nonreconnus">Prendre en compte les articles non reconnus</mat-checkbox></p>
+          <p><mat-checkbox formControlName="rupture">Rupture en stock</mat-checkbox></p>
+          <h5>Calendrier</h5>
+    <div class="card flex justify-content-center">
+        <p-calendar formControlName="date_miss"  [showIcon]="true" [(ngModel)]="date" [showTime]="true" [showSeconds]="false"> </p-calendar>
+    </div>
+    
+    </form>
+    <div class="grid" >
+  <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+  <div *ngIf="data=='Relevé sur prix'">
+      <p-button (click)="showArticleDialog()" icon="pi pi-external-link" label="Add Articles"></p-button>
+  </div>
+  <div *ngIf="data=='Relevé sur gamme'" >
+        <p-button (click)="rayonDialogVisible=!rayonDialogVisible" icon="pi pi-external-link" label="Ajouter rayon"></p-button>
+  </div>
+</div>
+  
+    <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '60vw' }" [draggable]="false" [resizable]="false">
+      <div class="grid" >
+        <p-tree  [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles">
+        
+          <ng-template let-node pTemplate="default">
+            <div class="grid" > 
+            <div class="node-content">
+              <span>{{node.label}}</span>
+            </div>
+            <div *ngIf="isSelected(node) || !node.children">
+   
+            <form>
+              <mat-form-field class="example-chip-list" appearance="fill">
+                <mat-label>Liste des Utilisateurs</mat-label>
+                <mat-chip-grid #chipGrid aria-label="user selection">
+                  <mat-chip-row *ngFor="let users of user" (removed)="remove(users)">
+                    {{users}}
+                    <button matChipRemove [attr.aria-label]="'remove' + user">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                </mat-chip-grid>
+                <input placeholder="New user..." #userInput [formControl]="userCtrl" [matChipInputFor]="chipGrid"
+                  [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event)" />
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                  <mat-option *ngFor="let user of allusers" [value]="user">
+                    {{user}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+          </div>
+        </div>
+          </ng-template>
+        </p-tree>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveUser()" class="p-button-text"  > </button>
+      </ng-template>
+    </p-dialog>
+    
+  
+    <p-dialog header="Add Articles" [(visible)]="articleDialogVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+      <div class="card flex flex-column align-items-center justify-content-center">
+        <p-tree  #treee [value]="gammeArticle" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>
+      </div>
+      <!--<div class="card flex flex-column align-items-center justify-content-center">
+         List of Articles by Gamme 
+        <div *ngFor="let gamme of gammes">
+          <h6>{{ gamme }}</h6>
+          
+          <mat-list>
+            <mat-list-item *ngFor="let article of articles">
+              <div *ngIf="gamme==article.gamme_art" >
+              <mat-checkbox [(ngModel)]="article.selected" (change)="selectArticle(article)">{{ article.design_art }}</mat-checkbox>
+            </div>
+            </mat-list-item>
+          </mat-list>
+        
+        </div>
+      </div> -->
+      <p-button (click)="Okbutton()" icon="pi pi-external-link" label="OK"></p-button>
+    </p-dialog>
+    
+   
+    <p-dialog header="ajouter rayon" [(visible)]="rayonDialogVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+      <div >
+        <div class="form-group">
+       <div class="field col">
+        <label for="gammeArt">Role</label>
+        <p-dropdown    [(ngModel)]="gammeArt"  [options]="gammeadd"  ></p-dropdown>
+      </div>
+      </div>
+    </div>
+      <p-button (click)="addarticle()" icon="pi pi-external-link" label="ajouter"></p-button>
+
+          
+    </p-dialog>
+    </ng-template>
+    <ng-template pTemplate="footer">
+
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button type="submit" pButton pRipple label="Save" icon="pi pi-check" (click)="saveUser()" class="p-button-text"  > </button>
+    </ng-template>
+  </p-dialog>
+  
+
 <p-toast></p-toast>
 <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
 </div>       
-</div>
+

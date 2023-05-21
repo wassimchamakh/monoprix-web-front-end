@@ -1,7 +1,7 @@
 <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="right">
         <div class="my-2">
-            <button pButton pRipple label="New" icon="pi pi-plus"(click)="openNew()" class="p-button-success mr-2"></button>
+            <button pButton pRipple label="Ajouter" icon="pi pi-plus"(click)="openNew()" class="p-button-success mr-2"></button>
         </div>
     </ng-template>
 </p-toolbar> 
@@ -27,8 +27,8 @@
       </form>
     </ng-template>
     <ng-template pTemplate="footer">
-      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-      <button  pButton pRipple label="Save" icon="pi pi-check" (click)="saveUser(roleForm)" class="p-button-text"  > </button>
+      <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button  pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveUser(roleForm)" class="p-button-text"  > </button>
     </ng-template>
   </p-dialog>
   
@@ -46,9 +46,11 @@
          </form>          
     </ng-template>
     <ng-template pTemplate="footer">
-      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-      <button  pButton pRipple label="Save" icon="pi pi-check"  class="p-button-text" (click)="editrole()" > </button>
+      <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button  pButton pRipple label="Enregistrer" icon="pi pi-check"  class="p-button-text" (click)="editrole()" > </button>
     </ng-template>
   </p-dialog>
 
 
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>

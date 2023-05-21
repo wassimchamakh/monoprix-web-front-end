@@ -5,8 +5,8 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" (click)="opennew()" class="p-button-success mr-2" ></button>
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" (click)="edit()"class="p-button-danger"  [disabled]="!selectedzone || !selectedzone.length"></button>
+                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" (click)="opennew()" class="p-button-success mr-2" ></button>
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" (click)="edit()"class="p-button-danger"  [disabled]="!selectedzone || !selectedzone.length"></button>
                     </div>
                 </ng-template>
                 <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
@@ -16,13 +16,13 @@
             </p-toolbar>
 
 
-            <p-table #dt [value]="zones" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedzone" selectionMode="single" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="zones" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['design_z','id_user']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedzone" selectionMode="single" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Listes des Zones</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Recherche..."  class="w-full sm:w-auto"/>
                         </span>
                     </div>
                 </ng-template>
@@ -32,7 +32,7 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
                         <th pSortableColumn="id">id<p-sortIcon field="id"></p-sortIcon></th>
-                        <th pSortableColumn="design_z">designation <p-sortIcon field="design_z"></p-sortIcon></th>
+                        <th pSortableColumn="design_z">Designation <p-sortIcon field="design_z"></p-sortIcon></th>
                         <th pSortableColumn="id_user">Commercial <p-sortIcon field="id_user"></p-sortIcon></th>
                         <th></th>
                     </tr>
@@ -46,11 +46,11 @@
                             {{zones.id_zone || zones.id_zone }}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">designation</span>
+                            <span class="p-column-title">Designation</span>
                             {{zones.design_z}}
                         </td>
                         <td   style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">commercial</span>
+                            <span class="p-column-title">Commercial</span>
                                 <span *ngFor="let user of zones.id_user">   {{ user.nomuser }}</span>  
                         </td>
                   
@@ -69,7 +69,7 @@
 
      
 
-    <p-dialog [(visible)]="zonesDialog" [style]="{width: '500px'}" header="Ajouter Zones" [draggable]="false" [modal]="true" class="p-fluid">
+    <p-dialog [(visible)]="zonesDialog" [style]="{width: '500px'}" header="Ajouter Zone" [draggable]="false" [modal]="true" class="p-fluid">
         <ng-template pTemplate="content">
           <form #zonesForm="ngForm" >
             <div class="field">
@@ -95,8 +95,8 @@
           </form>
         </ng-template>
         <ng-template pTemplate="footer">
-          <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-          <button type="submit" pButton pRipple label="Save" icon="pi pi-check"  class="p-button-text" (click)="addzone()" > </button>
+          <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check"  class="p-button-text" (click)="addzone()" > </button>
         </ng-template>
       </p-dialog>
       
@@ -129,8 +129,8 @@
          </form>          
     </ng-template>
     <ng-template pTemplate="footer">
-      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-      <button type="button" pButton pRipple label="Save" icon="pi pi-check" (click)="edit()"  class="p-button-text"  > </button>
+      <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button type="button" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="edit()"  class="p-button-text"  > </button>
     </ng-template>
   </p-dialog>
 

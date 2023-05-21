@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import {MessageService} from 'primeng/api';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
+import { SignupuserService } from '../service/signupuser.service';
+import { Router } from '@angular/router';
 
 interface Category {
   name: string;
@@ -21,16 +23,24 @@ interface Category {
 export class DashboardComponent {
  dashboard :string="dashboard"; 
    current_component:string="Dashboard" ; 
+user:any ; 
 
 
-  constructor() {  }
-
-  
-
-
-  ngOnInit(): void {}
+  constructor(private authService:SignupuserService , private router:Router) {
+    this.user=this.authService.getUser() ; 
+    }
 
   
+
+
+  ngOnInit(): void {
+    console.log(this.user);
+  }
+
+  logout(): void {
+    this.router.navigate(['/sign-in']);
+    this.authService.logout() ; 
+  }
 hidden = false ;
 showdropdown()
 {

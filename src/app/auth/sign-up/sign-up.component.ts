@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmailValidator, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SignupuserService } from 'src/app/service/signupuser.service';
 import { User } from 'src/app/user';
 import {Route, Router} from '@angular/router' ; 
@@ -22,31 +22,25 @@ constructor(
 
   ngOnInit() {
    this.form= this.fb.group({
-    id:['',Validators.required],
+    email:['',Validators.required],
     password:['',Validators.required]
    }) 
   }
 
-/*MyPosts:any[] = []
-constructor(private httpc:HttpClient){}
-  ngOnInit(): void {
-    this.getPosts().subscribe(
-      (value:any)=>{
-        this.MyPosts= value
-      }
-    )
-  } */
-  submit(){
+
+  submit() : void{
     if(this.form.valid){
-      this.user.id=this.form.value.id ;
-      this.user.password=this.form.value.password ;
-      console.log(this.user);
-      this.userserv.signupuser(this.user).subscribe({
-        next: (v) => {console.log(v);
+      this.user=this.form.value ;
+      this.userserv.signupuser(this.user).subscribe(
+        (response:any ) => {
+          const {id , email , name , token} = response
+          const user={ id , email , name } ; 
+          this.userserv.saveToken(token) ;
+          this.userserv.saveUser(user) ; 
           this.router.navigate(['/dashboard']);
           this.msgs=[] },
-        error: (e) => { console.error(e) ;
-          this.msgs = [{severity:'error', summary:'Error',   detail:'ID nom et mot de passe incorrect !!'}];}}
+        (error: any) => { console.error("error") ;
+          this.msgs = [{severity:'error', summary:'Error',   detail:'Email ou mot de passe incorrect !!'}];}
       ); }
   
 }

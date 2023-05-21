@@ -1,5 +1,5 @@
 export class User {
-    id!:number ; 
+    email!:string ; 
     password!:string ; 
 }
 
@@ -14,7 +14,6 @@ export interface Product {
     email?: string;
     inventoryStatus?: InventoryStatus;
     password?: string;
- 
     datecreation?:number ; 
     date_update?:number ; 
    
@@ -25,7 +24,7 @@ export class Userput {
     nomuser!: string;
     email!: string;
     password!: string;
-    id_role!: number;
+    id_role: any[]=[];
     actif!: boolean;
     date_update: Date = new Date();
     datecreation: Date = new Date();
@@ -70,8 +69,21 @@ export class zones{
 
 
 export class zonesadd{
+  id!:number ; 
   design_z!: string ; 
   nomuser:string[]=[] ; 
+}
+export class enseigne {
+  nom_ens!:String ; 
+  usercreation: any ; 
+  userUpdate : any ; 
+}
+
+export class enseigneupd {
+  id!:number ; 
+  nom_ens!:String ; 
+  usercreation: any ; 
+  userUpdate : any ; 
 }
 
 export class sites{
@@ -120,6 +132,7 @@ export class mission {
   userupdate:any ; 
   users:any ; 
   site:any[]=[] ; 
+
   date_miss!:Date ; 
 }
 

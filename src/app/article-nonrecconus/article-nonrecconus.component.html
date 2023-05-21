@@ -1,4 +1,3 @@
-<p>articlesnonreconnus-nonrecconus works!</p>
 <div class="grid">
     <div class="col-12">
         <div class="card px-6 py-6">
@@ -6,7 +5,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
                     <div class="my-2">
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedarticles()" [disabled]="!selectedarticle || !selectedarticle.length"></button>
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedarticles()" [disabled]="!selectedarticle || !selectedarticle.length"></button>
                     </div>
                 </ng-template>
 
@@ -15,13 +14,13 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="articlesnonreconnus" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedarticle" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="articlesnonreconnus" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['design_artM','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedarticle" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Liste des articles Non Reconnus </h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Recherche..."  class="w-full sm:w-auto"/>
                         </span>
                     </div>
                 </ng-template>
@@ -38,7 +37,7 @@
                         <th pSortableColumn="prixpromoActuel">Prix Promo Actuel <p-sortIcon field="prixpromoActuel"></p-sortIcon></th>
                         <th pSortableColumn="dernier_prixpromo">Dernier Prix Promo <p-sortIcon field="dernier_prixpromo"></p-sortIcon></th>
                         <th pSortableColumn="TypeScan">Type Scan <p-sortIcon field="TypeScan"></p-sortIcon></th>
-                        <th pSortableColumn="traite">traite <p-sortIcon field="traitre"></p-sortIcon></th>
+                        <th pSortableColumn="traite">Traite <p-sortIcon field="traitre"></p-sortIcon></th>
                         <th pSortableColumn="planifie">Planifie <p-sortIcon field="planifie"></p-sortIcon></th>
                         <th pSortableColumn="reconnue">reconnue <p-sortIcon field="reconnue"></p-sortIcon></th>
                         <th pSortableColumn="gamme_artM">Gamme <p-sortIcon field="gamme_artM"></p-sortIcon></th>
@@ -83,7 +82,7 @@
                          <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Type Scan </span>
                             {{articlesnonreconnus.typeScan}}
                          </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">traite </span>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Traite </span>
                             {{articlesnonreconnus.traite}}
                          </td>
                          <td style="width:14%; min-width: 10rem;"><span class="p-column-title">planifie </span>

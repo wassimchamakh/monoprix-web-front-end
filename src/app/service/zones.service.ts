@@ -13,7 +13,6 @@ export class ZonesService {
   private idurl="http://localhost:8084/zones/find/" ; 
   private deleteurl="http://localhost:8084/zones/delete" ; 
   private updateurl="http://localhost:8084/zones/update" ; 
-
  
 
   constructor(private http:HttpClient) { }

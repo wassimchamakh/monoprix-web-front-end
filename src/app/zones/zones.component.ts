@@ -58,14 +58,14 @@ editnom:any ;
     editnom : new FormControl ,
     nomuser : new FormControl 
   }); 
-this.loadproduct() ; 
+this.loadzones() ; 
   
   }
   
 
 
 
-  loadproduct() {
+  loadzones() {
     this.zoneservice.getAllZones().subscribe(data => {
       this.zones=data ; 
       
@@ -91,7 +91,9 @@ this.loadproduct() ;
       next: (v) => {
       this.submitted=true ; 
       this.messageService.add({ severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
-      this.hideDialog() ; 
+      this.hideDialog() ;
+      this.loadzones() ;  
+      this.zone= new zonesadd ; 
     }, error: (e) => { 
       this.submitted=false ; 
       this.messageService.add({  severity: 'error',   summary: 'Error',   detail: "e.error",    life: 3000}) ; 
@@ -106,20 +108,17 @@ this.loadproduct() ;
 opennew() {
   this.zonesDialog=true ; 
   this.submitted = false;
-  
 }
 openedit(id:number) {
   this.zonesDialog1=true ; 
   this.submitted = false;
-
   this.zoneservice.getZoneById(id).subscribe(data => {
     this.zonesget=data ; 
     this.nameusers= this.zonesget.id_user.map((user: {nomuser: string}) => user.nomuser);
     console.log(this.zonesget) ; 
     this.editForm= this.formBuilder.group({
-      id:[this.zonesget.id_zone] , 
+      id:[this.zonesget.id] , 
       design_z:[this.zonesget.designZ] ,
-      editnom:[] ,
       nomuser:[this.zonesget.id_user ]
     })
   })
@@ -136,21 +135,22 @@ edit() {
   if (this.editForm.invalid) {
     return;
   }
-
+  console.log(this.editForm.value.id)
 this.zonesupd.design_z=this.editForm.value.design_z ;
 this.zonesupd.nomuser=this.nameusers ;
   this.zoneservice.updateZone(this.editForm.value.id,this.zonesupd).subscribe({next: (v) => {
     console.log(this.zonesupd) ; 
     this.messageService.add({severity: 'success',summary: 'Success',detail: 'Zone modifié',life: 3000 });
     this.hideDialog() ; 
-    this.loadproduct() ; 
+    this.loadzones() ; 
   },error: (e) => { 
     this.submitted=false ;
     this.messageService.add({  severity: 'error',   summary: 'Error',   detail: e.error,    life: 3000}) ; 
   }
 });
+}  
 
-}     
+
 
 hideDialog() {
   this.zonesDialog=false ; 
@@ -159,18 +159,16 @@ hideDialog() {
 }
 
 delete1(id:number) {
-
   this.confirmationService.confirm({
-      message: 'Do you want to delete this user?',
-      header: 'Delete Confirmation',
+      message: 'Souhaitez-vous supprimer cet zone ?',
+      header: 'Confirmation de suppression',
       icon: 'pi pi-info-circle',
       accept: () => {
-               
         this.zoneservice.deleteZoneById(id).subscribe( {
           next:(v) => {
-           this.loadproduct() ;
+           this.loadzones() ;
           this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
-        }, error:(e) => {
+          }, error:(e) => {
           console.log('Error deleting user:', e);
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Unable to delete record' }); }
         });
@@ -178,10 +176,10 @@ delete1(id:number) {
       reject: (type:any) => {
           switch (type) {
               case ConfirmEventType.REJECT:
-                  this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                  this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Vous avez rejeté la demande.' });
                   break;
               case ConfirmEventType.CANCEL:
-                  this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                  this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'Vous avez annuler la demande.' });
                   break;
           }
       } 

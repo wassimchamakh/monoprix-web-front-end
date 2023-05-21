@@ -49,15 +49,14 @@ export class ArticleExistComponent implements OnInit {
       { field: 'design_art', header: 'design_art' },
       { field: 'gamme_art', header: 'gamme_art' },
       { field: 'prix_art', header: 'prix_art' },
-      {field:'marque_art', header:'marque_art'},
-      {field:'id_structmarch', header:'id_structmarch'} 
+      { field:'marque_art', header:'marque_art'},
+      { field:'id_structmarch', header:'id_structmarch'} 
   ];
   }
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains'); }
 
     get f() { return this.editForm.controls; }
-
 
 loadArticles() {
    this.articleservice.getAllArticles().subscribe( data => {
@@ -155,16 +154,18 @@ deletearticle(id:number) {
  editArticle(){
   if (this.editForm.invalid) {
     return; }
-this.artupd=this.editForm.value ;
-this.artupd.datecreation=this.articleedit.datecreation ; 
-    this.artupd.id=this.articleedit.id ;
-    this.artupd.id_structmarch=this.articleedit.id_structmarch ; 
-
-
-console.log(this.artupd) ; 
-  this.articleservice.updatearticle(this.artupd).subscribe(()=> {
-    this.messageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
-
+  this.artupd=this.editForm.value ;
+  this.artupd.datecreation=this.articleedit.datecreation ; 
+  this.artupd.id=this.articleedit.id ;
+  this.artupd.id_structmarch=this.articleedit.id_structmarch ; 
+  console.log(this.artupd) ; 
+  this.articleservice.updatearticle(this.artupd).subscribe( { next : (v) => {
+    this.loadArticles() ; 
+    this.messageService.add({severity: 'success',summary: 'Success',detail: 'User Modifié',life: 3000 });
+    this.hideDialog() ; 
+  },error : (e) => {
+    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de la modification de l\'user',    life: 3000});
+  }
   })  
 
 
@@ -184,7 +185,9 @@ saveArticle(articleForm:any) {
     console.log(this.articleAdd);
     this.submitted = true;
     this.messageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
-    this.hideDialog();}
+    this.loadArticles() ; 
+    this.hideDialog();
+  this.articleAdd= new article}
     , error: (e) => {
       console.log(e);
       this.submitted = false;

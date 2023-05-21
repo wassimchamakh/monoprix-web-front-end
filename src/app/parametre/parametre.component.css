@@ -1,0 +1,64 @@
+
+
+  
+
+  mat-card {
+    margin: 1 auto;
+    border: 1px solid black;
+    padding: 20px;
+    max-width: 400%;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="email"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  
+  /*button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }*/
+
+  button {
+    color: #fff;
+    border:none ; 
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 50px;
+    width: 100%; /* change width to 100% */
+    max-width: 400px; /* add max-width*/ 
+    background-image: linear-gradient(red, rgb(246, 191, 191)) ; 
+    align-items: center;
+
+  }
+  

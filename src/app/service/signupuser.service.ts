@@ -13,16 +13,38 @@ export class SignupuserService {
   private allurl="http://localhost:8084/api/all" ;
   private addUrl="http://localhost:8084/api/add" ;
   private findUrl="http://localhost:8084/api/find" ;
+  userlogin:any[]=[] ; 
   
   constructor(private httpClient:HttpClient , private http:HttpClient)  { }
 
   signupuser( user : User):Observable<any> {
-    console.log(user);
-    /*let formdata = new FormData
-    formdata.append('id',user.id.toString())
-    formdata.append('password',user.password)*/
-    
       return this.httpClient.post(this.baseUrl, user, { headers: { 'Content-Type': 'application/json' } });
+  }
+
+  saveToken(token:string) : void {
+    localStorage.setItem('token',token) ; 
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  saveUser(user:any ) :void {
+    
+    localStorage.setItem('user',JSON.stringify(user)) ; 
+  }  
+  getUser(): any {
+    const userString = localStorage.getItem('user');
+    return userString ? JSON.parse(userString) : null;
+  }
+
+  isLoggedIn() : boolean {
+    const token=this.getToken() ; 
+    return token !== null ; 
+  }
+  logout():void {
+    localStorage.removeItem('token') ; 
+    localStorage.removeItem('user') ; 
   }
 
   getAllUser() :Observable<any> {

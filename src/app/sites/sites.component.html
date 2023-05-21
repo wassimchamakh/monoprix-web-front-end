@@ -1,5 +1,9 @@
 <h1>{{ens.nom_ens}}</h1>
-<button (click)="close()"> back to cards</button>
+<div class="example-button-row">
+<button mat-fab matTooltip="Primary" (click)="close()" color="primary" aria-label="Example fab with a heart icon">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+</div>
 
 <div class="grid">
     <div class="col-12">
@@ -8,8 +12,8 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" (click)="opennew()"class="p-button-success mr-2" ></button>
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedsite()" [disabled]="!selectedsites || !selectedsites.length"></button>
+                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" (click)="opennew()"class="p-button-success mr-2" ></button>
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedsite()" [disabled]="!selectedsites || !selectedsites.length"></button>
                     </div>
                 </ng-template>
 
@@ -21,7 +25,7 @@
             <p-table #dt [value]="sites" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedsites" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Liste des Comptes</h5>
+                        <h5 class="m-0">Liste des Sites du {{ens.nom_ens}} </h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
@@ -204,8 +208,8 @@
           </form>
         </ng-template>
         <ng-template pTemplate="footer">
-          <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-          <button type="submit" pButton pRipple label="Save" icon="pi pi-check" (click)="saveUser(sitesForm)" class="p-button-text"  > </button>
+          <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveUser(sitesForm)" class="p-button-text"  > </button>
         </ng-template>
       </p-dialog>
         
@@ -343,8 +347,8 @@
             </form>          
         </ng-template>
         <ng-template pTemplate="footer">
-          <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-          <button type="submit" pButton pRipple label="Save" icon="pi pi-check" (click)="editsite()" class="p-button-text"  > </button>
+          <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="editsite()" class="p-button-text"  > </button>
         </ng-template>
       </p-dialog>
       

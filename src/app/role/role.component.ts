@@ -26,10 +26,7 @@ export class RoleComponent implements OnInit {
   constructor(private roleservice:RoleService , private formbuilder : FormBuilder ,  private confirmationService:ConfirmationService , private messageService: MessageService ) {}
 ngOnInit()
 {
- this.roleservice.getAllUser().subscribe(data => {
-  this.roles=data ; 
-  console.log(this.roles) ; 
- });
+ this.loadRole() ; 
  this.editForm=new FormGroup({
   id: new FormControl() ,
   designation: new FormControl() ,
@@ -40,6 +37,13 @@ ngOnInit()
 }
 
 get f() { return this.editForm.controls; }
+
+loadRole() {
+  this.roleservice.getAllUser().subscribe(data => {
+    this.roles=data ; 
+    console.log(this.roles) ; 
+   });
+}
 
 dialogrole(id:number) :void{
   this.roledialog = true;
@@ -77,9 +81,19 @@ this.roleupd.userUpdate=this.editForm.value.user_update ;
 this.roleupd.datecreation=this.editForm.value.date_creation ;
 
 console.log(this.roleupd) ; 
-  this.roleservice.updaterole(this.roleupd).subscribe(() => {
-    this.messageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
-  });
+  this.roleservice.updaterole(this.roleupd).subscribe({next :(v) => {
+    this.messageService.add({severity: 'success',summary: 'Success',detail: 'Role modifié',life: 3000 });
+    this.loadRole() ; 
+    this.hideDialog() ; 
+  }, 
+  error : (e) => {
+    this.submitted = false;
+    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de la modification de Role',    life: 3000});
+    this.loadRole() ; 
+    this.hideDialog() ; 
+  }
+
+});
 }
 
 openNew() {
@@ -87,18 +101,8 @@ openNew() {
   this.submitted = false;
   this.roledialog1 = true;
 }
-createId(): number {
-  let id = '';
-  const chars = '0123456789';
-  for (let i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
- const idN: number = parseInt(id, 10);
-  return idN;
-}
 
 saveUser(roleForm:NgForm) :void {
-  this.role.id = this.createId();
   console.log(this.role);
 
   this.submitted = true;
@@ -109,14 +113,17 @@ saveUser(roleForm:NgForm) :void {
     next: (v) => {
     console.log(this.role);
     this.submitted = true;
-    this.messageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
+    this.messageService.add({severity: 'success',summary: 'Success',detail: 'Role ajouté',life: 3000 });
+    this.loadRole() ; 
     this.hideDialog();
+    this.role = new roleadd 
   },
   error: (e) => {
     console.log(e);
     this.submitted = false;
-    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'user',    life: 3000
+    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de Role',    life: 3000
    });
+   this.loadRole() ; 
    this.hideDialog();
   }});
 }

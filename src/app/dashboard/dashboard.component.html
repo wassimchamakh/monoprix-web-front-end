@@ -31,13 +31,13 @@
   </ul>
   <ul class="side-menu">
     <li>
-      <a href="#">
+      <a (click)="showcomponent('Paramètres')">
         <i class='bx bxs-cog' style="background-image: linear-gradient( red, rgb(246, 191, 191)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
         <span class="text">Paramètres</span>
       </a>
     </li>
     <li>
-      <a href="/sign-in" class="logout">
+      <a  (click)="logout()" class="logout">
         <i class='bx bxs-log-out-circle' style="background-image: linear-gradient( red, rgb(246, 191, 191)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
         <span class="text">Logout</span>
       </a>
@@ -110,14 +110,16 @@
 <app-article-nonrecconus></app-article-nonrecconus>
 </div>
 <div *ngIf="current_component=='Relevé sur prix'">
-  <app-gamme></app-gamme>
+  <app-gamme [data]="current_component"></app-gamme>
 </div>
-
 <div *ngIf="current_component=='Relevé sur gamme'">
-  <app-ajout></app-ajout>
+  <app-gamme [data]="current_component"></app-gamme>
 </div>
 <div *ngIf="current_component=='Relevé par liste d\'articles'">
-  <app-stat></app-stat>
+  <app-gamme [data]="current_component"></app-gamme>
+</div>
+<div *ngIf="current_component=='Paramètres'">
+  <app-parametre ></app-parametre>
 </div>
 
   </main>

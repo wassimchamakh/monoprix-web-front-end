@@ -1,24 +1,36 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild , OnInit} from '@angular/core';
+import {Component, ElementRef, ViewChild ,AfterViewInit, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { SignupuserService } from 'src/app/service/signupuser.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
+
+
 
 @Component({
   selector: 'app-modifier',
   templateUrl: './modifier.component.html',
   styleUrls: ['./modifier.component.css']
 })
-export class ModifierComponent implements OnInit {
-  separatorKeysCodes: number[] = [ENTER, COMMA];
+export class ModifierComponent  {
+  toppings = new FormControl('');
+  visible:boolean = false ; 
+  selectedToppings:any ; 
+
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  constructor () {}
+  ngOnInit(): void {}
+  /*separatorKeysCodes: number[] = [ENTER, COMMA];
   userCtrl = new FormControl('');
   filteredusers: Observable<string[]>;
   user: string[] = [];
   allusers: string[] = [];
  getuser:any ; 
+ visible:boolean = false ; 
 
   @ViewChild('userInput') userInput!: ElementRef<HTMLInputElement>;
 
@@ -27,17 +39,18 @@ export class ModifierComponent implements OnInit {
       startWith(null),
       map((user: string | null) => (user ? this._filter(user) : this.allusers.slice())),
     );
-  }
+  }*/
 
-  ngOnInit(): void {
-    console.log(this.filteredusers);
     
-   this.userService.getAllUser().subscribe(data=> {
+   
+    
+/*    console.log(this.filteredusers);
+    this.userService.getAllUser().subscribe(data=> {
     this.getuser=data ; 
     this.allusers = this.getuser.map((user: any) => user.nomuser);
- })
-  }
-
+ })*/
+  
+/*
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 console.log('value', value);
@@ -75,6 +88,6 @@ console.log('value', value);
     const filterValue = value.toLowerCase();
     return this.allusers.filter(user => user.toLowerCase().includes(filterValue));
   }
-
+*/
 
 }

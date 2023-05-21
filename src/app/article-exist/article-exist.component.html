@@ -5,8 +5,8 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"  (click)="opennew()"></button>
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedarticle()" [disabled]="!selectedarticles || !selectedarticles.length"></button>
+                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success mr-2"  (click)="opennew()"></button>
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedarticle()" [disabled]="!selectedarticles || !selectedarticles.length"></button>
                     </div>
                 </ng-template>
 
@@ -15,13 +15,13 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="article" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedarticles" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="article" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['code_art','design_art']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedarticles" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Liste des Articles Existants</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Recherche..."  class="w-full sm:w-auto"/>
                         </span>
                     </div>
                 </ng-template>
@@ -123,15 +123,15 @@
               </form>
             </ng-template>
             <ng-template pTemplate="footer">
-              <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-              <button type="submit" pButton pRipple label="Save" icon="pi pi-check" (click)="saveArticle(articleForm)" class="p-button-text"  > </button>
+              <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+              <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveArticle(articleForm)" class="p-button-text"  > </button>
             </ng-template>
           </p-dialog>
           
         <p-toast></p-toast>
     <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
 
-    <p-dialog [(visible)]="articleUpdDialog" [style]="{width: '550px' , height: '80%'}" [draggable]="false"  header="Edit User" [modal]="true" class="p-fluid">
+    <p-dialog [(visible)]="articleUpdDialog" [style]="{width: '550px' , height: '80%'}" [draggable]="false"  header="Modifier Article" [modal]="true" class="p-fluid">
         <ng-template pTemplate="content">
             <form [formGroup]="editForm" >
               <div class="form-group">
@@ -176,8 +176,8 @@
              </form>          
         </ng-template>
         <ng-template pTemplate="footer">
-          <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-          <button type="submit" pButton pRipple label="Save" icon="pi pi-check" (click)="editArticle()" class="p-button-text"  > </button>
+          <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+          <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="editArticle()" class="p-button-text"  > </button>
         </ng-template>
       </p-dialog>
       

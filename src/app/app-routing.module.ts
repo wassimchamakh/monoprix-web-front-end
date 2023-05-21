@@ -8,24 +8,32 @@ import { RoleComponent } from './role/role.component';
 import { SitesComponent } from './sites/sites.component';
 import { ModifierComponent } from './missions/modifier/modifier.component';
 import { StatComponent } from './compte/stat/stat.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path:'sign-in',
     component:SignUpComponent},
   { path:'dashboard', 
-    component:DashboardComponent},
+    component:DashboardComponent , 
+  canActivate:[AuthGuard]},
   { path:'compte',
-    component:CompteComponent},
+    component:CompteComponent,
+    canActivate:[AuthGuard]},
   { path:'ajouteruser', 
-    component:AddComponent},
+    component:AddComponent,
+    canActivate:[AuthGuard]},
   { path:'roles',
-    component:RoleComponent},
+    component:RoleComponent,
+    canActivate:[AuthGuard]},
   { path:'sites',
-    component:SitesComponent},
+    component:SitesComponent,
+    canActivate:[AuthGuard]},
   { path:'modifier',
-    component:ModifierComponent},
+    component:ModifierComponent,
+    canActivate:[AuthGuard]},
   { path:'stats', 
-    component:StatComponent}
+    component:StatComponent,
+    canActivate:[AuthGuard]}
 
 ];
 

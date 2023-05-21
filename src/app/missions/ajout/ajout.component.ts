@@ -6,7 +6,6 @@ import {MissionService} from 'src/app/service/mission.service'
 import { Tree } from 'primeng/tree';
 import { SitesService } from 'src/app/service/sites.service';
 import { EnseigneService } from 'src/app/service/enseigne.service';
-import { CdkTreeNode } from '@angular/cdk/tree';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent , MatChipGrid} from '@angular/material/chips';
@@ -64,6 +63,8 @@ export class AjoutComponent implements OnInit {
     this.userService.getAllUser().subscribe(data=> {
       this.getuser=data ; 
       this.allusers = this.getuser.map((user: any) => user.nomuser);
+      console.log(this.allusers);
+      
    })
  
     this.enseigneService.getAllEns().subscribe(data => {
@@ -84,9 +85,7 @@ export class AjoutComponent implements OnInit {
             enseigneNode.children?.push(siteNode);
           });
         });
-
         this.enseignesSites.push(enseigneNode);
-     
      
       });
     });

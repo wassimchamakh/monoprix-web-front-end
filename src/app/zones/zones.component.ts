@@ -136,7 +136,7 @@ edit() {
     return;
   }
   console.log(this.editForm.value.id)
-this.zonesupd.design_z=this.editForm.value.design_z ;
+this.zonesupd.designZ=this.editForm.value.design_z ;
 this.zonesupd.nomuser=this.nameusers ;
   this.zoneservice.updateZone(this.editForm.value.id,this.zonesupd).subscribe({next: (v) => {
     console.log(this.zonesupd) ; 

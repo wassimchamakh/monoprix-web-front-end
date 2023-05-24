@@ -21,10 +21,10 @@ interface Category {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
- dashboard :string="dashboard"; 
-   current_component:string="Dashboard" ; 
-user:any ; 
-
+  dashboard :string="Dashboard"; 
+  current_component:string="Dashboard" ; 
+  user:any ; 
+  current_category:String = "Dashboard";
 
   constructor(private authService:SignupuserService , private router:Router) {
     this.user=this.authService.getUser() ; 
@@ -49,7 +49,8 @@ showdropdown()
    status = false;
 addToggle()
 {
-  this.status = !this.status;       
+  this.status = !this.status; 
+  for (let category of this.categories) {category.expanded = false}  
 }
 
 categories: Category[] = [
@@ -57,7 +58,7 @@ categories: Category[] = [
     
     name: 'Missions',
     class: 'bx bx-barcode-reader',
-    style: 'margin-left: 40% ;' ,
+    style: 'margin-left: 25% ;' ,
     subcategories: [
       { name: 'Relevé sur prix' },
       { name: 'Relevé sur gamme' },
@@ -68,7 +69,7 @@ categories: Category[] = [
   {
     name: 'Concurrents',
     class: 'bx bxs-building',
-    style: 'margin-left: 34% ;' ,
+    style: 'margin-left: 20% ;' ,
     subcategories: [
       { name: 'Enseignes' },
       { name: 'Zones' }
@@ -78,7 +79,7 @@ categories: Category[] = [
   {
     name: 'Articles',
     class:'bx bxs-shopping-bag-alt' ,
-    style: 'margin-left: 43% ;' ,
+    style: 'margin-left: 25% ;' ,
     subcategories: [
       { name: 'Articles Existants' },
       { name: 'Non Reconnus' }
@@ -88,7 +89,7 @@ categories: Category[] = [
   {
     name:'Comptes' , 
     class:'bx bxs-group' ,
-    style: 'margin-left: 40% ;' ,
+    style: 'margin-left: 25% ;' ,
     subcategories: [
       { name: 'Utilisateurs'}, 
       {  name: 'Rôles' }
@@ -101,6 +102,9 @@ toggleCategory(category: Category): void {
   category.expanded = !category.expanded;
 }
 
+updateCurrentCategory(categoryName: String): void {
+  this.current_category = categoryName;
+}
 
 showcomponent(tab:string):void {
   this.current_component = tab

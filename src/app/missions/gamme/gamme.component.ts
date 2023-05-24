@@ -15,6 +15,8 @@ import {map, startWith} from 'rxjs/operators';
 import { SignupuserService } from 'src/app/service/signupuser.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { forkJoin } from 'rxjs';
+
 
 
 
@@ -35,7 +37,6 @@ export class GammeComponent implements OnInit {
   visible: boolean=false ;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   userCtrl = new FormControl('');
-  filteredusers: Observable<string[]>;
   user: string[] = [];
   allusers: string[] = [];
  getuser:any ; 
@@ -66,13 +67,27 @@ export class GammeComponent implements OnInit {
  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource: any[] = [];
 gammeArt:any
-  constructor(private formBuilder:FormBuilder , private ajoutService:MissionService , private siteService:SitesService , private enseigneService:EnseigneService, private userService:SignupuserService , private ArtService:ArticleService, private overlayContainer: OverlayContainer,private missService:MissionService , private messageService:MessageService , private confirmationService:ConfirmationService) {
-    this.filteredusers = this.userCtrl.valueChanges.pipe(
-      startWith(null),
-      map((user: string | null) => (user ? this._filter(user) : this.allusers.slice())),
-    );
+files!: TreeNode[]
+
+selectedNodes!: TreeNode[];
+colns!: any[];
+
+enseigneData: TreeNode<any>[] = [];
+
+
+
+
+  constructor( private formBuilder:FormBuilder , private ajoutService:MissionService , private siteService:SitesService , private enseigneService:EnseigneService, private userService:SignupuserService , private ArtService:ArticleService, private overlayContainer: OverlayContainer,private missService:MissionService , private messageService:MessageService , private confirmationService:ConfirmationService) {
+    
   }
   ngOnInit(): void {
+    this.loadData() ; 
+    this.colns = [
+      { field: 'label', header: 'label' },
+      { field: 'children', header: 'children ' }, 
+      { field: 'action', header: 'action' },
+
+  ];
     this.cols=[
       { field: 'Mission_id',      header: 'Mission_id' },
       { field: 'nom_miss',        header: 'nom_miss' },
@@ -106,14 +121,16 @@ gammeArt:any
           label: enseigne.nom_ens,
           expandedIcon: "pi pi-folder-open",
           collapsedIcon: "pi pi-folder",
-          children: []
+          expanded:false,
+          children: [],
         };
 
         this.siteService.getAllSite(enseigne.id).subscribe(sites => {
           sites.forEach((site: any) => {
             const siteNode: TreeNode = {
               label: site.nomsite,
-              data: site
+              data: site,
+              userData:''
             };
             
             enseigneNode.children?.push(siteNode);
@@ -121,12 +138,11 @@ gammeArt:any
         });
 
         this.enseignesSites.push(enseigneNode);
-     
+        console.log(this.enseignesSites);
+        
       });
     });
 
-
-   
    
     this.addform=new FormGroup({
       mission_id: new FormControl , 
@@ -181,6 +197,31 @@ gammeArt:any
   isSelected(node: any): boolean {
     return this.selectedFiles.includes(node); // Adjust this logic based on your selection criteria
   }
+  addUser(rowData:TreeNode){}
+
+  loadData(): void {
+    this.enseigneService.getAllEns().subscribe((data: any[]) => {
+      const observables = data.map((enseigne: any) => {
+        return this.siteService.getAllSite(enseigne.id);
+      });
+
+      forkJoin(observables).subscribe((results: any[]) => {
+        this.enseigneData = data.map((enseigne: any, index: number) => {
+          const enseigneNode: TreeNode<any> = {
+            label: enseigne.nom_ens,
+            expandedIcon: 'pi pi-folder-open',
+            collapsedIcon: 'pi pi-folder',
+            children: results[index].map((site: any) => ({
+              label: site.nomsite,
+              data: site
+            }))
+          };
+
+          return enseigneNode;
+        });
+      });
+    });
+  }
   showUserDialog() {
     this.userDialogVisible=true ; 
   }
@@ -232,60 +273,6 @@ gammeArt:any
       console.log(this.miss) ; 
       this.ajoutService.addmission(this.miss).subscribe({})
     }
-
-    addUser(event: MatChipInputEvent): void {
-      const input = event.input;
-      const value = event.value;
-  
-      // Add user
-      if ((value || '').trim()) {
-        this.users.push(value.trim());
-      }
-  
-      // Clear the input value
-      if (input) {
-        input.value = '';
-      }
-  
-      this.userCtrl.setValue(null);
-    }
-
-    
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-console.log('value', value);
-
-    // Add our user
-    if (value) {
-      this.user.push(value);
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.userCtrl.setValue(null);
-  }
-
-  remove(user: string): void {
-    const index = this.user.indexOf(user);
-
-    if (index >= 0) {
-      this.user.splice(index, 1);
-    }
-  }
-  
-  selected(event: MatAutocompleteSelectedEvent): void {
-    console.log(event);
-    this.user.push(event.option.value);
-    console.log(this.user);
-    this.userInput.nativeElement.value = '';
-    this.userCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.allusers.filter(user => user.toLowerCase().includes(filterValue));
-  }
 
 
 
@@ -398,6 +385,18 @@ console.log('value', value);
       this.AddDialog=true ; 
     }
     saveUser() {} 
-    hideDialog() {} ; 
+    hideDialog() {
+      this.visible=false ;  
+    } ; 
+
+    changeExpandValue(label:any){
+      this.enseignesSites.map(
+        (value:any)=>{
+          if(label==value.label){
+            value.expanded=!value.expanded
+          }
+        }
+      )
+    }
 
 }

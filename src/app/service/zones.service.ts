@@ -16,7 +16,9 @@ export class ZonesService {
  
 
   constructor(private http:HttpClient) { }
-
+  getAllZoneByDesignZ() :Observable<any> {
+    return this.http.get(this.geturl+'zone')
+  }
   getAllZones() : Observable<any> {
      return this.http.get(this.geturl) ; 
   }

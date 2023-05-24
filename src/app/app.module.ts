@@ -65,6 +65,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ParametreComponent } from './parametre/parametre.component';
 import { MatTableModule } from '@angular/material/table';
 import {MatButton, MatButtonModule} from '@angular/material/button';
+import { TreeTableModule } from 'primeng/treetable';
+
 
 
 
@@ -169,7 +171,9 @@ import {MatButton, MatButtonModule} from '@angular/material/button';
     MatDialogModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatButtonModule 
+    MatButtonModule ,
+    TreeTableModule
+
 
 
 

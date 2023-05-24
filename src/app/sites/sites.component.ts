@@ -5,6 +5,7 @@ import { Table} from 'primeng/table' ;
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms' ; 
 import {sites } from 'src/app/user' ; 
+import { ZonesService } from '../service/zones.service';
 
 
 
@@ -32,12 +33,12 @@ export class SitesComponent implements OnInit {
    statuses: any[] = [];
    editForm!: FormGroup ; 
    siteupd: sites= new sites ; 
-
+   zones: any[] = [] ; 
    sitesForm!:NgForm ; 
 
    rowsPerPageOptions = [5, 10, 20];
 
-  constructor(private formBuilder:FormBuilder ,private SiteService:SitesService , private route:ActivatedRoute, private confirmationservice: ConfirmationService , private messageservice:MessageService) {}
+  constructor(private formBuilder:FormBuilder ,private SiteService:SitesService ,private ZoneService:ZonesService, private route:ActivatedRoute, private confirmationservice: ConfirmationService , private messageservice:MessageService) {}
 
   ngOnInit(): void {
     console.log(this.ens) ; 
@@ -57,7 +58,8 @@ export class SitesComponent implements OnInit {
         modepaimentSite: new FormControl(), 
         conditionPaimentSite: new FormControl(),
         reference_erp_site: new FormControl(),
-        datecreation: new FormControl()
+        datecreation: new FormControl(),
+        id_zone:new FormControl() 
       })
       this.cols = [
         { field: 'id', header: 'id' },
@@ -73,8 +75,13 @@ export class SitesComponent implements OnInit {
         { field: 'longitude_site', header: 'longitude_site' },
         { field: 'modepaimentSite', header: 'modepaimentSite' },
         { field: 'conditionPaimentSite', header: 'conditionPaimentSite' },
-        { field: 'reference_erp_site', header: 'reference_erp_site' }
+        { field: 'reference_erp_site', header: 'reference_erp_site' },
+        { field: 'zone', header: 'zone' }
     ];
+
+    this.ZoneService.getAllZoneByDesignZ().subscribe(data => {
+      this.zones=data.map((zone:any) => ({label:zone.designZ , value:zone }))
+    })
   }
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
@@ -160,12 +167,14 @@ export class SitesComponent implements OnInit {
   opennew() {
     this.siteaddDialog=true ; 
   }
-  saveUser(user:any) :void {
+  save(user:any) :void {
     this.submitted=true ; 
     this.site.enseigne=this.ens ; 
     console.log(this.site) ; 
     if (!this.site.nomsite || !this.site.adresse_site || !this.site.email_site || !this.site.codepostal_site || !this.site.tel) 
     { return ; }
+    console.log(this.site.id_zone);
+    
     console.log(this.site) ; 
     this.SiteService.addSite(this.site).subscribe({
        next :(v) => { 
@@ -189,7 +198,6 @@ export class SitesComponent implements OnInit {
       this.siteget=data ; 
       console.log(this.siteget) ; 
       this.editForm = this.formBuilder.group({
-        
         nomsite: [this.siteget.nomsite, Validators.required],
         email_site: [this.siteget.email_site, [Validators.required, Validators.email]],
         tel: [this.siteget.tel, Validators.required],
@@ -203,7 +211,8 @@ export class SitesComponent implements OnInit {
         modepaimentSite: [this.siteget.modepaimentSite],
         conditionPaimentSite: [this.siteget.conditionPaimentSite] ,
         reference_erp_site:[this.siteget.reference_erp_site],
-        datecreation:[this.siteget.datecreation]
+        datecreation:[this.siteget.datecreation],
+        id_zone:[this.siteget.id_zone.designZ]
       })
          
     }

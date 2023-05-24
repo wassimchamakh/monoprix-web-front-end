@@ -32,15 +32,15 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="Mission_id">Mission Id<p-sortIcon field="Mission_id"></p-sortIcon></th>
-                        <th pSortableColumn="nom_miss">Nom <p-sortIcon field="nom_miss"></p-sortIcon></th>
-                        <th pSortableColumn="descrip_miss">Description <p-sortIcon field="descrip_miss"></p-sortIcon></th>
-                        <th pSortableColumn="etat">Etat <p-sortIcon field="etat"></p-sortIcon></th>
-                        <th pSortableColumn="maxdiff">Max Diff<p-sortIcon field="maxdiff"></p-sortIcon></th>
-                        <th pSortableColumn="tags">tags <p-sortIcon field="tags"></p-sortIcon></th>
-                        <th pSortableColumn="nonreconnue">Non Reconnus ? <p-sortIcon field="nonreconnue"></p-sortIcon></th>
-                        <th pSortableColumn="rupture">En rupture ? <p-sortIcon field="rupture"></p-sortIcon></th>
-                        <th pSortableColumn="date_miss">Date <p-sortIcon field="date_miss"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="Mission_id">Mission Id<p-sortIcon field="Mission_id"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="nom_miss">Nom <p-sortIcon field="nom_miss"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="descrip_miss">Description <p-sortIcon field="descrip_miss"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="etat">Etat <p-sortIcon field="etat"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="maxdiff">Max Diff<p-sortIcon field="maxdiff"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="tags">tags <p-sortIcon field="tags"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="nonreconnue">Non Reconnus<p-sortIcon field="nonreconnue"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="rupture">En rupture<p-sortIcon field="rupture"></p-sortIcon></th>
+                        <th style="width: 17rem" pSortableColumn="date_miss">Date <p-sortIcon field="date_miss"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -136,12 +136,13 @@
           
     
           <p><mat-checkbox formControlName="nonreconnus">Prendre en compte les articles non reconnus</mat-checkbox></p>
-          <p><mat-checkbox formControlName="rupture">Rupture en stock</mat-checkbox></p>
+          <p><mat-checkbox formControlName="rupture">Rupture de stock</mat-checkbox></p>
           <h5>Calendrier</h5>
     <div class="card flex justify-content-center">
         <p-calendar formControlName="date_miss"  [showIcon]="true" [(ngModel)]="date" [showTime]="true" [showSeconds]="false"> </p-calendar>
     </div>
     
+
     </form>
     <div class="grid" >
   <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
@@ -154,42 +155,105 @@
 </div>
   
     <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '60vw' }" [draggable]="false" [resizable]="false">
-      <div class="grid" >
-        <p-tree  [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles">
-        
-          <ng-template let-node pTemplate="default">
-            <div class="grid" > 
-            <div class="node-content">
-              <span>{{node.label}}</span>
+      
+      <div *ngFor="let ens of enseignesSites">
+        <div>
+          <i class="pi pi-plus" (click)="changeExpandValue(ens.label)"></i>
+          <label for="">{{ens.label}}</label>
+           <div *ngIf="ens.children!= [] && ens.expanded==true " style="margin-left: 20px;display: flex; flex-direction: column;">
+            <div *ngFor="let childvalue of ens.children">
+              <mat-checkbox class="example-margin"
+      [(ngModel)]="childvalue.selectable"
+             >
+             {{childvalue.label}}
+</mat-checkbox>
+            <mat-form-field *ngIf="childvalue.selectable">
+              <mat-label>Select User</mat-label>
+              <mat-select [(value)]="childvalue.userData">
+                <mat-option *ngFor="let user of allusers" [value]="user">
+                  {{user}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
             </div>
-            <div *ngIf="isSelected(node) || !node.children">
-   
-            <form>
-              <mat-form-field class="example-chip-list" appearance="fill">
-                <mat-label>Liste des Utilisateurs</mat-label>
-                <mat-chip-grid #chipGrid aria-label="user selection">
-                  <mat-chip-row *ngFor="let users of user" (removed)="remove(users)">
-                    {{users}}
-                    <button matChipRemove [attr.aria-label]="'remove' + user">
-                      <mat-icon>cancel</mat-icon>
-                    </button>
-                  </mat-chip-row>
-                </mat-chip-grid>
-                <input placeholder="New user..." #userInput [formControl]="userCtrl" [matChipInputFor]="chipGrid"
-                  [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  (matChipInputTokenEnd)="add($event)" />
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                  <mat-option *ngFor="let user of allusers" [value]="user">
-                    {{user}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-            </form>
+            
+           </div>
+        </div>
+
+      </div>
+      
+      <!--<div class="grid">
+    <p-tree [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles">
+      <ng-template let-node pTemplate="default">
+        <div class="grid">
+          <div class="node-content">
+            <span>{{node.label}}</span>
+          </div>
+          <div *ngIf="!node.children">
+            <mat-form-field>
+              <mat-label>Select User</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let user of allusers" [value]="user">
+                  {{user}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
+      </ng-template>
+    </p-tree>-->
+    
+       <!-- <p-treeTable [value]="enseignesSites">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Location</th>
+            </tr>
           </ng-template>
-        </p-tree>
-      </div>
+        
+          <ng-template pTemplate="body" let-node let-columns="columns">
+            <tr>
+              <td>{{node.label}}</td>
+              <td>{{node.label}}</td>
+              <td>{{node.label}}</td>
+              
+            </tr>
+          </ng-template>
+          <button *ngIf="enseignesSites" pButton type="button" icon="pi pi-user-plus" >
+            Add User
+          </button>
+        </p-treeTable>-->
+
+        <div class="card">
+          <!-- <p-treeTable [value]="enseigneData" [columns]="colns" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+                <span class="ml-2">Toggle All</span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns">
+                  {{ col.header }}
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-enseigneData >
+              <tr>
+                <td >
+                  <p-treeTableToggler [rowNode]="enseigneData" ></p-treeTableToggler>
+                  <p-treeTableCheckbox [value]="enseigneData" ></p-treeTableCheckbox>
+                  <ng-container >
+                    <span>{{ enseigneData.label }}</span>
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-template>
+          </p-treeTable> -->
+        </div>
       <ng-template pTemplate="footer">
         <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
         <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveUser()" class="p-button-text"  > </button>

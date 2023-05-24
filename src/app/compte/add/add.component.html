@@ -34,10 +34,10 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
                         <th pSortableColumn="id">id<p-sortIcon field="id"></p-sortIcon></th>
-                        <th pSortableColumn="nomuser">Name <p-sortIcon field="nomuser"></p-sortIcon></th>
-                        <th pSortableColumn="email">email <p-sortIcon field="email"></p-sortIcon></th>
+                        <th pSortableColumn="nomuser">nom<p-sortIcon field="nomuser"></p-sortIcon></th>
+                        <th pSortableColumn="email">email<p-sortIcon field="email"></p-sortIcon></th>
                         <th pSortableColumn="password">password<p-sortIcon field="password"></p-sortIcon></th>
-                        <th pSortableColumn="design_r">Role <p-sortIcon field="design_r"></p-sortIcon></th>
+                        <th pSortableColumn="design_r">rôle <p-sortIcon field="design_r"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -50,7 +50,7 @@
                             {{ users.id}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Name</span>
+                            <span class="p-column-title">nom</span>
                             {{users.nomuser}}
                         </td>
                         <td style="width:14%; min-width:8rem;">
@@ -58,7 +58,7 @@
                             {{users.email}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                          <span class="p-column-title">Password</span>
+                          <span class="p-column-title">password</span>
                           <div class="flex">
                             <span class="password-value" *ngIf="!showPassword; else hiddenPassword">*******</span>
                             <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-text mr-2" (click)="showPassword = !showPassword"></button>
@@ -72,8 +72,8 @@
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product,users.id)"></button>
                                     <button pButton pRipple icon="pi pi-trash" (click)="delete1(users.id)" class="p-button-rounded p-button-warning"  ></button>
-                                   <div  *ngIf="users.id_role.design_r=='Commercial'">
-                                    <p-button label="Mision details" (click)="showcomponent(users.id,users)" styleClass="p-button-raised p-button-text" ></p-button>
+                                   <div  *ngIf="users.id_role.design_r=='commercial'">
+                                    <p-button label="Details" (click)="showcomponent(users.id,users)" styleClass="p-button-text" ></p-button>
                             </div>
                                    </div>
                         </td>

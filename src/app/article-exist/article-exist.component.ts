@@ -24,7 +24,7 @@ export class ArticleExistComponent implements OnInit {
   submitted:boolean=false ;  
   cols: any[] = [];
   editForm!:FormGroup ; 
-  articleForm!:NgForm ; 
+  articleForm! :NgForm ; 
   selectedarticles:any[]=[] ;
   articles:any[]=[] ; 
   articleedit:any ; 
@@ -69,6 +69,7 @@ hideDialog() {
   this.articleAddDialog=false ; 
   this.articleUpdDialog=false ; 
 }
+
 deleteselectedarticle() {
   if (this.selectedarticles && this.selectedarticles.length > 0) {
     this.confirmationService.confirm({message: 'Are you sure you want to delete the selected Sites?',header: 'Delete Confirmation', icon: 'pi pi-info-circle',
@@ -108,6 +109,7 @@ deleteselectedarticle() {
 
 
 }
+
 deletearticle(id:number) {
   console.log("bonjour") ; 
   this.confirmationService.confirm({
@@ -174,24 +176,26 @@ opennew() {
   this.articleAddDialog=true ; 
   this.submitted=false ; 
 }
+
+
 saveArticle(articleForm:any) {
   this.submitted = true;
   console.log(this.articleAdd) ;
-    if (!this.articleAdd.code_art || !this.articleAdd.gamme_art || !this.articleAdd.reference_art) {
-      return; // prevent form submission if required fields are empty
-    }
+    // if (!this.articleAdd.code_art || !this.articleAdd.gamme_art || !this.articleAdd.reference_art) {
+    //   return; // prevent form submission if required fields are empty
+    // }
   this.articleservice.addarticle(this.articleAdd).subscribe({
     next: (v) => {
     console.log(this.articleAdd);
     this.submitted = true;
-    this.messageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
+    this.messageService.add({severity: 'Success',summary: 'Success',detail: 'Article ajouté',life: 3000 });
     this.loadArticles() ; 
     this.hideDialog();
   this.articleAdd= new article}
     , error: (e) => {
       console.log(e);
       this.submitted = false;
-      this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'user',    life: 3000
+      this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'article',    life: 3000
      });
     }
    })

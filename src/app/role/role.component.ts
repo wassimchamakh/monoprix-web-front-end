@@ -121,7 +121,7 @@ saveUser(roleForm:NgForm) :void {
   error: (e) => {
     console.log(e);
     this.submitted = false;
-    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de Role',    life: 3000
+    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout du rôle',    life: 3000
    });
    this.loadRole() ; 
    this.hideDialog();

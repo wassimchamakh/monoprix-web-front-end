@@ -307,7 +307,7 @@ console.log(this.userupd) ;
   error: (e) => {
     console.log(e);
     this.submitted = false;
-    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'user',    life: 3000
+    this.messageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de la modification de l\'user',    life: 3000
    });
   }});
 }

@@ -100,6 +100,8 @@ export class EnseigneComponent implements OnInit {
       } else { this.MessageService.add({severity: 'warn',summary: 'Warning',detail: 'No zone selected' });
     }
     }
+
+    
   saveens() {
 
     this.submitted = true;
@@ -119,7 +121,7 @@ export class EnseigneComponent implements OnInit {
     error: (e) => {
       console.log(e);
       this.submitted = false;
-      this.MessageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'user',    life: 3000
+      this.MessageService.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'enseigne',    life: 3000
      });
     }});
   }  

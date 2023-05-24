@@ -89,10 +89,7 @@ export class AjoutComponent implements OnInit {
      
       });
     });
-
-
-   
-   
+      
     this.addform=new FormGroup({
       mission_id: new FormControl , 
       id_type:new FormControl ,
@@ -113,6 +110,7 @@ export class AjoutComponent implements OnInit {
      console.log(this.allusers) ; 
    })
 
+   
    this.ArtService.getgamme().subscribe(data => {
     data.forEach((gamme: any) => {
       const gammeNode: TreeNode = {

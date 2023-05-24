@@ -12,7 +12,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
                     <div class="my-2">
-                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" (click)="opennew()"class="p-button-success mr-2" ></button>
+                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" (click)="opennew()" class="p-button-success mr-2" ></button>
                         <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedsite()" [disabled]="!selectedsites || !selectedsites.length"></button>
                     </div>
                 </ng-template>
@@ -39,6 +39,8 @@
                         </th>
                         <th pSortableColumn="nomsite">Site<p-sortIcon field="nomsite"></p-sortIcon></th>
                         <th pSortableColumn="email_site">email <p-sortIcon field="email_site"></p-sortIcon></th>
+						                        <th pSortableColumn="zone"> Zone <p-sortIcon field="zone"></p-sortIcon></th>
+
                         <th pSortableColumn="tel">Telephone <p-sortIcon field="tel"></p-sortIcon></th>
                         <th pSortableColumn="adresse_site">Adresse<p-sortIcon field="adresse_site"></p-sortIcon></th>
                         <th pSortableColumn="codepostal_site">Code Postal <p-sortIcon field="codepostal_site"></p-sortIcon></th>
@@ -65,6 +67,10 @@
                             <span class="p-column-title">email</span>
                             {{sites.email_site}}
                         </td>
+						           <td style="width:14%; min-width:10rem;">
+                          <span class="p-column-title">Zone </span>
+                          {{ sites.id_zone.designZ}} 
+                      </td>
                         <td style="width:14%; min-width:8rem;">
                             <span class="p-column-title">Telephone</span>
                             {{sites.tel}}
@@ -127,89 +133,76 @@
 
     <p-dialog [(visible)]="siteaddDialog" [style]="{width: '500px'}" header="Ajouter Site" [draggable]="false" [modal]="true" class="p-fluid">
         <ng-template pTemplate="content">
-          <form #sitesForm="ngForm" (ngSubmit)="saveUser(sitesForm)" >
+          <form #sitesForm="ngForm" (ngSubmit)="save(sitesForm)" >
             <div class="formgrid grid">
                 <div class="field col">
                   <label for="nomsite">Nom Site</label>
-                  <input type="text" pInputText id="nomsite" name="nomsite" [(ngModel)]="site.nomsite" required autofocus [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['nomsite'].valid}" />
-                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['nomsite'].valid">Nom Site est obligatoire.</small>
+                  <input type="text" pInputText id="nomsite" name="nomsite" [(ngModel)]="site.nomsite" required autofocus />
                 </div>
                 <div class="field col">
                   <label for="email_site">Email Site</label>
-                  <input type="email" id="email_site" pInputText name="email_site" [(ngModel)]="site.email_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['email_site'].valid}" />
-                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['email_site'].valid">Valid Email Site est obligatoire.</small>
+                  <input type="email" id="email_site" pInputText name="email_site" [(ngModel)]="site.email_site" />
                 </div>
               </div>
               <div class="formgrid grid">
                 <div class="field col">
                   <label for="tel">Téléphone</label>
-                  <input type="tel" id="tel" pInputText name="tel" [(ngModel)]="site.tel" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['tel'].valid}" />
-                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['tel'].valid">Téléphone est obligatoire.</small>
+                  <input type="tel" id="tel" pInputText name="tel" [(ngModel)]="site.tel"/>
                 </div>
                 <div class="field col">
                     <label for="adresse_site">Adresse Site</label>
-                    <input pInputText type="text" id="adresse_site" name="adresse_site" [(ngModel)]="site.adresse_site" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !sitesForm.controls['adresse_site'].valid}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['adresse_site'].valid">Code postal est obligatoire.</small>
+                    <input pInputText type="text" id="adresse_site" name="adresse_site" [(ngModel)]="site.adresse_site"  />
                   </div>
               </div>
               <div class="formgrid grid">
                 <div class="field col">
                   <label for="numerofax">Numéro Fax</label>
-                  <input type="tel" id="numerofax" pInputText name="numerofax" [(ngModel)]="site.numerofax" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['numerofax'].valid}" />
-                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['numerofax'].valid">Numéro Fax est obligatoire.</small>
+                  <input type="tel" id="numerofax" pInputText name="numerofax" [(ngModel)]="site.numerofax"  />
                 </div>
               <div class="field col">
                 <label for="codepostal_site">Code Postal</label>
-                <input pInputText type="text" id="codepostal_site" name="codepostal_site" [(ngModel)]="site.codepostal_site" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !sitesForm.controls['codepostal_site'].valid}" />
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['codepostal_site'].valid">Code postal est obligatoire.</small>
+                <input pInputText type="text" id="codepostal_site" name="codepostal_site" [(ngModel)]="site.codepostal_site" />
               </div>
             </div>
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="manager_site">Manager Site</label>
-                    <input type="text" id="manager_site" pInputText name="manager_site" [(ngModel)]="site.manager_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['manager_site'].valid}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['manager_site'].valid">Manager Site est obligatoire.</small>
+                    <input type="text" id="manager_site" pInputText name="manager_site" [(ngModel)]="site.manager_site"  />
                 </div>
                 <div class="field col">
                     <label for="canalDistribSite">Canal Disribution</label>
-                    <input type="text" id="canalDistribSite" pInputText name="canalDistribSite" [(ngModel)]="site.canalDistribSite" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['canalDistribSite'].valid}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['canalDistribSite'].valid">Manager Site est obligatoire.</small>
+                    <input type="text" id="canalDistribSite" pInputText name="canalDistribSite" [(ngModel)]="site.canalDistribSite"  />
                 </div>
             </div>  
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="modepaimentSite">Mode Paiment</label>
-                    <input type="text" id="modepaimentSite" pInputText name="modepaimentSite" [(ngModel)]="site.modepaimentSite" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['modepaimentSite'].valid}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['modepaimentSite'].valid">Manager Site est obligatoire.</small>
+                    <input type="text" id="modepaimentSite" pInputText name="modepaimentSite" [(ngModel)]="site.modepaimentSite"  />
                 </div>
                 <div class="field col">
                     <label for="conditionPaimentSite">Condition Paiment Site</label>
-                    <input type="text" id="canalDistribSite" pInputText name="conditionPaimentSite" [(ngModel)]="site.conditionPaimentSite" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['conditionPaimentSite'].valid}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['conditionPaimentSite'].valid">Manager Site est obligatoire.</small>
+                    <input type="text" id="canalDistribSite" pInputText name="conditionPaimentSite" [(ngModel)]="site.conditionPaimentSite"  />
                 </div>
             </div>  
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="latitude_site">Latitude Site</label>
-                    <input type="text" id="latitude_site" pInputText name="latitude_site" [(ngModel)]="site.latitude_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['latitude_site'].valid}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['latitude_site'].valid">Manager Site est obligatoire.</small>
+                    <input type="text" id="latitude_site" pInputText name="latitude_site" [(ngModel)]="site.latitude_site"  />
                 </div>
                 <div class="field col">
                     <label for="longitude_site">Longitude Site</label>
-                    <input type="text" id="longitude_site" pInputText name="longitude_site" [(ngModel)]="site.longitude_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['longitude_site'].valid}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['longitude_site'].valid">Manager Site est obligatoire.</small>
+                    <input type="text" id="longitude_site" pInputText name="longitude_site" [(ngModel)]="site.longitude_site"  />
                 </div>
                 <div class="field col">
                     <label for="reference_erp_site">Reference ERP Site</label>
-                    <input type="text" id="reference_erp_site" pInputText name="reference_erp_site" [(ngModel)]="site.reference_erp_site" required [ngClass]="{'ng-invalid ng-dirty': submitted && !sitesForm.controls['reference_erp_site'].valid}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !sitesForm.controls['reference_erp_site'].valid">Manager Site est obligatoire.</small>
+                    <input type="text" id="reference_erp_site" pInputText name="reference_erp_site" [(ngModel)]="site.reference_erp_site"  />
                 </div>
             </div> 
           </form>
         </ng-template>
         <ng-template pTemplate="footer">
           <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-          <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveUser(sitesForm)" class="p-button-text"  > </button>
+          <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="save(sitesForm)" class="p-button-text"  > </button>
         </ng-template>
       </p-dialog>
         
@@ -343,7 +336,16 @@
                 </div>
               </div>
             </div> 
-        </div>
+          </div>
+			    <div class="field col">
+            <div class="form-group">
+              <label for="id_zone">Zone</label>
+              <p-dropdown   formControlName="id_zone" class="form-control" optionValue="value" [options]="zones"  appendTo="body"></p-dropdown>
+              <div *ngIf="submitted && f['id_zone'].errors" class="invalid-feedback">
+              </div>
+            </div>
+            </div>
+       
             </form>          
         </ng-template>
         <ng-template pTemplate="footer">

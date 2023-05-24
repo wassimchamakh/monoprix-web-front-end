@@ -63,14 +63,14 @@ export class roleupdate {
 
 export class zones{
   id!:number ; 
-  design_z!: string ; 
+  designZ!: string ; 
   id_user!:any ; 
 }
 
 
 export class zonesadd{
   id!:number ; 
-  design_z!: string ; 
+  designZ!: string ; 
   nomuser:string[]=[] ; 
 }
 export class enseigne {
@@ -103,7 +103,7 @@ export class sites{
       reference_erp_site!:string ;
       datecreation:any ; 
       enseigne:any ;  
-      id_zone:any ; 
+      id_zone:any[]=[]; ; 
       userupdate:any ; 
       usercreation:any ; 
 }

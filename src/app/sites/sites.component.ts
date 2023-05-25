@@ -108,16 +108,16 @@ export class SitesComponent implements OnInit {
           const deleteErrors: any[] = [];
   
           // Loop through selected products and send DELETE request for each one
-          this.selectedsites.forEach((sites) => {
+          this.selectedsites.forEach((site) => {
             
-            this.SiteService.deleteSiteById(this.idsites).subscribe(
+            this.SiteService.deleteSiteById(site.id).subscribe(
               () => {
-                deletedProductIds.push(this.sites.id);
+                deletedProductIds.push(site.id);
                 if (deletedProductIds.length === this.selectedsites.length) {
                   // All delete requests completed successfully
                   this.loadSites();
                   this.selectedsites = [];
-                  this.messageservice.add({severity: 'success',summary: 'Success',detail: 'Products deleted successfully'});
+                  this.messageservice.add({severity: 'success',summary: 'Success',detail: 'Site deleted successfully'});
                 }
               },
               (error) => {
@@ -126,7 +126,7 @@ export class SitesComponent implements OnInit {
                   // All delete requests completed (successfully or with errors)
                   this.loadSites();
                   this.selectedsites = [];
-                  const errorMessage = 'Error deleting some products: ' + deleteErrors.map((err) => err.message).join('; ');
+                  const errorMessage = 'Error deleting some site: ' + deleteErrors.map((err) => err.message).join('; ');
                   this.messageservice.add({ severity: 'warn', summary: 'Partial success', detail: errorMessage});
                 }
               }

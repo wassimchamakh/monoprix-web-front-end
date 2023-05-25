@@ -23,7 +23,7 @@
                       <input type="email" matInput name="email" [(ngModel)]="form.value.email" formControlName="email" 
                        placeholder="Ex. nom@monoprix.tn">
                        <mat-error *ngIf="!form.hasError('email')">
-                        S'il vous plaît, mettez une adresse email valide
+                        mettez une adresse email valide
                          </mat-error>
                 <mat-error *ngIf="!form.hasError('required')">
                     Email est <strong>obligatoire</strong> 
@@ -32,8 +32,10 @@
         
               <mat-form-field  appearance="outline" class="example-full-width">
                 <mat-label>Password</mat-label>
-                <input type="password" matInput  formControlName="password" 
-                       placeholder="Password">
+                <input [type]="showPassword ? 'password' : 'text'" matInput  formControlName="password"  placeholder="Password">
+                <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" >
+                  <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
                 <mat-error *ngIf="!form.hasError('required')">
                   Password est <strong>obligatoire</strong>
                 </mat-error>

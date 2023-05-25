@@ -14,20 +14,25 @@ export class SignUpComponent implements OnInit {
   user: User= new User ; 
   form!:FormGroup ;
   msgs:any[]= []
-
+  showPassword = true ; 
 
 constructor(
   private userserv:SignupuserService,  private fb:FormBuilder ,
   private router:Router ) {}
 
   ngOnInit() {
-   this.form= this.fb.group({
-    email:['',Validators.required],
-    password:['',Validators.required]
-   }) 
+    this.form = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required])
+    });
   }
+  
 
-
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+    console.log(this.showPassword);
+    
+  }
   submit() : void{
     if(this.form.valid){
       this.user=this.form.value ;

@@ -130,7 +130,8 @@ enseigneData: TreeNode<any>[] = [];
             const siteNode: TreeNode = {
               label: site.nomsite,
               data: site,
-              userData:''
+              userData:'',
+              selectable:false
             };
             
             enseigneNode.children?.push(siteNode);

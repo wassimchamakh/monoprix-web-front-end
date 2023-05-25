@@ -81,9 +81,9 @@ deleteselectedarticle() {
         // Loop through selected products and send DELETE request for each one
         this.selectedarticles.forEach((article) => {
           
-          this.articleservice.deletearticle(article.id_art).subscribe(
+          this.articleservice.deletearticle(article.id).subscribe(
             () => {
-              deletedProductIds.push(article.id_art);
+              deletedProductIds.push(article.id);
               if (deletedProductIds.length === this.selectedarticles.length) {
                 // All delete requests completed successfully
                 this.loadArticles();

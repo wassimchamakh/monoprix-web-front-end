@@ -169,7 +169,7 @@
 </mat-checkbox>
             <mat-form-field *ngIf="childvalue.selectable">
               <mat-label>Select User</mat-label>
-              <mat-select [(value)]="childvalue.userData">
+              <mat-select [(value)]="childvalue.key">
                 <mat-option *ngFor="let user of allusers" [value]="user">
                   {{user}}
                 </mat-option>

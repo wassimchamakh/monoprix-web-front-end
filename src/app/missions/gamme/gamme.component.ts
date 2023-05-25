@@ -11,7 +11,6 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent , MatChipGrid} from '@angular/material/chips';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import { SignupuserService } from 'src/app/service/signupuser.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -130,7 +129,7 @@ enseigneData: TreeNode<any>[] = [];
             const siteNode: TreeNode = {
               label: site.nomsite,
               data: site,
-              userData:'',
+              key:'',
               selectable:false
             };
             

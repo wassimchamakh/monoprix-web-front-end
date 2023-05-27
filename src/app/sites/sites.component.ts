@@ -81,6 +81,8 @@ export class SitesComponent implements OnInit {
 
     this.ZoneService.getAllZoneByDesignZ().subscribe(data => {
       this.zones=data.map((zone:any) => ({label:zone.designZ , value:zone }))
+      console.log(this.zones);
+      
     })
   }
   onGlobalFilter(table: Table, event: Event) {
@@ -212,8 +214,9 @@ export class SitesComponent implements OnInit {
         conditionPaimentSite: [this.siteget.conditionPaimentSite] ,
         reference_erp_site:[this.siteget.reference_erp_site],
         datecreation:[this.siteget.datecreation],
-        id_zone:[this.siteget.id_zone.designZ]
+        id_zone:[this.siteget.id_zone]
       })
+         console.log('editForm',this.editForm,'this.siteget',this.siteget);
          
     }
     ) 
@@ -230,7 +233,7 @@ export class SitesComponent implements OnInit {
     this.siteupd.enseigne=this.siteget.enseigne ; 
     this.siteupd.usercreation=this.siteget.usercreation ; 
     this.siteupd.userupdate=this.siteget.userUpdate ; 
-    this.siteupd.id_zone=this.siteget.id_zone ; 
+    
      this.SiteService.UpdateSite(this.siteupd).subscribe({next :(v) => { 
       console.log(this.siteupd) ;  
       this.loadSites() ;

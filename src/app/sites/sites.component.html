@@ -194,7 +194,7 @@
                     <input type="text" id="longitude_site" pInputText name="longitude_site" [(ngModel)]="site.longitude_site"  />
                 </div>
                 <div class="field col">
-                    <label for="reference_erp_site">Reference ERP Site</label>
+                    <label for="reference_erp_site">Reference ERP</label>
                     <input type="text" id="reference_erp_site" pInputText name="reference_erp_site" [(ngModel)]="site.reference_erp_site"  />
                 </div>
             </div> 
@@ -329,22 +329,24 @@
            
         <div class="field col">
               <div class="form-group">
-                <label for="reference_erp_site"> Reference ERP Site</label>
+                <label for="reference_erp_site"> Reference ERP</label>
                 <input type="text" pInputText formControlName="reference_erp_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reference_erp_site'].errors }" />
                 <div *ngIf="submitted && f['reference_erp_site'].errors" class="invalid-feedback">
                   <div *ngIf="f['reference_erp_site'].errors['required']">Reference ERP Site est obligatoire.</div>
                 </div>
               </div>
             </div> 
-          </div>
+        </div>
+        <div class="formgrid grid">
 			    <div class="field col">
             <div class="form-group">
-              <label for="id_zone">Zone</label>
-              <p-dropdown   formControlName="id_zone" class="form-control" optionValue="value" [options]="zones"  appendTo="body"></p-dropdown>
-              <div *ngIf="submitted && f['id_zone'].errors" class="invalid-feedback">
-              </div>
+              <label for="idzone">Zone</label>
+              <p-dropdown   formControlName="id_zone" class="form-control" optionValue="value" [options]="zones"  appendTo="body" ></p-dropdown>
+
             </div>
             </div>
+
+          </div>
        
             </form>          
         </ng-template>

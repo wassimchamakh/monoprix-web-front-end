@@ -105,14 +105,13 @@ export class AddComponent  {
     nomuser: [this.userget.nomuser, Validators.required],
     email: [this.userget.email, [Validators.required, Validators.email]],
     password: [this.userget.password, Validators.required],
-    id_role: [this.userget.id_role.design_r, Validators.required],
+    id_role: [this.userget.id_role, Validators.required],
     actif: [this.userget.actif, Validators.required],
     usercreation: [this.userget.usercreation] ,
     userupdate :[this.userget.userupdate ],
     datecreation: [this.userget.datecreation],
 
   });
-  this.editForm.controls['id_role'].setValue(this.roles[0].value);
 });
     }
     

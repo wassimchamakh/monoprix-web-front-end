@@ -9,6 +9,7 @@ import { zones, zonesadd } from '../user';
 export class ZonesService {
   private apiurl="http://localhost:8084/zones"
   private geturl="http://localhost:8084/zones/all" ;
+  private getall="http://localhost:8084/zones/allzone"
   private addurl="http://localhost:8084/zones/add" ; 
   private idurl="http://localhost:8084/zones/find/" ; 
   private deleteurl="http://localhost:8084/zones/delete" ; 
@@ -17,7 +18,7 @@ export class ZonesService {
 
   constructor(private http:HttpClient) { }
   getAllZoneByDesignZ() :Observable<any> {
-    return this.http.get(this.geturl+'zone')
+    return this.http.get(this.getall)
   }
   getAllZones() : Observable<any> {
      return this.http.get(this.geturl) ; 

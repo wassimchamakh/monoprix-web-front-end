@@ -68,7 +68,6 @@ this.loadzones() ;
   loadzones() {
     this.zoneservice.getAllZones().subscribe(data => {
       this.zones=data ; 
-      
      });
   }
  

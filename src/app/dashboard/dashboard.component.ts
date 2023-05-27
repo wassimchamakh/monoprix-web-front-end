@@ -62,7 +62,6 @@ categories: Category[] = [
     subcategories: [
       { name: 'Relevé sur prix' },
       { name: 'Relevé sur gamme' },
-      { name: "Relevé par liste d'articles" }
     ],
     expanded: false
   },

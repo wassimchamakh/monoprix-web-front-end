@@ -43,11 +43,9 @@ import { EnseigneComponent } from './enseigne/enseigne.component';
 import { SitesComponent } from './sites/sites.component';
 import { ArticleExistComponent } from './article-exist/article-exist.component';
 import { ArticleNonrecconusComponent } from './article-nonrecconus/article-nonrecconus.component';
-import { PrixComponent } from './missions/prix/prix.component';
 import { GammeComponent } from './missions/gamme/gamme.component';
 import { ListearticleComponent } from './missions/listearticle/listearticle.component';
 import { StatComponent } from './compte/stat/stat.component';
-import { ConsulterarticleComponent } from './missions/consulterarticle/consulterarticle.component';
 import { AjoutComponent } from './missions/ajout/ajout.component';
 import { ModifierComponent } from './missions/modifier/modifier.component';
 import { CalendarModule } from 'primeng/calendar';
@@ -111,11 +109,9 @@ import { TreeTableModule } from 'primeng/treetable';
     SitesComponent,
     ArticleExistComponent,
     ArticleNonrecconusComponent,
-    PrixComponent,
     GammeComponent,
     ListearticleComponent,
     StatComponent,
-    ConsulterarticleComponent,
     AjoutComponent,
     ModifierComponent,
     ParametreComponent,

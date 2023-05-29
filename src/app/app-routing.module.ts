@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {CompteComponent} from './compte/compte.component' ; 
+import {CompteComponent} from './compte/compte.component' ;
+import {FileUploadComponent } from './file-upload/file-upload.component';
 import{AddComponent } from './compte/add/add.component'
 import { RoleComponent } from './role/role.component';
 import { SitesComponent } from './sites/sites.component';

@@ -83,6 +83,7 @@ export class SitesComponent implements OnInit {
       this.zones=data.map((zone:any) => ({label:zone.designZ , value:zone }))
     })
   }
+  
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
@@ -167,25 +168,25 @@ export class SitesComponent implements OnInit {
   opennew() {
     this.siteaddDialog=true ; 
   }
-  save(user:any) :void {
+
+  save(siteForm:any) :void {
     this.submitted=true ; 
     this.site.enseigne=this.ens ; 
     console.log(this.site) ; 
-    if (!this.site.nomsite || !this.site.adresse_site || !this.site.email_site || !this.site.codepostal_site || !this.site.tel) 
-    { return ; }
+    // if (!this.site.nomsite || !this.site.adresse_site || !this.site.email_site || !this.site.codepostal_site || !this.site.tel) 
+    // { return ; }
     console.log(this.site.id_zone);
-    
     console.log(this.site) ; 
     this.SiteService.addSite(this.site).subscribe({
        next :(v) => { 
-        this.messageservice.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
+        this.messageservice.add({severity: 'success',summary: 'Success',detail: 'Site ajouté',life: 3000 });
         this.hideDialog()  ;
         this.loadSites() ;
         this.site = new sites ;  
        },error :(e) => {
         console.log(e) ; 
         this.submitted = false;
-        this.messageservice.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'site',    life: 3000 }) ; 
+        this.messageservice.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout du site',    life: 3000 }) ; 
       }
 
       }) ;
@@ -212,7 +213,7 @@ export class SitesComponent implements OnInit {
         conditionPaimentSite: [this.siteget.conditionPaimentSite] ,
         reference_erp_site:[this.siteget.reference_erp_site],
         datecreation:[this.siteget.datecreation],
-        id_zone:[this.siteget.id_zone.designZ]
+        id_zone:[this.siteget.id_zone]
       })
          
     }

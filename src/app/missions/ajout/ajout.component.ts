@@ -1,7 +1,7 @@
 import { Component , OnInit , ViewChild , ElementRef } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms' ; 
 import { ConfirmationService, MessageService, ConfirmEventType , TreeNode } from 'primeng/api';
-import { article, mission } from 'src/app/user';
+import { article, Mission } from 'src/app/user';
 import {MissionService} from 'src/app/service/mission.service'
 import { Tree } from 'primeng/tree';
 import { SitesService } from 'src/app/service/sites.service';
@@ -32,7 +32,7 @@ export class AjoutComponent implements OnInit {
  getuser:any ; 
   date!: Date[] ; 
   addform!:FormGroup ;
-  miss: mission= new mission ;
+  miss: Mission= new Mission ;
   visible:boolean = false ;   
   site:any[]=[] ; 
   enseignesSites:TreeNode[] = [] ;

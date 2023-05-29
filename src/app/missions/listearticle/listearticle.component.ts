@@ -1,4 +1,4 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component ,OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { Table } from 'primeng/table';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import {ArticleNonreconnusService} from 'src/app/service/article-nonreconnus.service'
@@ -10,10 +10,12 @@ import {ArticleNonreconnusService} from 'src/app/service/article-nonreconnus.ser
   providers: [ConfirmationService,MessageService]
 })
 export class ListearticleComponent implements OnInit {
+  @Input() id_miss!: any;
+  @Output() public closeEvent = new EventEmitter
 cols:any ; 
 listarticle:any ; 
 selectedliste:any ; 
-  constructor(private listarticlemiss:ArticleNonreconnusService) {}
+  constructor(private articleNonReconService:ArticleNonreconnusService) {}
 
   ngOnInit(): void {
     this.cols=[
@@ -41,7 +43,7 @@ selectedliste:any ;
       { field:'data_releve',      header:'date_releve'} ,
       { field:'img_artM',         header:'img_artM'}
     ]
-    this.listarticlemiss.getallarticle().subscribe(data => {
+    this.articleNonReconService.getallarticleByIdmiss(this.id_miss).subscribe(data => {
       this.listarticle=data ; 
       console.log(this.listarticle) ; 
     })
@@ -51,6 +53,13 @@ selectedliste:any ;
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
+
+
+close(){
+  this.closeEvent.emit("close component")
+}
+
+
 deleteselectedliste1() {}
 
 

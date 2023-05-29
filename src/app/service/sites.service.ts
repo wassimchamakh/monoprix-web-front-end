@@ -20,6 +20,10 @@ export class SitesService {
     return this.http.get(this.geturl+"/"+id) ; 
   }
 
+  getAllSiteByNomsite(nomsite:String) : Observable<any> {
+    return this.http.get(this.geturl+"bynomsite/"+nomsite) ; 
+  }
+
   deleteSiteById(id:number) : Observable<any> {
   return this.http.delete(this.deleteurl+"/"+id) ; 
   }

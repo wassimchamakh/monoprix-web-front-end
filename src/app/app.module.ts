@@ -66,6 +66,7 @@ import { ParametreComponent } from './parametre/parametre.component';
 import { MatTableModule } from '@angular/material/table';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import { TreeTableModule } from 'primeng/treetable';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 
@@ -119,6 +120,7 @@ import { TreeTableModule } from 'primeng/treetable';
     AjoutComponent,
     ModifierComponent,
     ParametreComponent,
+    FileUploadComponent,
 
   ],
   imports: [
@@ -128,6 +130,7 @@ import { TreeTableModule } from 'primeng/treetable';
     ButtonModule,
     InputTextModule,
     PasswordModule,
+    FileUploadModule,
     DividerModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
@@ -149,7 +152,6 @@ import { TreeTableModule } from 'primeng/treetable';
     ConfirmDialogModule,
     ToastModule,
     DialogModule,
-    FileUploadModule,
     ToolbarModule,
     DropdownModule,
     RatingModule,

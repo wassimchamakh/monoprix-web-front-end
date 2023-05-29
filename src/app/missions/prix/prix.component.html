@@ -1,1 +1,353 @@
-<p>prix works!</p>
+<app-listearticle *ngIf="missID>0" (closeEvent)="missID = -1" [id_miss]="missID"></app-listearticle>
+<div *ngIf="missID<0">
+  <div class="grid">
+    <div class="col-12">
+      <div class="card px-6 py-6">
+        <p-toast></p-toast>
+        <p-toolbar styleClass="mb-4">
+          <ng-template pTemplate="right">
+            <div class="my-2">
+              <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="openNewMission()"></button>
+              <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger"
+                (click)="deleteSelectedMiss()" [disabled]="!selectedmission || !selectedmission.length"></button>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+              (click)="dt.exportCSV()"></button>
+          </ng-template>
+        </p-toolbar>
+
+        <p-table #dt [value]="gamme" [columns]="cols" responsiveLayout="scroll" [rows]="7"
+          [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true"
+          [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [(selection)]="selectedmission" selectionMode="multiple" [rowHover]="true" dataKey="id">
+          <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+              <h5 class="m-0">Liste des Relevé sur gamme </h5>
+              <span class="block mt-2 md:mt-0 p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                  class="w-full sm:w-auto" />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th style="width: 17rem" pSortableColumn="Mission_id">Id Mission<p-sortIcon
+                  field="Mission_id"></p-sortIcon></th>
+              <th style="width: 17rem" pSortableColumn="nom_miss">Nom <p-sortIcon field="nom_miss"></p-sortIcon></th>
+              <th style="width: 17rem" pSortableColumn="descrip_miss">Description <p-sortIcon
+                  field="descrip_miss"></p-sortIcon></th>
+              <th style="width: 17rem" pSortableColumn="etat">Etat <p-sortIcon field="etat"></p-sortIcon></th>
+              <th style="width: 17rem" pSortableColumn="maxdiff">Max Diff<p-sortIcon field="maxdiff"></p-sortIcon></th>
+              <th style="width: 17rem" pSortableColumn="tags">Tags <p-sortIcon field="tags"></p-sortIcon></th>
+              <th style="width: 17rem" pSortableColumn="nonreconnue">Non Reconnus<p-sortIcon
+                  field="nonreconnue"></p-sortIcon></th>
+              <th style="width: 17rem" pSortableColumn="rupture">Rupture de stock<p-sortIcon
+                  field="rupture"></p-sortIcon></th>
+              <th style="width: 17rem" pSortableColumn="date_miss  | date: 'mediumDate'" dateFormat="dd/mm/yy">Date
+                d'exécution<p-sortIcon field="date_miss"></p-sortIcon></th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-gamme>
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="gamme"></p-tableCheckbox>
+              </td>
+              <td style="width:14%; min-width:10rem;"><span class="p-column-title">Id Mission</span>
+                {{gamme.id}}
+              </td>
+              <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">Nom Mission</span>
+                {{gamme.nom_miss}}
+              </td>
+              <td style="width:14%; min-width:8rem;">
+                <span class="p-column-title">Description</span>
+                {{gamme.descrip_miss}}
+              </td>
+              <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Etat </span>
+                {{gamme.etat}}
+              </td>
+              <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Max Diff % </span>
+                {{gamme.maxdiff}}
+              </td>
+              <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">Tags</span>
+                {{ gamme.tags}}
+              </td>
+              <td style="width:14%; min-width:10rem;">
+                <span class="p-column-title">Non reconnus</span>
+                {{ gamme.nonreconnue}}
+              </td>
+              <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Rupture de stock</span>
+                {{gamme.rupture}}
+              </td>
+              <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Date</span>
+                {{gamme.date_miss}}
+              </td>
+              <td>
+                <div class="flex">
+                  <button pButton pRipple icon="bx bx-barcode-reader" (click)=" showcomponent(gamme.id,gamme)"
+                    class="p-button-rounded p-button-success mr-2"></button>
+                  <button pButton pRipple icon="pi pi-pencil" (click)="openedit()"
+                    class="p-button-rounded p-button-success mr-2"></button>
+                  <button pButton pRipple icon="pi pi-trash" (click)="deletegamme(gamme.id)"
+                    class="p-button-rounded p-button-warning"></button>
+                  <!-- <p-button (click)="toggle()" label="..."></p-button>
+                                <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-4 surface-overlay shadow-2 border-round">
+                                    Content
+                                </p-overlay>-->
+                </div>
+              </td>
+            </tr>
+
+          </ng-template>
+
+        </p-table>
+      </div>
+    </div>
+
+    <p-dialog [(visible)]="addMissDialog" [style]="{width: '700px'}" header="Nouvelle mission" [draggable]="false"
+      [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form [formGroup]="addform" class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Type de mission</mat-label>
+            <input matInput disabled value="Relevé par gamme">
+          </mat-form-field>
+
+          <table class="example-full-width" [cellSpacing]="10">
+            <tr>
+              <td><mat-form-field class="example-full-width" style="width: 250px;">
+                  <mat-label>Nom de mission</mat-label>
+                  <input matInput formControlName="nom_miss">
+                </mat-form-field></td>
+              <td><mat-form-field class="example-full-width">
+                  <mat-label>Tag de mission</mat-label>
+                  <input formControlName="tags" matInput placeholder="">
+                </mat-form-field></td>
+            </tr>
+          </table>
+          <table class="example-full-width" [cellSpacing]="10">
+            <tr>
+              <p>
+                <mat-form-field class="example-full-width" style="width: 500px;">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput formControlName="descrip_miss" placeholder="Ex. mission geant"></textarea>
+                </mat-form-field>
+              </p>
+            </tr>
+          </table>
+
+          <div class="grid">
+            <table class="example-full-width" [cellSpacing]="10">
+              <tr>
+                <td style="padding-left: 10px;"> <p-button (click)="showDialogSiteCommercial()" icon="pi pi-external-link"
+                    color="" label="Enseigne et Commercial"></p-button></td>
+                <td>
+                  <div class="card flex justify-content-center">
+                    <p-calendar formControlName="date_miss" [showIcon]="true" dateFormat="dd/mm/yy" [(ngModel)]="date"
+                      [showTime]="false" [showSeconds]="false"> </p-calendar>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- <div *ngIf="data=='Relevé par liste'">
+              <p-button (click)="showArticleDialog()" icon="pi pi-external-link" label="Add Articles"></p-button>
+            </div> -->
+            <!-- <div *ngIf="data=='Relevé par gamme'"> -->
+
+            <!-- </div> -->
+          </div>
+
+          <table class="example-full-width" [cellSpacing]="10">
+            <tr>
+              <td>
+                <app-file-upload (sender)="receiver($event)"></app-file-upload>
+                <!-- <p-fileUpload name="myfile"></p-fileUpload> -->
+                <!-- <p-button (click)="rayonDialogVisible=!rayonDialogVisible" icon="pi pi-external-link"
+                  label="Importer articles"></p-button> -->
+              </td>
+              <td><mat-form-field class="example-full-width">
+                  <mat-label>Max diff %</mat-label>
+                  <input matInput formControlName="maxdiff" placeholder="10%">
+                </mat-form-field>
+              </td>
+
+            </tr>
+          </table>
+          <p><mat-checkbox formControlName="nonreconnus">Prendre en compte les articles non reconnus</mat-checkbox></p>
+          <p><mat-checkbox formControlName="rupture">Rupture de stock</mat-checkbox></p>
+        </form>
+
+
+        <p-dialog header="Header" [(visible)]="addSiteCommercialVisible" [modal]="true" [style]="{ width: '60vw' }"
+          [draggable]="false" [resizable]="false">
+
+          <div *ngFor="let ens of enseignesSites">
+            <div>
+              <i class="pi pi-plus" (click)="changeExpandValue(ens.label)">{{ens.label}}</i>
+              <label for=""> </label>
+              <div *ngIf="ens.children!= [] && ens.expanded==true "
+                style="margin-left: 20px;display: flex; flex-direction: column;">
+                <div *ngFor="let childvalue of ens.children; let i = index">
+                  <mat-checkbox class="example-margin" color="primary" [(ngModel)]="childvalue.selectable "
+                    [checked]="selectedEnseigne === i" (change)="toggleEnseigne(ens, i)">
+                    {{childvalue.label}}
+                  </mat-checkbox>
+                  <mat-form-field *ngIf="childvalue.selectable">
+                    <mat-label>Select User</mat-label>
+                    <mat-select [(value)]="childvalue.key">
+                      <mat-option *ngFor="let user of allCommercials" [value]="user">
+                        {{user}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!--<div class="grid">
+    <p-tree [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles">
+      <ng-template let-node pTemplate="default">
+        <div class="grid">
+          <div class="node-content">
+            <span>{{node.label}}</span>
+          </div>
+          <div *ngIf="!node.children">
+            <mat-form-field>
+              <mat-label>Select User</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let user of allusers" [value]="user">
+                  {{user}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </ng-template>
+    </p-tree>-->
+
+          <!-- <p-treeTable [value]="enseignesSites">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Location</th>
+            </tr>
+          </ng-template>
+        
+          <ng-template pTemplate="body" let-node let-columns="columns">
+            <tr>
+              <td>{{node.label}}</td>
+              <td>{{node.label}}</td>
+              <td>{{node.label}}</td>
+              
+            </tr>
+          </ng-template>
+          <button *ngIf="enseignesSites" pButton type="button" icon="pi pi-user-plus" >
+            Add User
+          </button>
+        </p-treeTable>-->
+
+          <div class="card">
+            <!-- <p-treeTable [value]="enseigneData" [columns]="colns" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+                <span class="ml-2">Toggle All</span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns">
+                  {{ col.header }}
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-enseigneData >
+              <tr>
+                <td >
+                  <p-treeTableToggler [rowNode]="enseigneData" ></p-treeTableToggler>
+                  <p-treeTableCheckbox [value]="enseigneData" ></p-treeTableCheckbox>
+                  <ng-container >
+                    <span>{{ enseigneData.label }}</span>
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-template>
+          </p-treeTable> -->
+          </div>
+          <ng-template pTemplate="footer">
+            <button pButton pRipple label="Annuler Site" icon="pi pi-times" class="p-button-text"
+              (click)="hideDialogSiteCommercial()"></button>
+            <button type="submit" pButton pRipple label="Enregistrer Site and Commercial" icon="pi pi-check"
+              (click)="saveSiteAndCommercial()" class="p-button-text"> </button>
+          </ng-template>
+        </p-dialog>
+
+
+        <p-dialog header="Add Articles" [(visible)]="articleDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
+          [draggable]="false" [resizable]="false">
+          <div class="card flex flex-column align-items-center justify-content-center">
+            <p-tree #treee [value]="gammeArticle" selectionMode="checkbox" class="w-full md:w-30rem"
+              [(selection)]="selectedFiles"></p-tree>
+          </div>
+          <!--<div class="card flex flex-column align-items-center justify-content-center">
+         List of Articles by Gamme 
+        <div *ngFor="let gamme of gammes">
+          <h6>{{ gamme }}</h6>
+          
+          <mat-list>
+            <mat-list-item *ngFor="let article of articles">
+              <div *ngIf="gamme==article.gamme_art" >
+              <mat-checkbox [(ngModel)]="article.selected" (change)="selectArticle(article)">{{ article.design_art }}</mat-checkbox>
+            </div>
+            </mat-list-item>
+          </mat-list>
+        
+        </div>
+      </div> -->
+          <p-button (click)="Okbutton()" icon="pi pi-external-link" label="OK"></p-button>
+        </p-dialog>
+
+
+        <p-dialog header="Ajouter rayon" [(visible)]="rayonDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
+          [draggable]="false" [resizable]="false">
+          <div>
+            <div class="form-group">
+              <div class="field col">
+                <label for="gammeArt">Role</label>
+                <p-dropdown [(ngModel)]="gammeArt" [options]="gammeadd"></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <p-button (click)="addarticle()" icon="pi pi-external-link" label="Ajouter rayon"></p-button>
+        </p-dialog>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+          (click)="hideDialogAddMission()"></button>
+        <button type="submit" pButton pRipple label="Save Mission" icon="pi pi-check" (click)="saveMission()"
+          class="p-button-text"> </button>
+      </ng-template>
+
+    </p-dialog>
+
+
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>

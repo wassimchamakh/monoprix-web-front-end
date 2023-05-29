@@ -130,10 +130,10 @@
     <div *ngIf="current_component=='Non Reconnus'">
     <app-article-nonrecconus></app-article-nonrecconus>
     </div>
-    <div *ngIf="current_component=='Relevé sur prix'">
-      <app-gamme [data]="current_component"></app-gamme>
+    <div *ngIf="current_component=='Relevé par liste'">
+      <app-prix [data]="current_component"></app-prix>
     </div>
-    <div *ngIf="current_component=='Relevé sur gamme'">
+    <div *ngIf="current_component=='Relevé par gamme'">
       <app-gamme [data]="current_component"></app-gamme>
     </div>
     <div *ngIf="current_component=='Paramètres'">

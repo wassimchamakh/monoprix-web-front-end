@@ -138,6 +138,7 @@
                 <div class="field col">
                   <label for="nomsite">Nom Site</label>
                   <input type="text" pInputText id="nomsite" name="nomsite" [(ngModel)]="site.nomsite" required autofocus />
+                  <small class="ng-dirty ng-invalid" >Nom Site est obligatoire.</small>
                 </div>
                 <div class="field col">
                   <label for="email_site">Email Site</label>
@@ -219,10 +220,10 @@
                 <div class="formgrid grid">
                     <div class="field col">
               <div class="form-group">
-                <label for="nomsite">Nom User</label>
+                <label for="nomsite">Nom du site</label>
                 <input type="text" pInputText formControlName="nomsite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nomsite'].errors }" />
                 <div *ngIf="submitted && f['nomsite'].errors" class="invalid-feedback">
-                  <div *ngIf="f['nomsite'].errors['required']">Nom User est obligatoire.</div>
+                  <div *ngIf="f['nomsite'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
@@ -231,7 +232,7 @@
                 <label for="email_site">Email Site</label>
                 <input type="email" pInputText formControlName="email_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email_site'].errors }" />
                 <div *ngIf="submitted && f['email_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['email_site'].errors['required']">Email est obligatoire.</div>
+                  <div *ngIf="f['email_site'].errors['required']"> Ce champ est obligatoire.</div>
                   <div *ngIf="f['email_site'].errors">Email must be a valid email address.</div>
                 </div>
               </div>
@@ -243,7 +244,7 @@
                 <label for="tel">Telephone</label>
                 <input type="text" pInputText formControlName="tel" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['tel'].errors }" />
                 <div *ngIf="submitted && f['tel'].errors" class="invalid-feedback">
-                  <div *ngIf="f['tel'].errors['required']">Telephone est obligatoire.</div>
+                  <div *ngIf="f['tel'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
@@ -260,7 +261,7 @@
                 <label for="numerofax">Numéro Fax</label>
                 <input type="text" pInputText formControlName="numerofax" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['numerofax'].errors }" />
                 <div *ngIf="submitted && f['numerofax'].errors" class="invalid-feedback">
-                  <div *ngIf="f['numerofax'].errors['required']">Numero Fax est obligatoire.</div>
+                  <div *ngIf="f['numerofax'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
@@ -269,7 +270,7 @@
                 <label for="codepostal_site"> Code Postal</label>
                 <input type="text" pInputText formControlName="codepostal_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['codepostal_site'].errors }" />
                 <div *ngIf="submitted && f['codepostal_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['codepostal_site'].errors['required']">Code Postal est obligatoire.</div>
+                  <div *ngIf="f['codepostal_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
@@ -280,7 +281,7 @@
                 <label for="manager_site"> Manager Site</label>
                 <input type="text" pInputText formControlName="manager_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['manager_site'].errors }" />
                 <div *ngIf="submitted && f['manager_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['manager_site'].errors['required']">Manager Site est obligatoire.</div>
+                  <div *ngIf="f['manager_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
@@ -289,7 +290,7 @@
                 <label for="canalDistribSite"> Canal Distribution</label>
                 <input type="text" pInputText formControlName="canalDistribSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['canalDistribSite'].errors }" />
                 <div *ngIf="submitted && f['canalDistribSite'].errors" class="invalid-feedback">
-                  <div *ngIf="f['canalDistribSite'].errors['required']">Canal Distribution est obligatoire.</div>
+                  <div *ngIf="f['canalDistribSite'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
@@ -300,7 +301,7 @@
                 <label for="modepaimentSite"> Mode Paiment Site</label>
                 <input type="text" pInputText formControlName="modepaimentSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['modepaimentSite'].errors }" />
                 <div *ngIf="submitted && f['modepaimentSite'].errors" class="invalid-feedback">
-                  <div *ngIf="f['modepaimentSite'].errors['required']">Mode Paiment est obligatoire.</div>
+                  <div *ngIf="f['modepaimentSite'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div> 
@@ -309,7 +310,7 @@
                 <label for="conditionPaimentSite"> Condition Paiment Site</label>
                 <input type="text" pInputText formControlName="conditionPaimentSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['conditionPaimentSite'].errors }" />
                 <div *ngIf="submitted && f['conditionPaimentSite'].errors" class="invalid-feedback">
-                  <div *ngIf="f['conditionPaimentSite'].errors['required']">Condition Paiment est obligatoire.</div>
+                  <div *ngIf="f['conditionPaimentSite'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
@@ -320,7 +321,7 @@
                 <label for="latitude_site"> Latitude Site</label>
                 <input type="text" pInputText formControlName="latitude_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['latitude_site'].errors }" />
                 <div *ngIf="submitted && f['latitude_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['latitude_site'].errors['required']">Latitude Site est obligatoire.</div>
+                  <div *ngIf="f['latitude_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div> 
@@ -329,17 +330,17 @@
                 <label for="longitude_site"> Longitude Site</label>
                 <input type="text" pInputText formControlName="longitude_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['longitude_site'].errors }" />
                 <div *ngIf="submitted && f['longitude_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['longitude_site'].errors['required']">Longitude Site est obligatoire.</div>
+                  <div *ngIf="f['longitude_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>  
            
-        <div class="field col">
+            <div class="field col">
               <div class="form-group">
                 <label for="reference_erp_site"> Reference ERP</label>
                 <input type="text" pInputText formControlName="reference_erp_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reference_erp_site'].errors }" />
                 <div *ngIf="submitted && f['reference_erp_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['reference_erp_site'].errors['required']">Reference ERP Site est obligatoire.</div>
+                  <div *ngIf="f['reference_erp_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div> 
@@ -355,7 +356,7 @@
 
           </div>
        
-            </form>          
+          </form>          
         </ng-template>
         <ng-template pTemplate="footer">
           <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>

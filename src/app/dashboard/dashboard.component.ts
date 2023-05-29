@@ -60,8 +60,8 @@ categories: Category[] = [
     class: 'bx bx-barcode-reader',
     style: 'margin-left: 25% ;' ,
     subcategories: [
-      { name: 'Relevé sur prix' },
-      { name: 'Relevé sur gamme' },
+      { name: 'Relevé par liste' },
+      { name: 'Relevé par gamme' }
     ],
     expanded: false
   },

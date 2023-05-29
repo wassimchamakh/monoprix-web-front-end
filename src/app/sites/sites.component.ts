@@ -84,6 +84,7 @@ export class SitesComponent implements OnInit {
       console.log(this.zones);
     })
   }
+  
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
 }
@@ -168,7 +169,8 @@ export class SitesComponent implements OnInit {
   opennew() {
     this.siteaddDialog=true ; 
   }
-  save(user:any) :void {
+
+  save(siteForm:any) :void {
     this.submitted=true ; 
     this.site.enseigne=this.ens ; 
     console.log(this.site) ; 
@@ -177,14 +179,14 @@ export class SitesComponent implements OnInit {
     console.log(this.site) ; 
     this.SiteService.addSite(this.site).subscribe({
        next :(v) => { 
-        this.messageservice.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
+        this.messageservice.add({severity: 'success',summary: 'Success',detail: 'Site ajouté',life: 3000 });
         this.hideDialog()  ;
         this.loadSites() ;
         this.site = new sites ;  
        },error :(e) => {
         console.log(e) ; 
         this.submitted = false;
-        this.messageservice.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout de l\'site',    life: 3000 }) ; 
+        this.messageservice.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de l\'ajout du site',    life: 3000 }) ; 
       }
 
       }) ;

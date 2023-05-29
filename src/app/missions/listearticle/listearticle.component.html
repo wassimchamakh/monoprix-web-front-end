@@ -1,4 +1,9 @@
-
+<div class="example-button-row">
+    <button mat-fab matTooltip="Primary" style="margin-top: 10px; size: 10;" (click)="close()" color="primary"
+        aria-label="Example fab with a heart icon">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</div>
 <div class="grid">
     <div class="col-12">
         <div class="card px-6 py-6">
@@ -6,22 +11,30 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
                     <div class="my-2">
-                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedliste1()" [disabled]="!selectedliste || !selectedliste.length"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                            (click)="deleteselectedliste1()"
+                            [disabled]="!selectedliste || !selectedliste.length"></button>
                     </div>
                 </ng-template>
 
                 <ng-template pTemplate="left">
-                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+                        (click)="dt.exportCSV()"></button>
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="listarticle" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedliste" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="listarticle" [columns]="cols" responsiveLayout="scroll" [rows]="7"
+                [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7"
+                [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [(selection)]="selectedliste" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Liste des Comptes</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                                class="w-full sm:w-auto" />
                         </span>
                     </div>
                 </ng-template>
@@ -34,9 +47,12 @@
                         <th pSortableColumn="design_artM">Designation <p-sortIcon field="design_artM"></p-sortIcon></th>
                         <th pSortableColumn="date_releve">Date Relevé <p-sortIcon field="date_releve"></p-sortIcon></th>
                         <th pSortableColumn="prixActuel">Prix Actuel<p-sortIcon field="prixActuel"></p-sortIcon></th>
-                        <th pSortableColumn="dernierprix">Dernier Prix <p-sortIcon field="dernierprix"></p-sortIcon></th>
-                        <th pSortableColumn="prixpromoActuel">Prix Promo Actuel <p-sortIcon field="prixpromoActuel"></p-sortIcon></th>
-                        <th pSortableColumn="dernier_prixpromo">Dernier Prix Promo <p-sortIcon field="dernier_prixpromo"></p-sortIcon></th>
+                        <th pSortableColumn="dernierprix">Dernier Prix <p-sortIcon field="dernierprix"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="prixpromoActuel">Prix Promo Actuel <p-sortIcon
+                                field="prixpromoActuel"></p-sortIcon></th>
+                        <th pSortableColumn="dernier_prixpromo">Dernier Prix Promo <p-sortIcon
+                                field="dernier_prixpromo"></p-sortIcon></th>
                         <th pSortableColumn="TypeScan">Type Scan <p-sortIcon field="TypeScan"></p-sortIcon></th>
                         <th pSortableColumn="traite">traite <p-sortIcon field="traitre"></p-sortIcon></th>
                         <th pSortableColumn="planifie">Planifie <p-sortIcon field="planifie"></p-sortIcon></th>
@@ -47,7 +63,8 @@
                         <th pSortableColumn="poids">Poids <p-sortIcon field="poids"></p-sortIcon></th>
                         <th pSortableColumn="volume">Volume <p-sortIcon field="volume"></p-sortIcon></th>
                         <th pSortableColumn="fournisseur">Fournisseur <p-sortIcon field="fournisseur"></p-sortIcon></th>
-                        <th pSortableColumn="enstock_artM">En Stock ? <p-sortIcon field="enstock_artM"></p-sortIcon></th>
+                        <th pSortableColumn="enstock_artM">En Stock ? <p-sortIcon field="enstock_artM"></p-sortIcon>
+                        </th>
 
                         <th></th>
                     </tr>
@@ -66,64 +83,65 @@
                             {{listarticle.design_artM}}
                         </td>
                         <td style="width:14%; min-width:10rem;"><span class="p-column-title">date releve</span>
-                              {{ listarticle.date_releve}}
+                            {{ listarticle.date_releve}}
                         </td>
                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Prix Actuel </span>
-                           {{listarticle.prixActuel}}
+                            {{listarticle.prixActuel}}
                         </td>
                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Dernier Prix </span>
                             {{listarticle.dernier_prix}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Prix Promo Actuel </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Prix Promo Actuel </span>
                             {{listarticle.prixpromoActuel}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Dernier Prix Promo </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Dernier Prix Promo </span>
                             {{listarticle.dernier_prixpromo}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Type Scan </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Type Scan </span>
                             {{listarticle.typeScan}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">traite </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">traite </span>
                             {{listarticle.traite}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">planifie </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">planifie </span>
                             {{listarticle.planifie}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">reconnue </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">reconnue </span>
                             {{listarticle.reconnue}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Gamme </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Gamme </span>
                             {{listarticle.gamme_artM}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Marque </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Marque </span>
                             {{listarticle.marque_artM}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Famille </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Famille </span>
                             {{listarticle.famille_artM}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Poids </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Poids </span>
                             {{listarticle.poids}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Volume </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Volume </span>
                             {{listarticle.volume}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Fournisseur </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Fournisseur </span>
                             {{listarticle.fournisseur}}
-                         </td>
-                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">En Stock ? </span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">En Stock ? </span>
                             {{listarticle.enstock_artM}}
-                         </td>
+                        </td>
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
-                                    <button pButton pRipple icon="pi pi-trash"  class="p-button-rounded p-button-warning"  ></button>
-                                
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"></button>
+                                <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-warning"></button>
+
                             </div>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
+    </div>
 </div>
-</div>
-

@@ -7,32 +7,30 @@ import { article, Mission, TypeMission } from 'src/app/user';
 import { Tree } from 'primeng/tree';
 import { SitesService } from 'src/app/service/sites.service';
 import { EnseigneService } from 'src/app/service/enseigne.service';
+import { FileUploadService } from 'src/app/service/file-upload.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChipGrid } from '@angular/material/chips';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, Subject, firstValueFrom } from 'rxjs';
 import { SignupuserService } from 'src/app/service/signupuser.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { forkJoin } from 'rxjs';
 import { formatDate } from '@angular/common';
-import { ArticleNonreconnusService } from 'src/app/service/article-nonreconnus.service';
-
-
-
 
 
 @Component({
-  selector: 'app-gamme',
-  templateUrl: './gamme.component.html',
-  styleUrls: ['./gamme.component.css'],
+  selector: 'app-prix',
+  templateUrl: './prix.component.html',
+  styleUrls: ['./prix.component.css'],
   providers: [ConfirmationService, MessageService]
 })
-export class GammeComponent implements OnInit {
+export class PrixComponent implements OnInit {
   missID: number = -1;
   missIdNewJustWritten!: number;
   newMissJustWritten: any;
-  closed: string = 'close component'; 
+  closed: string = 'close component';
+  fileNameReciedved!: any;
   gamme: any;
   cols: any[] = [];
   selectedmission: any[] = [];
@@ -92,7 +90,7 @@ export class GammeComponent implements OnInit {
     private missService: MissionService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private articleMissionService: ArticleNonreconnusService) { }
+    private fileUploadService: FileUploadService) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -328,7 +326,7 @@ export class GammeComponent implements OnInit {
   }
 
   loadmission() {
-    this.missService.getAllMissionGamme().subscribe(data => {
+    this.missService.getAllMissionPrix().subscribe(data => {
       this.gamme = data
     })
   }
@@ -441,35 +439,6 @@ export class GammeComponent implements OnInit {
     this.hideDialogSiteCommercial();
   }
 
-  /* saveMission() {
-    console.log(this.selectedSiteUserValue)
-
-    this.newMiss = this.addform.value;
-    this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label).subscribe(data => {
-      this.newMiss.site = data;
-    })
-    this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key).subscribe(data => {
-      this.newMiss.users = data;
-    })
-    this.newMiss.etat = "Created";
-    this.newMiss.id_type = this.missService.typeMissionGamme
-    this.hideDialogAddMission();
-    this.ajoutService.addmission(this.newMiss).subscribe({
-      next: (data) => {
-        this.missIdNewJustWritten = data
-        console.log(" neww id miss written " + this.missIdNewJustWritten)
-        this.loadmission()
-        this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Mission Ajoutée' });
-      }, error: (e) => {
-        console.log('Error adding mission:', e);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: "Impossible d'ajouter la mission" });
-      }
-    })
-    //add saveArticleMissionsFromRayon
-  } */
-
-
-  
   async saveMission() {
     console.log(this.selectedSiteUserValue)
 
@@ -481,8 +450,9 @@ export class GammeComponent implements OnInit {
       this.newMiss.users = data;
     })
     this.newMiss.etat = "Created";
-    this.newMiss.id_type = this.missService.typeMissionGamme
+    this.newMiss.id_type = this.missService.typeMissionPrix
     this.hideDialogAddMission();
+    console.log(this.fileNameReciedved)
 
     this.addMissionAndArticlesMission();
 
@@ -504,7 +474,7 @@ export class GammeComponent implements OnInit {
       this.loadmission()
       this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Mission Ajoutée' });
     }
-    ).then(() => this.articleMissionService.saveArticlesMissionByRayonAndMission(this.missIdNewJustWritten, this.gammeadd).subscribe({
+    ).then(() => this.fileUploadService.saveFileToTableArticlesMission(this.missIdNewJustWritten).subscribe({
       next: () => {
         console.log(" save article with neww id miss written " + this.missIdNewJustWritten)
         this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Articles missions ajoutés' });
@@ -519,7 +489,10 @@ export class GammeComponent implements OnInit {
     )
   }
 
-
+  receiver(receivedFromChild: any) {
+    this.fileNameReciedved = receivedFromChild
+    console.log(receivedFromChild)
+  }
 
   changeExpandValue(label: any) {
     this.enseignesSites.map(

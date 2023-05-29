@@ -292,31 +292,31 @@ hideDialog() {
 
 
   deleteselectedzones() {
-    if (this.selectedzones && this.selectedzones.length > 0) {
+    if (this.selectedzone && this.selectedzone.length > 0) {
       this.confirmationService.confirm({message: 'Are you sure you want to delete the selected zones?',header: 'Confirmation', icon: 'pi pi-info-circle',
         accept: () => {
           const deletedProductIds: number[] = [];
           const deleteErrors: any[] = [];
-          console.log(this.selectedzones) ; 
+          console.log(this.selectedzone) ; 
   
           // Loop through selected products and send DELETE request for each one
-          this.selectedzones.forEach((zone) => {
+          this.selectedzone.forEach((zone) => {
             this.zoneservice.deleteZoneById(zone.id_zone).subscribe(
               () => {
                 this.deletedZonesId.push(zone.id_zone);
-                if (deletedProductIds.length === this.selectedzones.length) {
+                if (deletedProductIds.length === this.selectedzone.length) {
                   // All delete requests completed successfully
                   this.loadzones();
-                  this.selectedzones = [];
+                  this.selectedzone = [];
                   this.messageService.add({severity: 'success',summary: 'Success',detail: 'Zones deleted successfully'});
                 }
               },
               (error) => {
                 deleteErrors.push(error);
-                if ((this.deletedZonesId.length + deleteErrors.length) === this.selectedzones.length) {
+                if ((this.deletedZonesId.length + deleteErrors.length) === this.selectedzone.length) {
                   // All delete requests completed (successfully or with errors)
                   this.loadzones();
-                  this.selectedzones = [];
+                  this.selectedzone = [];
                   const errorMessage = 'Error deleting some zones: ' + deleteErrors.map((err) => err.message).join('; ');
                   this.messageService.add({ severity: 'warn', summary: 'Partial success', detail: errorMessage});
                 }

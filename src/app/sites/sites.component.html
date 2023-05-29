@@ -1,45 +1,53 @@
 <h1>{{ens.nom_ens}}</h1>
 <div class="example-button-row">
-<button mat-fab matTooltip="Primary" (click)="close()" color="primary" aria-label="Example fab with a heart icon">
-  <mat-icon>arrow_back</mat-icon>
-</button>
+  <button mat-fab matTooltip="Primary" (click)="close()" color="primary" aria-label="Example fab with a heart icon">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
 </div>
 
 <div class="grid">
-    <div class="col-12">
-        <div class="card px-6 py-6">
-            <p-toast></p-toast>
-            <p-toolbar styleClass="mb-4">
-                <ng-template pTemplate="right">
-                    <div class="my-2">
-                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" (click)="opennew()" class="p-button-success mr-2" ></button>
-                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedsite()" [disabled]="!selectedsites || !selectedsites.length"></button>
-                    </div>
-                </ng-template>
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="right">
+          <div class="my-2">
+            <button pButton pRipple label="Ajouter" icon="pi pi-plus" (click)="opennew()"
+              class="p-button-success mr-2"></button>
+            <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger"
+              (click)="deleteselectedsite()" [disabled]="!selectedsites || !selectedsites.length"></button>
+          </div>
+        </ng-template>
 
-                <ng-template pTemplate="left">
-                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
-                </ng-template>
-            </p-toolbar>
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+            (click)="dt.exportCSV()"></button>
+        </ng-template>
+      </p-toolbar>
 
-            <p-table #dt [value]="sites" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedsites" selectionMode="multiple" [rowHover]="true" dataKey="id">
-                <ng-template pTemplate="caption">
-                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Liste des Sites du {{ens.nom_ens}} </h5>
-                        <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
-                        </span>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <th pSortableColumn="nomsite">Site<p-sortIcon field="nomsite"></p-sortIcon></th>
-                        <th pSortableColumn="email_site">email <p-sortIcon field="email_site"></p-sortIcon></th>
-						                        <th pSortableColumn="zone"> Zone <p-sortIcon field="zone"></p-sortIcon></th>
+      <p-table #dt [value]="sites" [columns]="cols" responsiveLayout="scroll" [rows]="7"
+        [globalFilterFields]="['name','country.name','representative.name','status']" [rows]="7" [paginator]="true"
+        [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedsites"
+        selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Liste des Sites du {{ens.nom_ens}} </h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                class="w-full sm:w-auto" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="nomsite">Site<p-sortIcon field="nomsite"></p-sortIcon></th>
+            <th pSortableColumn="email_site">email <p-sortIcon field="email_site"></p-sortIcon></th>
+            <th pSortableColumn="zone"> Zone <p-sortIcon field="zone"></p-sortIcon></th>
 
                         <th pSortableColumn="tel">Telephone <p-sortIcon field="tel"></p-sortIcon></th>
                         <th pSortableColumn="adresse_site">Adresse<p-sortIcon field="adresse_site"></p-sortIcon></th>
@@ -127,9 +135,9 @@
         </div>
 
 
-        
-        <p-toast></p-toast>
-    <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
+
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 
     <p-dialog [(visible)]="siteaddDialog" [style]="{width: '500px'}" header="Ajouter Site" [draggable]="false" [modal]="true" class="p-fluid">
         <ng-template pTemplate="content">
@@ -221,7 +229,8 @@
                     <div class="field col">
               <div class="form-group">
                 <label for="nomsite">Nom du site</label>
-                <input type="text" pInputText formControlName="nomsite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nomsite'].errors }" />
+                <input type="text" pInputText formControlName="nomsite" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['nomsite'].errors }" />
                 <div *ngIf="submitted && f['nomsite'].errors" class="invalid-feedback">
                   <div *ngIf="f['nomsite'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
@@ -230,19 +239,21 @@
             <div class="field col">
               <div class="form-group">
                 <label for="email_site">Email Site</label>
-                <input type="email" pInputText formControlName="email_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email_site'].errors }" />
+                <input type="email" pInputText formControlName="email_site" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['email_site'].errors }" />
                 <div *ngIf="submitted && f['email_site'].errors" class="invalid-feedback">
                   <div *ngIf="f['email_site'].errors['required']"> Ce champ est obligatoire.</div>
                   <div *ngIf="f['email_site'].errors">Email must be a valid email address.</div>
                 </div>
               </div>
             </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
               <div class="form-group">
                 <label for="tel">Telephone</label>
-                <input type="text" pInputText formControlName="tel" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['tel'].errors }" />
+                <input type="text" pInputText formControlName="tel" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['tel'].errors }" />
                 <div *ngIf="submitted && f['tel'].errors" class="invalid-feedback">
                   <div *ngIf="f['tel'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
@@ -251,15 +262,17 @@
             <div class="field col">
               <div class="form-group">
                 <label for="adresse_site">Adresse Site</label>
-                <input type="text" pInputText formControlName="adresse_site" [ngClass]="{ 'is-invalid': submitted && f['adresse_site'].errors }" />
-             </div>
+                <input type="text" pInputText formControlName="adresse_site"
+                  [ngClass]="{ 'is-invalid': submitted && f['adresse_site'].errors }" />
+              </div>
             </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-             <div class="form-group">
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
+              <div class="form-group">
                 <label for="numerofax">Numéro Fax</label>
-                <input type="text" pInputText formControlName="numerofax" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['numerofax'].errors }" />
+                <input type="text" pInputText formControlName="numerofax" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['numerofax'].errors }" />
                 <div *ngIf="submitted && f['numerofax'].errors" class="invalid-feedback">
                   <div *ngIf="f['numerofax'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
@@ -268,18 +281,20 @@
             <div class="field col">
               <div class="form-group">
                 <label for="codepostal_site"> Code Postal</label>
-                <input type="text" pInputText formControlName="codepostal_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['codepostal_site'].errors }" />
+                <input type="text" pInputText formControlName="codepostal_site" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['codepostal_site'].errors }" />
                 <div *ngIf="submitted && f['codepostal_site'].errors" class="invalid-feedback">
                   <div *ngIf="f['codepostal_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
               <div class="form-group">
                 <label for="manager_site"> Manager Site</label>
-                <input type="text" pInputText formControlName="manager_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['manager_site'].errors }" />
+                <input type="text" pInputText formControlName="manager_site" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['manager_site'].errors }" />
                 <div *ngIf="submitted && f['manager_site'].errors" class="invalid-feedback">
                   <div *ngIf="f['manager_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
@@ -288,57 +303,63 @@
             <div class="field col">
               <div class="form-group">
                 <label for="canalDistribSite"> Canal Distribution</label>
-                <input type="text" pInputText formControlName="canalDistribSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['canalDistribSite'].errors }" />
+                <input type="text" pInputText formControlName="canalDistribSite" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['canalDistribSite'].errors }" />
                 <div *ngIf="submitted && f['canalDistribSite'].errors" class="invalid-feedback">
                   <div *ngIf="f['canalDistribSite'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
-        </div>
-        <div class="formgrid grid">
+          </div>
+          <div class="formgrid grid">
             <div class="field col">
               <div class="form-group">
                 <label for="modepaimentSite"> Mode Paiment Site</label>
-                <input type="text" pInputText formControlName="modepaimentSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['modepaimentSite'].errors }" />
+                <input type="text" pInputText formControlName="modepaimentSite" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['modepaimentSite'].errors }" />
                 <div *ngIf="submitted && f['modepaimentSite'].errors" class="invalid-feedback">
                   <div *ngIf="f['modepaimentSite'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
-            </div> 
+            </div>
             <div class="field col">
               <div class="form-group">
                 <label for="conditionPaimentSite"> Condition Paiment Site</label>
-                <input type="text" pInputText formControlName="conditionPaimentSite" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['conditionPaimentSite'].errors }" />
+                <input type="text" pInputText formControlName="conditionPaimentSite" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['conditionPaimentSite'].errors }" />
                 <div *ngIf="submitted && f['conditionPaimentSite'].errors" class="invalid-feedback">
                   <div *ngIf="f['conditionPaimentSite'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
             </div>
-        </div>   
-        <div class="formgrid grid">
+          </div>
+          <div class="formgrid grid">
             <div class="field col">
               <div class="form-group">
                 <label for="latitude_site"> Latitude Site</label>
-                <input type="text" pInputText formControlName="latitude_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['latitude_site'].errors }" />
+                <input type="text" pInputText formControlName="latitude_site" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['latitude_site'].errors }" />
                 <div *ngIf="submitted && f['latitude_site'].errors" class="invalid-feedback">
                   <div *ngIf="f['latitude_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
-            </div> 
+            </div>
             <div class="field col">
               <div class="form-group">
                 <label for="longitude_site"> Longitude Site</label>
-                <input type="text" pInputText formControlName="longitude_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['longitude_site'].errors }" />
+                <input type="text" pInputText formControlName="longitude_site" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['longitude_site'].errors }" />
                 <div *ngIf="submitted && f['longitude_site'].errors" class="invalid-feedback">
                   <div *ngIf="f['longitude_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
-            </div>  
-           
+            </div>
+
             <div class="field col">
               <div class="form-group">
                 <label for="reference_erp_site"> Reference ERP</label>
-                <input type="text" pInputText formControlName="reference_erp_site" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reference_erp_site'].errors }" />
+                <input type="text" pInputText formControlName="reference_erp_site" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['reference_erp_site'].errors }" />
                 <div *ngIf="submitted && f['reference_erp_site'].errors" class="invalid-feedback">
                   <div *ngIf="f['reference_erp_site'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
@@ -366,4 +387,3 @@
       
     </div>
 </div>
-

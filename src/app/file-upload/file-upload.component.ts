@@ -10,7 +10,7 @@ import { FileUploadService } from 'src/app/service/file-upload.service';
 })
 export class FileUploadComponent implements OnInit {
 
-    @Input() inputVar!: boolean;
+    @Input() typeUploadArticles!: String; // = "articles" ou "articles_mission"
     @Output() public sender = new EventEmitter
     selectedFiles: any[] = [];
     uploadedFiles: any[] = [];
@@ -25,7 +25,6 @@ export class FileUploadComponent implements OnInit {
     ngOnInit(): void {
         this.selectedFilesSuccess = false;
         this.uploadedFilesSuccess = false;
-        this.inputVar = false;
     }
 
     onSelect(event : any) {
@@ -38,6 +37,7 @@ export class FileUploadComponent implements OnInit {
         this.messageService.add({severity: 'info', summary: 'File selected', detail: ''});
     }
     
+
     onUpload(event : any) {
         for(let file of event.files) {
             this.uploadedFiles.push(file);
@@ -45,16 +45,39 @@ export class FileUploadComponent implements OnInit {
 
         this.uploadedFileOne = this.uploadedFiles[0]
         this.uploadedFilesSuccess = true;
-        this.fileUploadService.uploadFileArticlesMissionToServer(this.uploadedFileOne).subscribe({
+
+        if(this.typeUploadArticles == "articles_mission")
+        { this.onUploadArticlesMission() }
+        else if(this.typeUploadArticles = "articles")
+        {
+            this.onUploadArticles
+        }
+        
+
+        this.send();
+    }
+
+    onUploadArticles() {
+        this.fileUploadService.uploadFileArticlesToServer(this.uploadedFileOne).subscribe({
             next: (v) => {
-                console.log('Fichier '+this.uploadedFileOne.name + ' envoyé au serveur');
+                console.log('Fichier articles '+this.uploadedFileOne.name + ' envoyé au serveur');
             this.messageService.add({severity: 'info', summary: 'Fichier envoyé au serveur', detail: ''});
           }, error: (e) => {
             console.log('Error upload fichier :', e);
             this.messageService.add({severity: 'error', summary: 'Error', detail: 'Vérifier votre fichier'});
           }});
+    }
 
-        this.send();
+
+    onUploadArticlesMission() {
+        this.fileUploadService.uploadFileArticlesMissionToServer(this.uploadedFileOne).subscribe({
+            next: (v) => {
+                console.log('Fichier articles mission '+this.uploadedFileOne.name + ' envoyé au serveur');
+            this.messageService.add({severity: 'info', summary: 'Fichier envoyé au serveur', detail: ''});
+          }, error: (e) => {
+            console.log('Error upload fichier :', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Vérifier votre fichier'});
+          }});
     }
   
     send(){

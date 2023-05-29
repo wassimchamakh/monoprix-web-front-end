@@ -1,187 +1,246 @@
 <div class="grid">
   <div class="col-12">
-      <div class="card px-6 py-6">
-          <p-toast></p-toast>
-          <p-toolbar styleClass="mb-4">
-              <ng-template pTemplate="right">
-                  <div class="my-2">
-                      <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success mr-2"  (click)="opennew()"></button>
-                      <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedarticle()" [disabled]="!selectedarticles || !selectedarticles.length"></button>
-                  </div>
-              </ng-template>
-
-              <ng-template pTemplate="left">
-                  <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
-              </ng-template>
-          </p-toolbar>
-
-          <p-table #dt [value]="article" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['code_art','design_art']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedarticles" selectionMode="multiple" [rowHover]="true" dataKey="id">
-              <ng-template pTemplate="caption">
-                  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                      <h5 class="m-0">Liste des Articles Existants</h5>
-                      <span class="block mt-2 md:mt-0 p-input-icon-left">
-                          <i class="pi pi-search"></i>
-                          <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Recherche..."  class="w-full sm:w-auto"/>
-                      </span>
-                  </div>
-              </ng-template>
-              <ng-template pTemplate="header">
-                  <tr>
-                      <th style="width: 3rem">
-                          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                      </th>
-                      <th pSortableColumn="id_art">id<p-sortIcon field="id_art"></p-sortIcon></th>
-                      <th pSortableColumn="code_art">Code <p-sortIcon field="code_art"></p-sortIcon></th>
-                      <th pSortableColumn="design_art">Designation <p-sortIcon field="design_art"></p-sortIcon></th>
-                      <th pSortableColumn="prix_art">Prix <p-sortIcon field="prix_art"></p-sortIcon></th>
-                      <th pSortableColumn="gamme_art">Gamme<p-sortIcon field="gamme_art"></p-sortIcon></th>
-                      <th pSortableColumn="reference_art">Reference <p-sortIcon field="reference_art"></p-sortIcon></th>
-                      <th pSortableColumn="marque_art">Marque <p-sortIcon field="marque_art"></p-sortIcon></th>
-                      <th></th>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-article>
-                  <tr>
-                      <td>
-                          <p-tableCheckbox [value]="article"></p-tableCheckbox>
-                      </td>
-                      <td style="width:14%; min-width:10rem;"><span class="p-column-title">id_art</span>
-                          {{ article.id}}
-                      </td>
-                      <td style="width:14%; min-width:10rem;">
-                          <span class="p-column-title">Code</span>
-                          {{article.code_art}}
-                      </td>
-                      <td style="width:14%; min-width:8rem;">
-                          <span class="p-column-title">Designation</span>
-                          {{article.design_art}}
-                      </td>
-                    
-                      <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Prix </span>
-                         {{article.prix_art}}
-                      </td>
-                      <td style="width:14%; min-width:10rem;">
-                          <span class="p-column-title">Gamme</span>
-                          {{ article.gamme_art}}
-                          
-                      </td>
-                      <td style="width:14%; min-width:10rem;">
-                          <span class="p-column-title">Reference</span>
-                          {{ article.reference_art}}
-                      </td>
-                      <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Marque </span>
-                          {{article.marque_art}}
-                       </td>
-                      <td>
-                          <div class="flex">
-                              <button pButton pRipple icon="pi pi-pencil" (click)="openedit(article.id)" class="p-button-rounded p-button-success mr-2" ></button>
-                              <button pButton pRipple icon="pi pi-trash" (click)="deletearticle(article.id)" class="p-button-rounded p-button-warning"  ></button>
-                              
-                          </div>
-                      </td>
-                  </tr>
-              </ng-template>
-          </p-table>
-      </div>
-
-      <p-dialog [(visible)]="articleAddDialog" [style]="{width: '500px'}" header="Ajouter Article" [draggable]="false" [modal]="true" class="p-fluid">
-          <ng-template pTemplate="content">
-            <form #articleForm="ngForm" (ngSubmit)="saveArticle(articleForm)" >
-              <div class="formgrid grid">
-              <div class="field col">
-                <label for="code_art">Code Article</label>
-                <input type="text" pInputText id="code_art" name="code_art" [(ngModel)]="articleAdd.code_art" required autofocus />
-                <small class="ng-dirty ng-invalid" >Ce champ est obligatoire.</small>
-              </div>
-              <div class="field col">
-                  <label for="design_art">Désignation Article</label>
-                  <input type="text" pInputText id="design_art" name="design_art" [(ngModel)]="articleAdd.design_art" required autofocus />
-                  <small class="ng-dirty ng-invalid" >Ce champ est obligatoire.</small>
-                </div>
-              </div>
-              <div class="field">
-                <label for="reference_art">Reference Article</label>
-                <input type="text" id="reference_art" pInputText name="reference_art" [(ngModel)]="articleAdd.reference_art" required />
-                <small class="ng-dirty ng-invalid" >Ce champ est obligatoire.</small>
-              </div>
-              <div class="formgrid grid">
-                <div class="field col">
-                  <label for="prix_art">Prix Article</label>
-                  <input type="text" id="prix_art" pInputText name="prix_art" [(ngModel)]="articleAdd.prix_art" required />
-                  <small class="ng-dirty ng-invalid" >Ce champ est obligatoire.</small>
-                </div>
-                <div class="field col">
-                  <label for="gamme_art">Gamme Article</label>
-                  <input pInputText type="text" id="gamme_art" name="gamme_art" required [(ngModel)]="articleAdd.gamme_art"  />
-                </div>
-              </div>
-              <div class="field">
-                  <label for="marque_art">Marque Article</label>
-                  <input type="text" id="marque_art" pInputText name="marque_art" [(ngModel)]="articleAdd.marque_art" required />
-                  <small class="ng-dirty ng-invalid" >Ce champ est obligatoire.</small>
-                </div>
-            </form>
-          </ng-template>
-          <ng-template pTemplate="footer">
-            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-            <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveArticle(articleForm)" class="p-button-text"  > </button>
-          </ng-template>
-        </p-dialog>
-        
+    <div class="card px-6 py-6">
       <p-toast></p-toast>
-  <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="right">
+          <div class="my-2">
+            <button pButton pRipple label="Ajouter via fichier" icon="pi pi-plus" class="p-button-success mr-2"
+              (click)="opennewViaFichier()"></button>
+            <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success mr-2"
+              (click)="opennew()"></button>
+            <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger"
+              (click)="deleteselectedarticle()" [disabled]="!selectedarticles || !selectedarticles.length"></button>
+          </div>
+        </ng-template>
 
-  <p-dialog [(visible)]="articleUpdDialog" [style]="{width: '550px' , height: '80%'}" [draggable]="false"  header="Modifier Article" [modal]="true" class="p-fluid">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"
+            (click)="dt.exportCSV()"></button>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="article" [columns]="cols" responsiveLayout="scroll" [rows]="7"
+        [globalFilterFields]="['code_art','design_art']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]"
+        [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [(selection)]="selectedarticles" selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Liste des Articles Existants</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Recherche..."
+                class="w-full sm:w-auto" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="id_art">id<p-sortIcon field="id_art"></p-sortIcon></th>
+            <th pSortableColumn="code_art">Code <p-sortIcon field="code_art"></p-sortIcon></th>
+            <th pSortableColumn="design_art">Designation <p-sortIcon field="design_art"></p-sortIcon></th>
+            <th pSortableColumn="prix_art">Prix <p-sortIcon field="prix_art"></p-sortIcon></th>
+            <th pSortableColumn="gamme_art">Gamme<p-sortIcon field="gamme_art"></p-sortIcon></th>
+            <th pSortableColumn="reference_art">Reference <p-sortIcon field="reference_art"></p-sortIcon></th>
+            <th pSortableColumn="marque_art">Marque <p-sortIcon field="marque_art"></p-sortIcon></th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-article>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="article"></p-tableCheckbox>
+            </td>
+            <td style="width:14%; min-width:10rem;"><span class="p-column-title">id_art</span>
+              {{ article.id}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+              <span class="p-column-title">Code</span>
+              {{article.code_art}}
+            </td>
+            <td style="width:14%; min-width:8rem;">
+              <span class="p-column-title">Designation</span>
+              {{article.design_art}}
+            </td>
+
+            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Prix </span>
+              {{article.prix_art}}
+            </td>
+            <td style="width:14%; min-width:10rem;">
+              <span class="p-column-title">Gamme</span>
+              {{ article.gamme_art}}
+
+            </td>
+            <td style="width:14%; min-width:10rem;">
+              <span class="p-column-title">Reference</span>
+              {{ article.reference_art}}
+            </td>
+            <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Marque </span>
+              {{article.marque_art}}
+            </td>
+            <td>
+              <div class="flex">
+                <button pButton pRipple icon="pi pi-pencil" (click)="openedit(article.id)"
+                  class="p-button-rounded p-button-success mr-2"></button>
+                <button pButton pRipple icon="pi pi-trash" (click)="deletearticle(article.id)"
+                  class="p-button-rounded p-button-warning"></button>
+
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p-dialog [(visible)]="articleAddDialog" [style]="{width: '500px'}" header="Ajouter Article" [draggable]="false"
+      [modal]="true" class="p-fluid">
       <ng-template pTemplate="content">
-          <form [formGroup]="editForm" >
-            <div class="form-group">
+        <form #articleForm="ngForm" (ngSubmit)="saveArticle(articleForm)">
+          <div class="formgrid grid">
+            <div class="field col">
               <label for="code_art">Code Article</label>
-              <input type="text" pInputText formControlName="code_art" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['code_art'].errors }" />
-              <div *ngIf="submitted && f['code_art'].errors" class="invalid-feedback">
-                <div *ngIf="f['code_art'].errors['required']">Code Article is required.</div>
-              </div>
+              <input type="text" pInputText id="code_art" name="code_art" [(ngModel)]="articleAdd.code_art" required
+                autofocus />
+              <small class="ng-dirty ng-invalid">Ce champ est obligatoire.</small>
             </div>
-            <div class="form-group">
+            <div class="field col">
               <label for="design_art">Désignation Article</label>
-              <input type="text" pInputText formControlName="design_art" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['design_art'].errors }" />
-              <div *ngIf="submitted && f['design_art'].errors" class="invalid-feedback">
-                <div *ngIf="f['design_art'].errors['required']">Désignation is required.</div>
-              </div>
+              <input type="text" pInputText id="design_art" name="design_art" [(ngModel)]="articleAdd.design_art"
+                required autofocus />
+              <small class="ng-dirty ng-invalid">Ce champ est obligatoire.</small>
             </div>
-            <div class="form-group">
-              <label for="reference_art">Reference Article</label>
-              <input type="text" pInputText formControlName="reference_art" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reference_art'].errors }" />
-              <div *ngIf="submitted && f['reference_art'].errors" class="invalid-feedback">
-                <div *ngIf="f['reference_art'].errors['required']">Reference is required.</div>
-              </div>
-            </div>
-            <div class="form-group">
+          </div>
+          <div class="field">
+            <label for="reference_art">Reference Article</label>
+            <input type="text" id="reference_art" pInputText name="reference_art" [(ngModel)]="articleAdd.reference_art"
+              required />
+            <small class="ng-dirty ng-invalid">Ce champ est obligatoire.</small>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col">
               <label for="prix_art">Prix Article</label>
-              <input type="text" pInputText formControlName="prix_art" [ngClass]="{ 'is-invalid': submitted && f['prix_art'].errors }" />
-           </div>
-           <div class="form-group">
-              <label for="gamme_art">Gamme</label>
-              <input type="text" pInputText formControlName="gamme_art" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['gamme_art'].errors }" />
-              <div *ngIf="submitted && f['gamme_art'].errors" class="invalid-feedback">
-                <div *ngIf="f['gamme_art'].errors['required']">Gamme is required.</div>
-              </div>
+              <input type="text" id="prix_art" pInputText name="prix_art" [(ngModel)]="articleAdd.prix_art" required />
+              <small class="ng-dirty ng-invalid">Ce champ est obligatoire.</small>
+            </div>
+            <div class="field col">
+              <label for="gamme_art">Gamme Article</label>
+              <input pInputText type="text" id="gamme_art" name="gamme_art" required
+                [(ngModel)]="articleAdd.gamme_art" />
+            </div>
           </div>
-          <div class="form-group">
-              <label for="marque_art">Marque</label>
-              <input type="text" pInputText formControlName="marque_art" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['marque_art'].errors }" />
-              <div *ngIf="submitted && f['marque_art'].errors" class="invalid-feedback">
-                <div *ngIf="f['marque_art'].errors['required']">Marque is required.</div>
-              </div>
+          <div class="field">
+            <label for="marque_art">Marque Article</label>
+            <input type="text" id="marque_art" pInputText name="marque_art" [(ngModel)]="articleAdd.marque_art"
+              required />
+            <small class="ng-dirty ng-invalid">Ce champ est obligatoire.</small>
           </div>
-           </form>          
+        </form>
       </ng-template>
       <ng-template pTemplate="footer">
-        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="editArticle()" class="p-button-text"  > </button>
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
+          (click)="hideDialog()"></button>
+        <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveArticle(articleForm)"
+          class="p-button-text"> </button>
       </ng-template>
     </p-dialog>
-    
 
-      </div>
-      </div>
-      
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+    <!-- Ajouter via Fichier Dialog Start-->
+
+
+    <p-dialog [(visible)]="articleAddDialogViaFichier" [style]="{width: '500px'}" header="Nouveaux articles via fichier" [draggable]="false"
+      [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form #articleForm="ngForm" (ngSubmit)="saveArticlesViaFichier()">
+          <table class="example-full-width" [cellSpacing]="10">
+            <tr>
+              <td>
+                <app-file-upload (sender)="receiver($event)" [typeUploadArticles]="'articles'"></app-file-upload>
+                <!-- <p-fileUpload name="myfile"></p-fileUpload> -->
+                <!-- <p-button (click)="rayonDialogVisible=!rayonDialogVisible" icon="pi pi-external-link"
+                  label="Importer articles"></p-button> -->
+              </td>
+            </tr>
+          </table>
+        </form>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
+          (click)="hideDialog()"></button>
+        <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="saveArticlesViaFichier()"
+          class="p-button-text"> </button>
+      </ng-template>
+    </p-dialog>
+
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+    <!-- Ajouter via Fichier Dialog End -->
+
+    <p-dialog [(visible)]="articleUpdDialog" [style]="{width: '550px' , height: '80%'}" [draggable]="false"
+      header="Modifier Article" [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <form [formGroup]="editForm">
+          <div class="form-group">
+            <label for="code_art">Code Article</label>
+            <input type="text" pInputText formControlName="code_art" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['code_art'].errors }" />
+            <div *ngIf="submitted && f['code_art'].errors" class="invalid-feedback">
+              <div *ngIf="f['code_art'].errors['required']">Code Article is required.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="design_art">Désignation Article</label>
+            <input type="text" pInputText formControlName="design_art" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['design_art'].errors }" />
+            <div *ngIf="submitted && f['design_art'].errors" class="invalid-feedback">
+              <div *ngIf="f['design_art'].errors['required']">Désignation is required.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="reference_art">Reference Article</label>
+            <input type="text" pInputText formControlName="reference_art" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['reference_art'].errors }" />
+            <div *ngIf="submitted && f['reference_art'].errors" class="invalid-feedback">
+              <div *ngIf="f['reference_art'].errors['required']">Reference is required.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="prix_art">Prix Article</label>
+            <input type="text" pInputText formControlName="prix_art"
+              [ngClass]="{ 'is-invalid': submitted && f['prix_art'].errors }" />
+          </div>
+          <div class="form-group">
+            <label for="gamme_art">Gamme</label>
+            <input type="text" pInputText formControlName="gamme_art" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['gamme_art'].errors }" />
+            <div *ngIf="submitted && f['gamme_art'].errors" class="invalid-feedback">
+              <div *ngIf="f['gamme_art'].errors['required']">Gamme is required.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="marque_art">Marque</label>
+            <input type="text" pInputText formControlName="marque_art" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['marque_art'].errors }" />
+            <div *ngIf="submitted && f['marque_art'].errors" class="invalid-feedback">
+              <div *ngIf="f['marque_art'].errors['required']">Marque is required.</div>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
+          (click)="hideDialog()"></button>
+        <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="editArticle()"
+          class="p-button-text"> </button>
+      </ng-template>
+    </p-dialog>
+
+
+  </div>
+</div>

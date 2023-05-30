@@ -44,8 +44,8 @@ export class FileUploadService {
     return this.http.post(this.urlSaveArticlesMissionToserver+newIdMiss, newIdMiss)
   }
 
-  saveFileToTableArticles() :Observable<any> {
-    return this.http.post(this.urlUploadArticlesToserver, "Nothing")
+  saveFileToTableArticles(nothing : any) :Observable<any> {
+    return this.http.post(this.urlSaveArticlesToserver, nothing)
   }
 }
 

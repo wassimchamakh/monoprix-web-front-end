@@ -185,7 +185,7 @@
         </form>
 
 
-        <p-dialog header="Ajouter site et commercial" [(visible)]="addSiteCommercialVisible" [modal]="true" [style]="{ width: '60vw' }"
+        <p-dialog header="Affectation site et commercial" [(visible)]="addSiteCommercialVisible" [modal]="true" [style]="{ width: '60vw' }"
           [draggable]="false" [resizable]="false">
 
           <div *ngFor="let ens of enseignesSites">
@@ -286,15 +286,15 @@
           </p-treeTable> -->
           </div>
           <ng-template pTemplate="footer">
-            <button pButton pRipple label="Annuler Site" icon="pi pi-times" class="p-button-text"
+            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
               (click)="hideDialogSiteCommercial()"></button>
-            <button type="submit" pButton pRipple label="Enregistrer Site and Commercial" icon="pi pi-check"
+            <button type="submit" pButton pRipple label="Valider" icon="pi pi-check"
               (click)="saveSiteAndCommercial()" class="p-button-text"> </button>
           </ng-template>
         </p-dialog>
 
 
-        <p-dialog header="Add Articles" [(visible)]="articleDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
+        <p-dialog header="Ajouter" [(visible)]="articleDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
           [draggable]="false" [resizable]="false">
           <div class="card flex flex-column align-items-center justify-content-center">
             <p-tree #treee [value]="gammeArticle" selectionMode="checkbox" class="w-full md:w-30rem"
@@ -329,14 +329,14 @@
               </div>
             </div>
           </div>
-          <p-button (click)="addarticle()" icon="pi pi-external-link" label="Ajouter rayon"></p-button>
+          <p-button (click)="addarticle()" icon="pi pi-external-link" label="Valider"></p-button>
         </p-dialog>
       </ng-template>
 
       <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
           (click)="hideDialogAddMission()"></button>
-        <button type="submit" pButton pRipple label="Save Mission" icon="pi pi-check" (click)="saveMission()"
+        <button type="submit" pButton pRipple label="Valider" icon="pi pi-check" (click)="saveMission()"
           class="p-button-text"> </button>
       </ng-template>
 

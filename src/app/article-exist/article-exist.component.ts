@@ -231,17 +231,17 @@ export class ArticleExistComponent implements OnInit {
 
   saveArticlesViaFichier() {
     this.submitted = true;
-    console.log(this.articleAdd);
+    console.log(this.fileNameReciedved);
     // if (!this.articleAdd.code_art || !this.articleAdd.gamme_art || !this.articleAdd.reference_art) {
     //   return; // prevent form submission if required fields are empty
     // }
-    this.fileUploadService.saveFileToTableArticles().subscribe({
+    const nothing = "nothing";
+    this.fileUploadService.saveFileToTableArticles(nothing).subscribe({
       next: (v) => {
         this.submitted = true;
         this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Articles ajoutés via fichier', life: 3000 });
         this.loadArticles();
         this.hideDialog();
-        this.articleAdd = new article
       }
       , error: (e) => {
         console.log(e);

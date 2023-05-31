@@ -6,9 +6,6 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import { article } from '../user';
 import { FileUploadService } from 'src/app/service/file-upload.service';
 
-
-
-
 @Component({
   selector: 'app-article-exist',
   templateUrl: './article-exist.component.html',
@@ -20,6 +17,7 @@ export class ArticleExistComponent implements OnInit {
   article: any;
   idarticle: any;
   fileNameReciedved!: any;
+  typeUploadArticles = "articles";
   articleAdd: article = new article;
   articleAddDialog: boolean = false;
   articleAddDialogViaFichier: boolean = false;

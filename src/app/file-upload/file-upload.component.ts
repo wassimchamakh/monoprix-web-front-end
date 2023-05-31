@@ -50,7 +50,7 @@ export class FileUploadComponent implements OnInit {
         { this.onUploadArticlesMission() }
         else if(this.typeUploadArticles = "articles")
         {
-            this.onUploadArticles
+            this.onUploadArticles()
         }
         
 

@@ -480,7 +480,7 @@ export class GammeComponent implements OnInit {
     this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key).subscribe(data => {
       this.newMiss.users = data;
     })
-    this.newMiss.etat = "Created";
+    this.newMiss.etat = "Planifiée";
     this.newMiss.id_type = this.missService.typeMissionGamme
     this.hideDialogAddMission();
 

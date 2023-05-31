@@ -31,6 +31,7 @@ export class PrixComponent implements OnInit {
   newMissJustWritten: any;
   closed: string = 'close component';
   fileNameReciedved!: any;
+  typeUploadArticles = "articles_mission";
   gamme: any;
   cols: any[] = [];
   selectedmission: any[] = [];
@@ -443,19 +444,21 @@ export class PrixComponent implements OnInit {
     console.log(this.selectedSiteUserValue)
 
     this.newMiss = this.addform.value;
-    this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label).subscribe(data => {
-      this.newMiss.site = data;
-    })
-    this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key).subscribe(data => {
-      this.newMiss.users = data;
-    })
-    this.newMiss.etat = "Created";
+    this.newMiss.etat = "Planifiée";
     this.newMiss.id_type = this.missService.typeMissionPrix
     this.hideDialogAddMission();
     console.log(this.fileNameReciedved)
-
-    this.addMissionAndArticlesMission();
-
+    await firstValueFrom(this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label))
+      .then(result => {
+        this.newMiss.site = result;
+        firstValueFrom(this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key))
+      })
+      .then(result => {
+        this.newMiss.users = result;
+        console.log("user mission result :" + result);
+        console.log("user mission newMiss : " + this.newMiss.users);
+      })
+      .then(_ => this.addMissionAndArticlesMission())
   }
 
 

@@ -319,7 +319,7 @@ export class GammeComponent implements OnInit {
 
 
   addarticle() {
-    console.log(this.gammeArt)
+    console.log("gamme selectionnéé : "+this.gammeArt)
     this.rayonDialogVisible = false;
   }
 
@@ -440,55 +440,26 @@ export class GammeComponent implements OnInit {
   saveSiteAndCommercial() {
     this.hideDialogSiteCommercial();
   }
-
-  /* saveMission() {
-    console.log(this.selectedSiteUserValue)
-
-    this.newMiss = this.addform.value;
-    this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label).subscribe(data => {
-      this.newMiss.site = data;
-    })
-    this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key).subscribe(data => {
-      this.newMiss.users = data;
-    })
-    this.newMiss.etat = "Created";
-    this.newMiss.id_type = this.missService.typeMissionGamme
-    this.hideDialogAddMission();
-    this.ajoutService.addmission(this.newMiss).subscribe({
-      next: (data) => {
-        this.missIdNewJustWritten = data
-        console.log(" neww id miss written " + this.missIdNewJustWritten)
-        this.loadmission()
-        this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Mission Ajoutée' });
-      }, error: (e) => {
-        console.log('Error adding mission:', e);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: "Impossible d'ajouter la mission" });
-      }
-    })
-    //add saveArticleMissionsFromRayon
-  } */
-
-
   
   async saveMission() {
     console.log(this.selectedSiteUserValue)
-
     this.newMiss = this.addform.value;
-    this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label).subscribe(data => {
-      this.newMiss.site = data;
-    })
-    this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key).subscribe(data => {
-      this.newMiss.users = data;
-    })
     this.newMiss.etat = "Planifiée";
     this.newMiss.id_type = this.missService.typeMissionGamme
     this.hideDialogAddMission();
-
-    this.addMissionAndArticlesMission();
-
+    console.log("site this.selectedSiteUserValue.key :" + this.selectedSiteUserValue.key);
+    console.log("nomuser this.selectedSiteUserValue.label :" + this.selectedSiteUserValue.label);
+    await firstValueFrom(this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label))
+      .then(result => 
+        {this.newMiss.site = result;
+      }).then(_ => firstValueFrom(this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key)))
+      .then(result => {
+        this.newMiss.users = result;
+        console.log("this.newMiss.users json : "+JSON.stringify(this.newMiss.users));
+        console.log("this.newMiss.site json : "+ JSON.stringify(this.newMiss.site));
+        this.addMissionAndArticlesMission()
+      })
   }
-
-
 
   async promiseAddMiss(): Promise<any> {
     this.newMissJustWritten = await firstValueFrom(this.ajoutService.addmission(this.newMiss));
@@ -499,12 +470,11 @@ export class GammeComponent implements OnInit {
     this.promiseAddMiss().then(result => {
       this.newMissJustWritten = result;
       this.missIdNewJustWritten = this.newMissJustWritten.id;
-      console.log(" neww id miss written " + this.missIdNewJustWritten)
-      console.log(this.newMissJustWritten)
+      console.log(" neww id miss written " + this.missIdNewJustWritten);
       this.loadmission()
       this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Mission Ajoutée' });
     }
-    ).then(() => this.articleMissionService.saveArticlesMissionByRayonAndMission(this.missIdNewJustWritten, this.gammeadd).subscribe({
+    ).then(() => this.articleMissionService.saveArticlesMissionByRayonAndMission(this.missIdNewJustWritten, this.gammeArt).subscribe({
       next: () => {
         console.log(" save article with neww id miss written " + this.missIdNewJustWritten)
         this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Articles missions ajoutés' });

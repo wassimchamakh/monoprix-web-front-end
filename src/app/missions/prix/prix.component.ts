@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import { ConfirmationService, MessageService, ConfirmEventType, TreeNode } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { MissionService } from 'src/app/service/mission.service'
-import { article, Mission, TypeMission } from 'src/app/user';
+import { article, Mission, TypeMission, User } from 'src/app/user';
 import { Tree } from 'primeng/tree';
 import { SitesService } from 'src/app/service/sites.service';
 import { EnseigneService } from 'src/app/service/enseigne.service';
@@ -59,6 +59,7 @@ export class PrixComponent implements OnInit {
   gammes: any;
   articles: any;
   users: string[] = [];
+  usersObject: User[] = [];
   @ViewChild('userInput') userInput!: ElementRef<HTMLInputElement>;
   myGrid!: MatChipGrid;
   addMissDialog: boolean = false;
@@ -314,9 +315,6 @@ export class PrixComponent implements OnInit {
   }
 
 
-
-
-
   addarticle() {
     console.log(this.gammeArt)
     this.rayonDialogVisible = false;
@@ -442,26 +440,24 @@ export class PrixComponent implements OnInit {
 
   async saveMission() {
     console.log(this.selectedSiteUserValue)
-
     this.newMiss = this.addform.value;
     this.newMiss.etat = "Planifiée";
     this.newMiss.id_type = this.missService.typeMissionPrix
     this.hideDialogAddMission();
     console.log(this.fileNameReciedved)
+    console.log("site this.selectedSiteUserValue.key :" + this.selectedSiteUserValue.key);
+    console.log("nomuser this.selectedSiteUserValue.label :" + this.selectedSiteUserValue.label);
     await firstValueFrom(this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label))
-      .then(result => {
-        this.newMiss.site = result;
-        firstValueFrom(this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key))
-      })
+      .then(result => 
+        {this.newMiss.site = result;
+      }).then(_ => firstValueFrom(this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key)))
       .then(result => {
         this.newMiss.users = result;
-        console.log("user mission result :" + result);
-        console.log("user mission newMiss : " + this.newMiss.users);
+        console.log("this.newMiss.users json : "+JSON.stringify(this.newMiss.users));
+        console.log("this.newMiss.site json : "+ JSON.stringify(this.newMiss.site));
+        this.addMissionAndArticlesMission()
       })
-      .then(_ => this.addMissionAndArticlesMission())
   }
-
-
 
   async promiseAddMiss(): Promise<any> {
     this.newMissJustWritten = await firstValueFrom(this.ajoutService.addmission(this.newMiss));

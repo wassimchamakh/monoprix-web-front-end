@@ -31,7 +31,6 @@ export class SignupuserService {
   }
 
   saveUser(user:any ) :void {
-    
     localStorage.setItem('user',JSON.stringify(user)) ; 
   }  
   getUser(): any {
@@ -43,6 +42,7 @@ export class SignupuserService {
     const token=this.getToken() ; 
     return token !== null ; 
   }
+  
   logout():void {
     localStorage.removeItem('token') ; 
     localStorage.removeItem('user') ; 
@@ -52,9 +52,14 @@ export class SignupuserService {
     return this.http.get(`${this.allurl}/`);
   }
 
-  getAllUserByNomuser(nomuser: String) :Observable<any> {
-    return this.http.get(`${this.allurl}/${nomuser}`);
+  getAllUserByNomuser(nomuser: String) : Observable<any> {
+    return this.http.get(this.allurl + '/' +nomuser);
   }
+
+  getIdByNomuser(nomuser: String) : Observable<any> {
+    return this.http.get(this.allurl + '/getIdByNom/' +nomuser);
+  }
+  
 
   getAllUsersCommercials() :Observable<any> {
     return this.http.get(`${this.allCommercialsUrl}/`);

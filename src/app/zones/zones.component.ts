@@ -67,7 +67,7 @@ import { SignupuserService } from '../service/signupuser.service';
     this.cols = [
       { field: 'id', header: 'id' },
       { field: 'designZ', header: 'designZ' },
-      { field: 'id_user', header: 'id_user' }
+      { field: 'users', header: 'users' }
   ];
  
     this.editForm = new FormGroup(
@@ -218,12 +218,12 @@ opennew() {
   this.submitted = false;
   this.zoneservice.getZoneById(id).subscribe(data => {
       this.zonesget = data;
-      this.nameusers = this.zonesget.id_user.map((user: { nomuser: string }) => user.nomuser);
+      this.nameusers = this.zonesget.users.map((user: { nomuser: string }) => user.nomuser);
       console.log(this.zonesget);
       this.editForm = this.formBuilder.group({
         id: [this.zonesget.id],
         designZ: [this.zonesget.designZ],
-        nomuser: [this.zonesget.id_user]
+        nomuser: [this.zonesget.users]
     })
   })
 }

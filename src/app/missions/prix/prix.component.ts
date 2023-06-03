@@ -3,36 +3,35 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import { ConfirmationService, MessageService, ConfirmEventType, TreeNode } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { MissionService } from 'src/app/service/mission.service'
-import { article, Mission, TypeMission } from 'src/app/user';
+import { article, Mission, TypeMission, User } from 'src/app/user';
 import { Tree } from 'primeng/tree';
 import { SitesService } from 'src/app/service/sites.service';
 import { EnseigneService } from 'src/app/service/enseigne.service';
+import { FileUploadService } from 'src/app/service/file-upload.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChipGrid } from '@angular/material/chips';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, Subject, firstValueFrom } from 'rxjs';
 import { SignupuserService } from 'src/app/service/signupuser.service';
 import { ArticleService } from 'src/app/service/article.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { forkJoin } from 'rxjs';
 import { formatDate } from '@angular/common';
-import { ArticleNonreconnusService } from 'src/app/service/article-nonreconnus.service';
-
-
-
 
 
 @Component({
-  selector: 'app-gamme',
-  templateUrl: './gamme.component.html',
-  styleUrls: ['./gamme.component.css'],
+  selector: 'app-prix',
+  templateUrl: './prix.component.html',
+  styleUrls: ['./prix.component.css'],
   providers: [ConfirmationService, MessageService]
 })
-export class GammeComponent implements OnInit {
+export class PrixComponent implements OnInit {
   missID: number = -1;
   missIdNewJustWritten!: number;
   newMissJustWritten: any;
   closed: string = 'close component';
+  fileNameReciedved!: any;
+  typeUploadArticles = "articles_mission";
   gamme: any;
   cols: any[] = [];
   selectedmission: any[] = [];
@@ -60,6 +59,7 @@ export class GammeComponent implements OnInit {
   gammes: any;
   articles: any;
   users: string[] = [];
+  usersObject: User[] = [];
   @ViewChild('userInput') userInput!: ElementRef<HTMLInputElement>;
   myGrid!: MatChipGrid;
   addMissDialog: boolean = false;
@@ -92,7 +92,7 @@ export class GammeComponent implements OnInit {
     private missService: MissionService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private articleMissionService: ArticleNonreconnusService) { }
+    private fileUploadService: FileUploadService) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -315,11 +315,8 @@ export class GammeComponent implements OnInit {
   }
 
 
-
-
-
   addarticle() {
-    console.log("gamme selectionnéé : " + this.gammeArt)
+    console.log(this.gammeArt)
     this.rayonDialogVisible = false;
   }
 
@@ -328,7 +325,7 @@ export class GammeComponent implements OnInit {
   }
 
   loadmission() {
-    this.missService.getAllMissionGamme().subscribe(data => {
+    this.missService.getAllMissionPrix().subscribe(data => {
       this.gamme = data
     })
   }
@@ -445,37 +442,38 @@ export class GammeComponent implements OnInit {
     console.log(this.selectedSiteUserValue)
     this.newMiss = this.addform.value;
     this.newMiss.etat = "Planifiée";
-    this.newMiss.id_type = this.missService.typeMissionGamme
+    this.newMiss.id_type = this.missService.typeMissionPrix
     this.hideDialogAddMission();
+    console.log(this.fileNameReciedved)
     console.log("site this.selectedSiteUserValue.key :" + this.selectedSiteUserValue.key);
     console.log("nomuser this.selectedSiteUserValue.label :" + this.selectedSiteUserValue.label);
     await firstValueFrom(this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label))
-      .then(result => {
-        this.newMiss.site = result;
-      })
-      .then(_ => firstValueFrom(this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key)))
+      .then(result => 
+        {this.newMiss.site = result;
+      }).then(_ => firstValueFrom(this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key)))
       .then(result => {
         this.newMiss.users = result;
-        console.log("this.newMiss.users json : " + JSON.stringify(this.newMiss.users));
-        console.log("this.newMiss.site json : " + JSON.stringify(this.newMiss.site));
+        console.log("this.newMiss.users json : "+JSON.stringify(this.newMiss.users));
+        console.log("this.newMiss.site json : "+ JSON.stringify(this.newMiss.site));
         this.addMissionAndArticlesMission()
       })
   }
 
   async promiseAddMiss(): Promise<any> {
     this.newMissJustWritten = await firstValueFrom(this.ajoutService.addmission(this.newMiss));
-    return !!this.newMissJustWritten ? this.newMissJustWritten : null; 
+    return !!this.newMissJustWritten ? this.newMissJustWritten : null;
   }
 
   addMissionAndArticlesMission() {
     this.promiseAddMiss().then(result => {
       this.newMissJustWritten = result;
       this.missIdNewJustWritten = this.newMissJustWritten.id;
-      console.log(" neww id miss written " + this.missIdNewJustWritten);
+      console.log(" neww id miss written " + this.missIdNewJustWritten)
+      console.log(this.newMissJustWritten)
       this.loadmission()
       this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Mission Ajoutée' });
     }
-    ).then(() => this.articleMissionService.saveArticlesMissionByRayonAndMission(this.missIdNewJustWritten, this.gammeArt).subscribe({
+    ).then(() => this.fileUploadService.saveFileToTableArticlesMission(this.missIdNewJustWritten).subscribe({
       next: () => {
         console.log(" save article with neww id miss written " + this.missIdNewJustWritten)
         this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Articles missions ajoutés' });
@@ -490,7 +488,10 @@ export class GammeComponent implements OnInit {
     )
   }
 
-
+  receiver(receivedFromChild: any) {
+    this.fileNameReciedved = receivedFromChild
+    console.log(receivedFromChild)
+  }
 
   changeExpandValue(label: any) {
     this.enseignesSites.map(

@@ -1,0 +1,30 @@
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-fileUpload name="demo[]" [showCancelButton]="false" url="https://www.primefaces.org/cdn/api/upload.php"
+        (onSelect)="onSelect($event)" (onUpload)="onUpload($event)" [multiple]="false" [fileLimit]="1"
+        accept=".xls,.xlsx" [maxFileSize]="1000000" [previewWidth]="2">
+        <ng-template pTemplate="toolbar">
+            <div class="py-3">Ajouter un fichier excel (.xls)</div>
+        </ng-template>
+        <ng-template let-file pTemplate="file">
+            <ul *ngIf="selectedFiles.length">Fichier selectionné : {{ selectedFileOne.name }} - {{ selectedFileOne.size }} bytes
+            </ul>
+        </ng-template>
+        <ng-template pTemplate="content">
+            <ul *ngIf="uploadedFiles.length">Fichier envoyé : {{ uploadedFileOne.name }} - {{ uploadedFileOne.size }} bytes</ul>
+        </ng-template>
+    </p-fileUpload>
+</div>
+
+<!-- <p-fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="false" accept=".xls,.xlsx"
+    chooseLabel="Importer des articles">
+    <ng-template pTemplate="toolbar">
+        <div class="py-3">Ajouter un fichier excel (.xls)</div>
+    </ng-template>
+    <ng-template let-file pTemplate="file">
+        <div>Custom UI to display a file</div>
+    </ng-template>
+    <ng-template pTemplate="content" let-files>
+        <div>Additional content.</div>
+    </ng-template>
+</p-fileUpload> -->

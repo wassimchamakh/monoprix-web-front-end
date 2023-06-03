@@ -122,18 +122,29 @@ export class article  {
       usercreation:any ; 
 }
 
-export class mission {
-  id!:number ; 
-  nom_miss!:string ; 
-  descrip_miss!:string ; 
-  maxdiff!:number ; 
-  tags!:string ; 
-  usercreation:any ; 
-  userupdate:any ; 
-  users:any ; 
-  site:any[]=[] ; 
+export class Mission {
+  id!: number;
+  nom_miss!: string;
+  descrip_miss!: string;
+  maxdiff!: number;
+  tags!: string;
+  usercreation: any;
+  userupdate: any;
+  users : any;
+  site: any[] = [];
+  date_miss!: Date;
+  etat!: string
+  id_type: any;
+  // rupture: any;
+  // nonreconnue: any;
+  // date_debut: any;
+  // date_cloturer: any;
+}
 
-  date_miss!:Date ; 
+export class TypeMission {
+  id!: number;
+  nom_type!: String;
+  desc_type!: String;
 }
 
 

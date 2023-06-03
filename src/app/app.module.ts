@@ -64,6 +64,8 @@ import { ParametreComponent } from './parametre/parametre.component';
 import { MatTableModule } from '@angular/material/table';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import { TreeTableModule } from 'primeng/treetable';
+import { PrixComponent } from './missions/prix/prix.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 
@@ -115,6 +117,8 @@ import { TreeTableModule } from 'primeng/treetable';
     AjoutComponent,
     ModifierComponent,
     ParametreComponent,
+    PrixComponent,
+    FileUploadComponent,
 
   ],
   imports: [

@@ -8,7 +8,7 @@
           <ng-template pTemplate="right">
             <div class="my-2">
               <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-success mr-2"
-              (click)="openNewMission()"></button>
+                (click)="openNewMission()"></button>
               <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger"
                 (click)="deleteSelectedMiss()" [disabled]="!selectedmission || !selectedmission.length"></button>
             </div>
@@ -121,7 +121,7 @@
         <form [formGroup]="addform" class="example-form">
           <mat-form-field class="example-full-width">
             <mat-label>Type de mission</mat-label>
-            <input matInput disabled value="Relevé par gamme">
+            <input matInput disabled value="Relevé par liste">
           </mat-form-field>
 
           <table class="example-full-width" [cellSpacing]="10">
@@ -138,45 +138,38 @@
           </table>
           <table class="example-full-width" [cellSpacing]="10">
             <tr>
-          <p>
-            <mat-form-field class="example-full-width" style="width: 500px;">
-              <mat-label>Description</mat-label>
-              <textarea matInput formControlName="descrip_miss" placeholder="Ex. mission geant"></textarea>
-            </mat-form-field>
-          </p>
+              <p>
+                <mat-form-field class="example-full-width" style="width: 500px;">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput formControlName="descrip_miss" placeholder="Ex. mission geant"></textarea>
+                </mat-form-field>
+              </p>
             </tr>
           </table>
 
           <div class="grid">
-            <table class="example-full-width" [cellPadding]="10">
+            <table class="example-full-width" [cellSpacing]="10">
               <tr>
-                <td> <p-button (click)="showDialogSiteCommercial()" icon="pi pi-external-link" color=""
-                    label="Enseigne et Commercial"></p-button></td>
-                <td> <p-button (click)="rayonDialogVisible=!rayonDialogVisible" icon="pi pi-external-link"
-                    label="Rayons"></p-button></td>
+                <td style="padding-left: 10px;"> <p-button (click)="showDialogSiteCommercial()" icon="pi pi-external-link"
+                    color="" label="Enseigne et Commercial"></p-button></td>
+                <td>
+                  <div class="card flex justify-content-center">
+                    <p-calendar formControlName="date_miss" [showIcon]="true" dateFormat="dd/mm/yy" [(ngModel)]="date"
+                      [showTime]="false" [showSeconds]="false"> </p-calendar>
+                  </div>
+                </td>
               </tr>
             </table>
-
-            <!-- <div *ngIf="data=='Relevé par liste'">
-              <p-button (click)="showArticleDialog()" icon="pi pi-external-link" label="Add Articles"></p-button>
-            </div> -->
-            <!-- <div *ngIf="data=='Relevé par gamme'"> -->
-
-            <!-- </div> -->
           </div>
-
-          <table class="example-full-width" cellspacing="10">
+          <table class="example-full-width" [cellSpacing]="10">
             <tr>
+              <td>
+                <app-file-upload (sender)="receiver($event)" [typeUploadArticles]="typeUploadArticles"></app-file-upload>
+              </td>
               <td><mat-form-field class="example-full-width">
                   <mat-label>Max diff %</mat-label>
                   <input matInput formControlName="maxdiff" placeholder="10%">
                 </mat-form-field>
-              </td>
-              <td>
-                <div class="card flex justify-content-center">
-                  <p-calendar formControlName="date_miss" [showIcon]="true" dateFormat="dd/mm/yy" [(ngModel)]="date"
-                    [showTime]="false" [showSeconds]="false"> </p-calendar>
-                </div>
               </td>
             </tr>
           </table>
@@ -190,7 +183,7 @@
 
           <div *ngFor="let ens of enseignesSites">
             <div>
-              <i class="pi pi-plus" (click)="changeExpandValue(ens.label)" style="cursor:pointer; padding-bottom: 4px; text-size-adjust: auto;">{{ens.label}}</i>
+              <i class="pi pi-plus" (click)="changeExpandValue(ens.label)">{{ens.label}}</i>
               <label for=""> </label>
               <div *ngIf="ens.children!= [] && ens.expanded==true "
                 style="margin-left: 20px;display: flex; flex-direction: column;">
@@ -288,13 +281,13 @@
           <ng-template pTemplate="footer">
             <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
               (click)="hideDialogSiteCommercial()"></button>
-            <button type="submit" pButton pRipple label="Valider" icon="pi pi-check"
+            <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check"
               (click)="saveSiteAndCommercial()" class="p-button-text"> </button>
           </ng-template>
         </p-dialog>
 
 
-        <p-dialog header="Ajouter" [(visible)]="articleDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
+        <p-dialog header="Add Articles" [(visible)]="articleDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
           [draggable]="false" [resizable]="false">
           <div class="card flex flex-column align-items-center justify-content-center">
             <p-tree #treee [value]="gammeArticle" selectionMode="checkbox" class="w-full md:w-30rem"
@@ -324,7 +317,7 @@
           <div>
             <div class="form-group">
               <div class="field col">
-                <label for="gammeArt">Rayon (Gamme)</label>
+                <label for="gammeArt">Role</label>
                 <p-dropdown [(ngModel)]="gammeArt" [options]="gammeadd"></p-dropdown>
               </div>
             </div>

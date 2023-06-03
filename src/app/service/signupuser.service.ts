@@ -11,6 +11,7 @@ export class SignupuserService {
   private apiurl="http://localhost:8084/api" ; 
   private baseUrl="http://localhost:8084/api/login";
   private allurl="http://localhost:8084/api/all" ;
+  private allCommercialsUrl="http://localhost:8084/api/allCommercials" ;
   private addUrl="http://localhost:8084/api/add" ;
   private findUrl="http://localhost:8084/api/find" ;
   userlogin:any[]=[] ; 
@@ -30,7 +31,6 @@ export class SignupuserService {
   }
 
   saveUser(user:any ) :void {
-    
     localStorage.setItem('user',JSON.stringify(user)) ; 
   }  
   getUser(): any {
@@ -42,6 +42,7 @@ export class SignupuserService {
     const token=this.getToken() ; 
     return token !== null ; 
   }
+  
   logout():void {
     localStorage.removeItem('token') ; 
     localStorage.removeItem('user') ; 
@@ -51,6 +52,18 @@ export class SignupuserService {
     return this.http.get(`${this.allurl}/`);
   }
 
+  getAllUserByNomuser(nomuser: String) : Observable<any> {
+    return this.http.get(this.allurl + '/' +nomuser);
+  }
+
+  getIdByNomuser(nomuser: String) : Observable<any> {
+    return this.http.get(this.allurl + '/getIdByNom/' +nomuser);
+  }
+  
+
+  getAllUsersCommercials() :Observable<any> {
+    return this.http.get(`${this.allCommercialsUrl}/`);
+  }
   addUser(user: Userput) : Observable<any> {
     return this.httpClient.post(this.addUrl , user , { headers: { 'Content-Type': 'application/json' } } ) ; 
    } 

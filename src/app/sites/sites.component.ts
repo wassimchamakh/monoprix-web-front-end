@@ -82,7 +82,6 @@ export class SitesComponent implements OnInit {
     this.ZoneService.getAllZoneByDesignZ().subscribe(data => {
       this.zones=data.map((zone:any) => ({label:zone.designZ , value:zone }))
       console.log(this.zones);
-      
     })
   }
   onGlobalFilter(table: Table, event: Event) {
@@ -173,10 +172,8 @@ export class SitesComponent implements OnInit {
     this.submitted=true ; 
     this.site.enseigne=this.ens ; 
     console.log(this.site) ; 
-    if (!this.site.nomsite || !this.site.adresse_site || !this.site.email_site || !this.site.codepostal_site || !this.site.tel) 
-    { return ; }
-    console.log(this.site.id_zone);
-    
+    // if (!this.site.nomsite || !this.site.adresse_site || !this.site.email_site || !this.site.codepostal_site || !this.site.tel) 
+    // { return ; }
     console.log(this.site) ; 
     this.SiteService.addSite(this.site).subscribe({
        next :(v) => { 

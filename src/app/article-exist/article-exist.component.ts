@@ -70,13 +70,14 @@ hideDialog() {
   this.articleUpdDialog=false ; 
 }
 
-deleteselectedarticle() {
-  if (this.selectedarticles && this.selectedarticles.length > 0) {
-    this.confirmationService.confirm({message: 'Are you sure you want to delete the selected Sites?',header: 'Delete Confirmation', icon: 'pi pi-info-circle',
-      accept: () => {
-        const deletedProductIds: number[] = [];
-        const deleteErrors: any[] = [];
-        console.log(this.idarticle) ; 
+  deleteselectedarticle() {
+    if (this.selectedarticles && this.selectedarticles.length > 0) {
+      this.confirmationService.confirm({
+        message: 'Are you sure you want to delete the selected Sites?', header: 'Delete Confirmation', icon: 'pi pi-info-circle',
+        accept: () => {
+          const deletedProductIds: number[] = [];
+          const deleteErrors: any[] = [];
+          console.log(this.idarticle); 
 
         // Loop through selected products and send DELETE request for each one
         this.selectedarticles.forEach((article) => {

@@ -61,17 +61,17 @@ export class roleupdate {
     userUpdate: any ; 
 }
 
-export class zones{
-  id!:number ; 
-  designZ!: string ; 
-  id_user!:any ; 
+export class zones {
+  id!: number;
+  designZ!: string;
+  users!: any;
 }
 
 
-export class zonesadd{
-  id!:number ; 
-  designZ!: string ; 
-  nomuser:string[]=[] ; 
+export class zonesadd {
+  id!: number;
+  designZ!: string;
+  nomuser: string[] = [];
 }
 export class enseigne {
   nom_ens!:String ; 
@@ -86,26 +86,26 @@ export class enseigneupd {
   userUpdate : any ; 
 }
 
-export class sites{
-      id!:number ; 
-      nomsite!:string ; 
-      email_site!:string ;
-      tel!:number ; 
-      manager_site!:string ; 
-      numerofax!:number ; 
-      codepostal_site!:string;  
-      adresse_site!:string ; 
-      canalDistribSite!:string ;
-      latitude_site!:number ;
-      longitude_site!:number ; 
-      modepaimentSite!:string ; 
-      conditionPaimentSite!:string ; 
-      reference_erp_site!:string ;
-      datecreation:any ; 
-      enseigne:any ;  
-      id_zone:any[]=[]; ; 
-      userupdate:any ; 
-      usercreation:any ; 
+export class sites {
+  id!: number;
+  nomsite!: string;
+  email_site!: string;
+  tel!: number;
+  manager_site!: string;
+  numerofax!: number;
+  codepostal_site!: string;
+  adresse_site!: string;
+  canalDistribSite!: string;
+  latitude_site!: number;
+  longitude_site!: number;
+  modepaimentSite!: string;
+  conditionPaimentSite!: string;
+  reference_erp_site!: string;
+  datecreation: any;
+  enseigne: any;
+  zone: any[] = [];
+  userupdate: any;
+  usercreation: any;
 }
 
 export class article  {
@@ -135,6 +135,5 @@ export class mission {
 
   date_miss!:Date ; 
 }
-
 
 

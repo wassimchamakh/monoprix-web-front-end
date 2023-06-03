@@ -9,14 +9,14 @@
                         <button pButton pRipple label="Supprimer" icon="pi pi-trash" (click)="edit()"class="p-button-danger"  [disabled]="!selectedzone || !selectedzone.length"></button>
                     </div>
                 </ng-template>
-                <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
 
                 <ng-template pTemplate="left">
+                  <button pButton pRipple label="Export" icon="pi pi-upload" style="background-color: rgb(91, 91, 198); border-color: rgb(91, 91, 198);" class="p-button-help" (click)="dt.exportCSV()"></button>
                 </ng-template>
             </p-toolbar>
 
 
-            <p-table #dt [value]="zones" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['design_z','id_user']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedzone" selectionMode="single" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="zones" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['designz','id_user']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedzone" selectionMode="single" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Listes des Zones</h5>
@@ -32,7 +32,7 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
                         <th pSortableColumn="id">id<p-sortIcon field="id"></p-sortIcon></th>
-                        <th pSortableColumn="design_z">Designation <p-sortIcon field="design_z"></p-sortIcon></th>
+                        <th pSortableColumn="designZ">Designation <p-sortIcon field="designZ"></p-sortIcon></th>
                         <th pSortableColumn="id_user">Commercial <p-sortIcon field="id_user"></p-sortIcon></th>
                         <th></th>
                     </tr>
@@ -47,7 +47,7 @@
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Designation</span>
-                            {{zones.design_z}}
+                            {{zones.designZ}}
                         </td>
                         <td   style="width:14%; min-width:8rem;">
                             <span class="p-column-title">Commercial</span>
@@ -66,7 +66,7 @@
                 </ng-template>
             </p-table>
         </div>
-
+        </div>
      
 
     <p-dialog [(visible)]="zonesDialog" [style]="{width: '500px'}" header="Ajouter Zone" [draggable]="false" [modal]="true" class="p-fluid">
@@ -74,11 +74,11 @@
           <form #zonesForm="ngForm" >
             <div class="field">
               <label for="name">Zone</label>
-              <input type="text" pInputText id="design_z" name="design_z" [(ngModel)]="zone.designZ" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !zonesForm.controls['design_z'].valid}"/>
-              <small class="ng-dirty ng-invalid" *ngIf="submitted && !zonesForm.controls['design_z'].valid">Zone is required.</small>
+              <input type="text" pInputText id="designZ" name="designZ" [(ngModel)]="zone.designZ" required autofocus/>
+              <small class="ng-dirty ng-invalid">Zone est obligatoire.</small>
             </div>
             
-              <div class="formgrid grid">
+             <!-- <div class="formgrid grid">
                 <div class="field col">
                   <label for="nomusers">Commercial</label>
                   <input type="text"  pInputText name="nomusers" [(ngModel)]="nomusers" />
@@ -92,6 +92,28 @@
 
                 </li>
               </ul>
+            -->
+              <form>
+                <mat-form-field class="example-chip-list" appearance="fill">
+                  <mat-label>Liste des Utilisateurs affecté</mat-label>
+                  <mat-chip-grid #chipGrid aria-label="user selection">
+                    <mat-chip-row *ngFor="let users of user" (removed)="remove(users)">
+                      {{users}}
+                      <button matChipRemove [attr.aria-label]="'remove' + user">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+                  </mat-chip-grid>
+                  <input placeholder="nouvel utilisateur..." #userInput [formControl]="userCtrl" [matChipInputFor]="chipGrid"
+                    [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)" />
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let user of allusers" [value]="user">
+                      {{user}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
           </form>
         </ng-template>
         <ng-template pTemplate="footer">
@@ -107,14 +129,14 @@
     <ng-template pTemplate="content">
         <form [formGroup]="editForm" >
           <div class="form-group">
-            <label for="design_z">Zone</label>
-            <input type="text" pInputText formControlName="design_z" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['design_z'].errors }" />
-            <div *ngIf="submitted && f['design_z'].errors" class="invalid-feedback">
-              <div *ngIf="f['design_z'].errors['required']">Zone est obligatoire.</div>
+            <label for="designZ">Zone</label>
+            <input type="text" pInputText formControlName="designZ" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['designZ'].errors }" />
+            <div *ngIf="submitted && f['designZ'].errors" class="invalid-feedback">
+              <div *ngIf="f['designZ'].errors['required']">Zone est obligatoire.</div>
             </div>
           </div>
          
-          <div class="form-group">
+          <!--<div class="form-group">
               <label for="editnom">Commercial</label>
               <input type="text" pInputText  formControlName="editnom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['editnom'].errors }" />
             <button pButton (click)="editName()">Add Commercial</button>
@@ -125,7 +147,29 @@
                     <button (click)="deleteNomuser(i)">Delete</button>
 
                 </li>
-              </ul>
+              </ul>-->
+
+              <form>
+                <mat-form-field class="example-chip-list" appearance="fill">
+                  <mat-label>Liste des Utilisateurs affecté</mat-label>
+                  <mat-chip-grid #chipGrid aria-label="user selection">
+                    <mat-chip-row *ngFor="let users of nameusers" (removed)="removechipsedit(users)">
+                      {{users}}
+                      <button matChipRemove [attr.aria-label]="'remove' + user">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+                  </mat-chip-grid>
+                  <input placeholder="nouvel utilisateur..." #userInput [formControl]="userCtrl" [matChipInputFor]="chipGrid"
+                    [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="addchipsedit($event)" />
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedchipsedit($event)">
+                    <mat-option *ngFor="let user of allusers" [value]="user">
+                      {{user}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
          </form>          
     </ng-template>
     <ng-template pTemplate="footer">
@@ -138,6 +182,6 @@
   <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
 
     </div>
-</div>
+
 
 

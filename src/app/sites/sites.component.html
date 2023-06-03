@@ -69,7 +69,7 @@
                         </td>
 						           <td style="width:14%; min-width:10rem;">
                           <span class="p-column-title">Zone </span>
-                          {{ sites.id_zone.designZ}} 
+                          {{ sites.zone.designZ}} 
                       </td>
                         <td style="width:14%; min-width:8rem;">
                             <span class="p-column-title">Telephone</span>
@@ -198,6 +198,13 @@
                     <input type="text" id="reference_erp_site" pInputText name="reference_erp_site" [(ngModel)]="site.reference_erp_site"  />
                 </div>
             </div> 
+            <div class="field col">
+              <div class="form-group">
+                <label for="id_zone">Zone</label>
+                <p-dropdown  [(ngModel)]="site.zone" inputId="id_role" name="id_role" class="form-control" optionValue="value" [options]="zones"  appendTo="body" ></p-dropdown>
+              </div>
+              </div>
+            
           </form>
         </ng-template>
         <ng-template pTemplate="footer">

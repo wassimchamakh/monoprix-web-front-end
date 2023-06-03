@@ -25,7 +25,7 @@ export class ZonesService {
   }
 
   addZone(zone:zonesadd) : Observable<any> {
-    return this.http.post(`${this.addurl}`,zone, { headers:{ 'Content-Type': 'application/json'}}) ; 
+    return this.http.post(this.addurl,zone, { headers:{ 'Content-Type': 'application/json'}}) ; 
 
   }
 

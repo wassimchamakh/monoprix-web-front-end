@@ -109,6 +109,7 @@ export class AjoutComponent implements OnInit {
       this.allusers = this.getuser.map((user: any) => user.nomuser);
      console.log(this.allusers) ; 
    })
+ 
 
    
    this.ArtService.getgamme().subscribe(data => {

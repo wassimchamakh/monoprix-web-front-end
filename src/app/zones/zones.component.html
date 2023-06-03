@@ -5,11 +5,10 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="right">
                     <div class="my-2">
-                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" style="background-color: #3e9e66; border-color: #3e9e66;"  (click)="opennew()" class="p-button-success mr-2" ></button>
-                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" (click)="deleteselectedzones()" class="p-button-danger"  [disabled]="!selectedzone || !selectedzone.length"></button>
+                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" (click)="opennew()" class="p-button-success mr-2" ></button>
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" (click)="edit()"class="p-button-danger"  [disabled]="!selectedzone || !selectedzone.length"></button>
                     </div>
                 </ng-template>
-                <button pButton pRipple label="Export" icon="pi pi-upload" style="background-color: rgb(91, 91, 198); border-color: rgb(91, 91, 198);" class="p-button-help" (click)="dt.exportCSV()"></button>
 
                 <ng-template pTemplate="left">
                   <button pButton pRipple label="Export" icon="pi pi-upload" style="background-color: rgb(91, 91, 198); border-color: rgb(91, 91, 198);" class="p-button-help" (click)="dt.exportCSV()"></button>

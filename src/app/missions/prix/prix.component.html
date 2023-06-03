@@ -160,29 +160,17 @@
                 </td>
               </tr>
             </table>
-
-            <!-- <div *ngIf="data=='Relevé par liste'">
-              <p-button (click)="showArticleDialog()" icon="pi pi-external-link" label="Add Articles"></p-button>
-            </div> -->
-            <!-- <div *ngIf="data=='Relevé par gamme'"> -->
-
-            <!-- </div> -->
           </div>
-
           <table class="example-full-width" [cellSpacing]="10">
             <tr>
               <td>
                 <app-file-upload (sender)="receiver($event)" [typeUploadArticles]="typeUploadArticles"></app-file-upload>
-                <!-- <p-fileUpload name="myfile"></p-fileUpload> -->
-                <!-- <p-button (click)="rayonDialogVisible=!rayonDialogVisible" icon="pi pi-external-link"
-                  label="Importer articles"></p-button> -->
               </td>
               <td><mat-form-field class="example-full-width">
                   <mat-label>Max diff %</mat-label>
                   <input matInput formControlName="maxdiff" placeholder="10%">
                 </mat-form-field>
               </td>
-
             </tr>
           </table>
           <p><mat-checkbox formControlName="nonreconnus">Prendre en compte les articles non reconnus</mat-checkbox></p>

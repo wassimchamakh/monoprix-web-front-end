@@ -32,7 +32,7 @@ export class GammeComponent implements OnInit {
   missID: number = -1;
   missIdNewJustWritten!: number;
   newMissJustWritten: any;
-  closed: string = 'close component'; 
+  closed: string = 'close component';
   gamme: any;
   cols: any[] = [];
   selectedmission: any[] = [];
@@ -319,7 +319,7 @@ export class GammeComponent implements OnInit {
 
 
   addarticle() {
-    console.log("gamme selectionnéé : "+this.gammeArt)
+    console.log("gamme selectionnéé : " + this.gammeArt)
     this.rayonDialogVisible = false;
   }
 
@@ -440,7 +440,7 @@ export class GammeComponent implements OnInit {
   saveSiteAndCommercial() {
     this.hideDialogSiteCommercial();
   }
-  
+
   async saveMission() {
     console.log(this.selectedSiteUserValue)
     this.newMiss = this.addform.value;
@@ -450,20 +450,21 @@ export class GammeComponent implements OnInit {
     console.log("site this.selectedSiteUserValue.key :" + this.selectedSiteUserValue.key);
     console.log("nomuser this.selectedSiteUserValue.label :" + this.selectedSiteUserValue.label);
     await firstValueFrom(this.siteService.getAllSiteByNomsite(this.selectedSiteUserValue.label))
-      .then(result => 
-        {this.newMiss.site = result;
-      }).then(_ => firstValueFrom(this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key)))
+      .then(result => {
+        this.newMiss.site = result;
+      })
+      .then(_ => firstValueFrom(this.userService.getAllUserByNomuser(this.selectedSiteUserValue.key)))
       .then(result => {
         this.newMiss.users = result;
-        console.log("this.newMiss.users json : "+JSON.stringify(this.newMiss.users));
-        console.log("this.newMiss.site json : "+ JSON.stringify(this.newMiss.site));
+        console.log("this.newMiss.users json : " + JSON.stringify(this.newMiss.users));
+        console.log("this.newMiss.site json : " + JSON.stringify(this.newMiss.site));
         this.addMissionAndArticlesMission()
       })
   }
 
   async promiseAddMiss(): Promise<any> {
     this.newMissJustWritten = await firstValueFrom(this.ajoutService.addmission(this.newMiss));
-    return !!this.newMissJustWritten ? this.newMissJustWritten : null;
+    return !!this.newMissJustWritten ? this.newMissJustWritten : null; 
   }
 
   addMissionAndArticlesMission() {

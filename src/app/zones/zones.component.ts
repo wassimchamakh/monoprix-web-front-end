@@ -301,9 +301,9 @@ hideDialog() {
   
           // Loop through selected products and send DELETE request for each one
           this.selectedzone.forEach((zone) => {
-            this.zoneservice.deleteZoneById(zone.id_zone).subscribe(
+            this.zoneservice.deleteZoneById(zone.id).subscribe(
               () => {
-                this.deletedZonesId.push(zone.id_zone);
+                this.deletedZonesId.push(zone.id);
                 if (deletedProductIds.length === this.selectedzone.length) {
                   // All delete requests completed successfully
                   this.loadzones();

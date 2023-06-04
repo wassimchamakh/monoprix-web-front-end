@@ -173,7 +173,7 @@ export class SitesComponent implements OnInit {
   save(siteForm:any) :void {
     this.submitted=true ; 
     this.site.enseigne=this.ens ; 
-    console.log(this.site) ; 
+    console.log(JSON.stringify(this.site)) ; 
     // if (!this.site.nomsite || !this.site.adresse_site || !this.site.email_site || !this.site.codepostal_site || !this.site.tel) 
     // { return ; }
     console.log(this.site) ; 

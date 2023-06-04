@@ -134,14 +134,14 @@
                 <label for="nomuser">Nom User</label>
                 <input type="text" pInputText formControlName="nomuser" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nomuser'].errors }" />
                 <div *ngIf="submitted && f['nomuser'].errors" class="invalid-feedback">
-                  <div *ngIf="f['nomuser'].errors['required']">Nom User est obligatoire.</div>
+                  <div *ngIf="f['nomuser'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" pInputText formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
                 <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                  <div *ngIf="f['email'].errors['required']">Email est obligatoire.</div>
+                  <div *ngIf="f['email'].errors['required']"> Ce champ est obligatoire.</div>
                   <div *ngIf="f['email'].errors">Email must be a valid email address.</div>
                 </div>
               </div>
@@ -149,14 +149,14 @@
                 <label for="password">Password</label>
                 <input type="password" pInputText formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
                 <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                  <div *ngIf="f['password'].errors['required']">Password est obligatoire.</div>
+                  <div *ngIf="f['password'].errors['required']"> Ce champ est obligatoire.</div>
                 </div>
               </div>
               <div class="formgrid grid">
              <div class="field col">
               <label for="id_role">Role</label>
               <p-dropdown  id="id_role" name="id_role" formControlName="id_role" optionValue="value" [options]="roles"  [ngClass]="{'is invalid' : submitted && f['id_role'].errors}" appendTo="body"></p-dropdown>
-              <div *ngIf="submitted && f['id_role'].errors">Role est obligatoire.</div>
+              <div *ngIf="submitted && f['id_role'].errors"> Ce champ est obligatoire.</div>
             </div>
             <div class="field col">
              <label for="actif">Actif</label>

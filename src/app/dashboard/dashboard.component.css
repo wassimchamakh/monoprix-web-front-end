@@ -39,6 +39,7 @@ body {
   background: var(--grey);
   overflow-x: hidden;
 }
+
 /* SIDEBAR START*/
 #sidebar {
   position: fixed;

@@ -78,6 +78,7 @@ export class GammeComponent implements OnInit {
 
   enseigneData: TreeNode<any>[] = [];
   selectedEnseigne = -1;
+  nonreconnuBoolean : Boolean = false;
 
 
 
@@ -177,10 +178,10 @@ export class GammeComponent implements OnInit {
       maxdiff: new FormControl,
       tags: new FormControl,
       date_miss: new FormControl,
-      nonreconnus: new FormControl,
       rupture: new FormControl,
 
     })
+
     this.userService.getAllUser().subscribe(data => {
       this.getuser = data;
       console.log(this.getuser);
@@ -444,6 +445,7 @@ export class GammeComponent implements OnInit {
   async saveMission() {
     console.log(this.selectedSiteUserValue)
     this.newMiss = this.addform.value;
+    this.newMiss.nonreconnue = this.nonreconnuBoolean;
     this.newMiss.etat = "Planifiée";
     this.newMiss.id_type = this.missService.typeMissionGamme
     this.hideDialogAddMission();

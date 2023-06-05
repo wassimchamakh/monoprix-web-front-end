@@ -149,6 +149,7 @@ body {
   border-radius: 20px;
   background: var(--light);
   padding: 24px;
+  height: 100%;
   overflow-x: auto;
 }
 #content main .table-data .head {
@@ -174,20 +175,33 @@ body {
   border-collapse: collapse;
 }
 #content main .table-data .order table th {
-  padding-bottom: 12px;
-  font-size: 13px;
+  padding: 12px;
+  font-size: 16px;
   text-align: left;
   border-bottom: 1px solid var(--grey);
+  width: 170px;
 }
+
 #content main .table-data .order table td {
-  padding: 16px 0;
+  padding: 12px;
+  font-size: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--grey);
+  width: 170px;
 }
-#content main .table-data .order table tr td:first-child {
+
+/* #content main .table-data .order table td {
+  padding: 16px 0;
+  width: 130px;
+} */
+#content main .table-data .order table tr{
   display: flex;
   align-items: center;
+  justify-content: left;
   grid-gap: 12px;
   padding-left: 6px;
 }
+
 #content main .table-data .order table td img {
   width: 36px;
   height: 36px;

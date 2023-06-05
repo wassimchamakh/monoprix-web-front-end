@@ -135,8 +135,8 @@ export class Mission {
   date_miss!: Date;
   etat!: string
   id_type: any;
-  // rupture: any;
-  // nonreconnue: any;
+  rupture: any;
+  nonreconnue: any;
   // date_debut: any;
   // date_cloturer: any;
 }

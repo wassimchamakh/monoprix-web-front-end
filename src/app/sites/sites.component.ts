@@ -197,7 +197,6 @@ export class SitesComponent implements OnInit {
     this.submitted=true ; 
     this.SiteService.getSiteById(id).subscribe(data  => {
       this.siteget=data ; 
-      console.log(this.siteget) ; 
       this.editForm = this.formBuilder.group({
         nomsite: [this.siteget.nomsite, Validators.required],
         email_site: [this.siteget.email_site, [Validators.required, Validators.email]],

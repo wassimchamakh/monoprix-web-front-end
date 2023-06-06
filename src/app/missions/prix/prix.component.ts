@@ -51,7 +51,6 @@ export class PrixComponent implements OnInit {
   gammeArticle: TreeNode[] = [];
   articleDialogVisible: boolean = false;
   userDialogVisible: boolean = false;
-  rayonDialogVisible: boolean = false;
   @ViewChild(Tree) tree!: Tree;
   @ViewChild(Tree) treee!: Tree;
   articleMiss: any[] = [];
@@ -128,14 +127,12 @@ export class PrixComponent implements OnInit {
     this.userService.getAllUser().subscribe(data => {
       this.getuser = data;
       this.allusers = this.getuser.map((user: any) => user.nomuser);
-      console.log(this.allusers);
 
     })
 
     this.userService.getAllUsersCommercials().subscribe(data => {
       this.getuser = data;
       this.allCommercials = this.getuser.map((user: any) => user.nomuser);
-      console.log(this.allCommercials);
     })
 
     this.enseigneService.getAllEns().subscribe(data => {
@@ -162,7 +159,6 @@ export class PrixComponent implements OnInit {
         });
 
         this.enseignesSites.push(enseigneNode);
-        console.log(this.enseignesSites);
 
       });
     });
@@ -183,9 +179,7 @@ export class PrixComponent implements OnInit {
     })
     this.userService.getAllUser().subscribe(data => {
       this.getuser = data;
-      console.log(this.getuser);
       this.allusers = this.getuser.map((user: any) => user.nomuser);
-      console.log(this.allusers);
     })
 
     this.ArtService.getgamme().subscribe(data => {
@@ -303,23 +297,18 @@ export class PrixComponent implements OnInit {
 
   Okbutton() {
     this.articleDialogVisible = false;
-    const selectedSiteIds = this.treee.selection.map((node: TreeNode) => {
+   
+    const selectedSiteIds = this.treee.selection.map((node: TreeNode ) => {
       if (node.children == null) {
-        this.articleMiss.push(node.data);
-        console.log(this.articleMiss);
-        return node.data.id;
-      } else {
-        return null;
-      }
-    }).filter((id: any) => id !== null);
+       this.articleMiss.push(node.data);
+       console.log(this.articleMiss);
+  
+       return node.data ; 
+     } else { return null ; }
+   }).filter((id: any) => id !== null);    
   }
-
-
-  addarticle() {
-    console.log(this.gammeArt)
-    this.rayonDialogVisible = false;
-  }
-
+ articlemission() { 
+ }
   toggle() {
     this.overlayVisible = !this.overlayVisible;
   }
@@ -463,29 +452,36 @@ export class PrixComponent implements OnInit {
     this.newMissJustWritten = await firstValueFrom(this.ajoutService.addmission(this.newMiss));
     return !!this.newMissJustWritten ? this.newMissJustWritten : null;
   }
-
+  
   addMissionAndArticlesMission() {
     this.promiseAddMiss().then(result => {
       this.newMissJustWritten = result;
       this.missIdNewJustWritten = this.newMissJustWritten.id;
-      console.log(" neww id miss written " + this.missIdNewJustWritten)
-      console.log(this.newMissJustWritten)
-      this.loadmission()
-      this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Mission Ajoutée' });
-    }
-    ).then(() => this.fileUploadService.saveFileToTableArticlesMission(this.missIdNewJustWritten).subscribe({
-      next: () => {
-        console.log(" save article with neww id miss written " + this.missIdNewJustWritten)
-        this.messageService.add({ severity: 'Success', summary: 'Success', detail: 'Articles missions ajoutés' });
-      }, error: (e) => {
-        console.log('Error adding Error adding articles mission:', e);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: "Impossible d'ajouter les articles" });
-      }
-    })).catch(e => {
+      console.log(" new id miss written " + this.missIdNewJustWritten);
+      console.log(this.newMissJustWritten);
+      this.loadmission();
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Mission Ajoutée' });
+     console.log("les artiiiiiclles selectionnée"+this.articleMiss)
+        for (let i = 0; i < this.articleMiss.length; i++) {
+          this.ajoutService.saveArticleMissionByNode(this.missIdNewJustWritten, this.articleMiss[i]).subscribe(()=>{})
+           
+        }
+      
+    }).then(() => {
+      this.fileUploadService.saveFileToTableArticlesMission(this.missIdNewJustWritten).subscribe({
+        next: () => {
+          console.log(" save article with new id miss written " + this.missIdNewJustWritten);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Articles missions ajoutés' });
+        },
+        error: (e) => {
+          console.log('Error adding articles mission:', e);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: "Impossible d'ajouter les articles" });
+        }
+      });
+    }).catch(e => {
       console.log('Error adding mission:', e);
       this.messageService.add({ severity: 'error', summary: 'Error', detail: "Impossible d'ajouter la mission" });
-    }
-    )
+    })
   }
 
   receiver(receivedFromChild: any) {

@@ -101,10 +101,6 @@
                     class="p-button-rounded p-button-success mr-2"></button>
                   <button pButton pRipple icon="pi pi-trash" (click)="deletegamme(gamme.id)"
                     class="p-button-rounded p-button-warning"></button>
-                  <!-- <p-button (click)="toggle()" label="..."></p-button>
-                                <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-4 surface-overlay shadow-2 border-round">
-                                    Content
-                                </p-overlay>-->
                 </div>
               </td>
             </tr>
@@ -150,8 +146,10 @@
           <div class="grid">
             <table class="example-full-width" [cellSpacing]="10">
               <tr>
-                <td style="padding-left: 10px;"> <p-button (click)="showDialogSiteCommercial()" icon="pi pi-external-link"
-                    color="" label="Enseigne et Commercial"></p-button></td>
+                <td style="padding-left: 10px;"> 
+                  <p-button (click)="showDialogSiteCommercial()" icon="pi pi-external-link"
+                    color="" label="Enseigne et Commercial"></p-button>
+                </td>
                 <td>
                   <div class="card flex justify-content-center">
                     <p-calendar formControlName="date_miss" [showIcon]="true" dateFormat="dd/mm/yy" [(ngModel)]="date"
@@ -161,18 +159,23 @@
               </tr>
             </table>
           </div>
+
           <table class="example-full-width" [cellSpacing]="10">
             <tr>
               <td>
                 <app-file-upload (sender)="receiver($event)" [typeUploadArticles]="typeUploadArticles"></app-file-upload>
               </td>
-              <td><mat-form-field class="example-full-width">
-                  <mat-label>Max diff %</mat-label>
-                  <input matInput formControlName="maxdiff" placeholder="10%">
-                </mat-form-field>
+              
+              <td>
+                <p-button (click)="showDialogArticle()" icon="pi pi-external-link"
+                    color="" label="Affecté les articles"></p-button>
               </td>
             </tr>
           </table>
+          <mat-form-field class="example-full-width">
+            <mat-label>Max diff %</mat-label>
+            <input matInput formControlName="maxdiff" placeholder="10%">
+          </mat-form-field>
           <p><mat-checkbox formControlName="rupture">Rupture de stock</mat-checkbox></p>
         </form>
 
@@ -206,77 +209,6 @@
 
           </div>
 
-          <!--<div class="grid">
-    <p-tree [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles">
-      <ng-template let-node pTemplate="default">
-        <div class="grid">
-          <div class="node-content">
-            <span>{{node.label}}</span>
-          </div>
-          <div *ngIf="!node.children">
-            <mat-form-field>
-              <mat-label>Select User</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let user of allusers" [value]="user">
-                  {{user}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </ng-template>
-    </p-tree>-->
-
-          <!-- <p-treeTable [value]="enseignesSites">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Location</th>
-            </tr>
-          </ng-template>
-        
-          <ng-template pTemplate="body" let-node let-columns="columns">
-            <tr>
-              <td>{{node.label}}</td>
-              <td>{{node.label}}</td>
-              <td>{{node.label}}</td>
-              
-            </tr>
-          </ng-template>
-          <button *ngIf="enseignesSites" pButton type="button" icon="pi pi-user-plus" >
-            Add User
-          </button>
-        </p-treeTable>-->
-
-          <div class="card">
-            <!-- <p-treeTable [value]="enseigneData" [columns]="colns" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-            <ng-template pTemplate="caption">
-              <div class="flex">
-                <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
-                <span class="ml-2">Toggle All</span>
-              </div>
-            </ng-template>
-            <ng-template pTemplate="header" let-columns>
-              <tr>
-                <th *ngFor="let col of columns">
-                  {{ col.header }}
-                </th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-enseigneData >
-              <tr>
-                <td >
-                  <p-treeTableToggler [rowNode]="enseigneData" ></p-treeTableToggler>
-                  <p-treeTableCheckbox [value]="enseigneData" ></p-treeTableCheckbox>
-                  <ng-container >
-                    <span>{{ enseigneData.label }}</span>
-                  </ng-container>
-                </td>
-              </tr>
-            </ng-template>
-          </p-treeTable> -->
-          </div>
           <ng-template pTemplate="footer">
             <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
               (click)="hideDialogSiteCommercial()"></button>
@@ -308,21 +240,7 @@
         </div>
       </div> -->
           <p-button (click)="Okbutton()" icon="pi pi-external-link" label="OK"></p-button>
-        </p-dialog>
-
-
-        <p-dialog header="Ajouter rayon" [(visible)]="rayonDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
-          [draggable]="false" [resizable]="false">
-          <div>
-            <div class="form-group">
-              <div class="field col">
-                <label for="gammeArt">Role</label>
-                <p-dropdown [(ngModel)]="gammeArt" [options]="gammeadd"></p-dropdown>
-              </div>
-            </div>
-          </div>
-          <p-button (click)="addarticle()" icon="pi pi-external-link" label="Valider"></p-button>
-        </p-dialog>
+        </p-dialog>        
       </ng-template>
 
       <ng-template pTemplate="footer">

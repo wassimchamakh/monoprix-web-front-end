@@ -208,83 +208,10 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-
               </div>
             </div>
-
           </div>
 
-          <!--<div class="grid">
-    <p-tree [value]="enseignesSites" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles">
-      <ng-template let-node pTemplate="default">
-        <div class="grid">
-          <div class="node-content">
-            <span>{{node.label}}</span>
-          </div>
-          <div *ngIf="!node.children">
-            <mat-form-field>
-              <mat-label>Select User</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let user of allusers" [value]="user">
-                  {{user}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </ng-template>
-    </p-tree>-->
-
-          <!-- <p-treeTable [value]="enseignesSites">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Location</th>
-            </tr>
-          </ng-template>
-        
-          <ng-template pTemplate="body" let-node let-columns="columns">
-            <tr>
-              <td>{{node.label}}</td>
-              <td>{{node.label}}</td>
-              <td>{{node.label}}</td>
-              
-            </tr>
-          </ng-template>
-          <button *ngIf="enseignesSites" pButton type="button" icon="pi pi-user-plus" >
-            Add User
-          </button>
-        </p-treeTable>-->
-
-          <div class="card">
-            <!-- <p-treeTable [value]="enseigneData" [columns]="colns" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-            <ng-template pTemplate="caption">
-              <div class="flex">
-                <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
-                <span class="ml-2">Toggle All</span>
-              </div>
-            </ng-template>
-            <ng-template pTemplate="header" let-columns>
-              <tr>
-                <th *ngFor="let col of columns">
-                  {{ col.header }}
-                </th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-enseigneData >
-              <tr>
-                <td >
-                  <p-treeTableToggler [rowNode]="enseigneData" ></p-treeTableToggler>
-                  <p-treeTableCheckbox [value]="enseigneData" ></p-treeTableCheckbox>
-                  <ng-container >
-                    <span>{{ enseigneData.label }}</span>
-                  </ng-container>
-                </td>
-              </tr>
-            </ng-template>
-          </p-treeTable> -->
-          </div>
           <ng-template pTemplate="footer">
             <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
               (click)="hideDialogSiteCommercial()"></button>
@@ -292,32 +219,6 @@
               (click)="saveSiteAndCommercial()" class="p-button-text"> </button>
           </ng-template>
         </p-dialog>
-
-
-        <p-dialog header="Ajouter" [(visible)]="articleDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
-          [draggable]="false" [resizable]="false">
-          <div class="card flex flex-column align-items-center justify-content-center">
-            <p-tree #treee [value]="gammeArticle" selectionMode="checkbox" class="w-full md:w-30rem"
-              [(selection)]="selectedFiles"></p-tree>
-          </div>
-          <!--<div class="card flex flex-column align-items-center justify-content-center">
-         List of Articles by Gamme 
-        <div *ngFor="let gamme of gammes">
-          <h6>{{ gamme }}</h6>
-          
-          <mat-list>
-            <mat-list-item *ngFor="let article of articles">
-              <div *ngIf="gamme==article.gamme_art" >
-              <mat-checkbox [(ngModel)]="article.selected" (change)="selectArticle(article)">{{ article.design_art }}</mat-checkbox>
-            </div>
-            </mat-list-item>
-          </mat-list>
-        
-        </div>
-      </div> -->
-          <p-button (click)="Okbutton()" icon="pi pi-external-link" label="OK"></p-button>
-        </p-dialog>
-
 
         <p-dialog header="Ajouter rayon" [(visible)]="rayonDialogVisible" [modal]="true" [style]="{ width: '50vw' }"
           [draggable]="false" [resizable]="false">

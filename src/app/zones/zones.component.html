@@ -16,7 +16,7 @@
             </p-toolbar>
 
 
-            <p-table #dt [value]="zones" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['designz','id_user']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedzone" selectionMode="single" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="zones" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['designZ','id_user']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedzone" selectionMode="single" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Listes des Zones</h5>

@@ -11,6 +11,7 @@ export class MissionService {
   private addurl="http://localhost:8084/mission/add" ; 
   private deleteurl="http://localhost:8084/mission/delete" ; 
   private missUserurl="http://localhost:8084/mission/allmiss"  ; 
+  private artmissByNode="http://localhost:8084/artmiss/add/"
 
   typeMissionGamme: TypeMission = new TypeMission;
   typeMissionPrix: TypeMission = new TypeMission;
@@ -45,5 +46,9 @@ export class MissionService {
   }
   getMissionByUser(id:number) {
     return this.http.get(this.missUserurl+'/'+id) ; 
+  }
+
+  saveArticleMissionByNode(idMiss:number , article:any ) : Observable<any> {
+    return this.http.post(this.artmissByNode+idMiss,article,{headers:{ 'Content-Type': 'application/json'}} )
   }
 }

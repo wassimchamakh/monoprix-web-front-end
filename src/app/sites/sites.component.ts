@@ -58,9 +58,10 @@ export class SitesComponent implements OnInit {
         modepaimentSite: new FormControl(), 
         conditionPaimentSite: new FormControl(),
         reference_erp_site: new FormControl(),
-        datecreation: new FormControl(),
-        id_zone:new FormControl() 
-      })
+        zone: new FormControl,
+        datecreation: new FormControl()
+         })
+
       this.cols = [
         { field: 'id', header: 'id' },
         { field: 'nomsite', header: 'nomsite' },
@@ -200,9 +201,9 @@ export class SitesComponent implements OnInit {
       this.editForm = this.formBuilder.group({
         nomsite: [this.siteget.nomsite, Validators.required],
         email_site: [this.siteget.email_site, [Validators.required, Validators.email]],
-        tel: [this.siteget.tel, Validators.required],
-        manager_site: [this.siteget.manager_site, Validators.required],
-        numerofax: [this.siteget.numerofax, Validators.required],
+        tel: [this.siteget.tel],
+        manager_site: [this.siteget.manager_site],
+        numerofax: [this.siteget.numerofax],
         codepostal_site: [this.siteget.codepostal_site] ,
         adresse_site:[this.siteget.adresse_site ],
         canalDistribSite: [this.siteget.canalDistribSite],
@@ -211,8 +212,8 @@ export class SitesComponent implements OnInit {
         modepaimentSite: [this.siteget.modepaimentSite],
         conditionPaimentSite: [this.siteget.conditionPaimentSite] ,
         reference_erp_site:[this.siteget.reference_erp_site],
-        datecreation:[this.siteget.datecreation],
-        id_zone:[this.siteget.id_zone]
+        zone:[this.siteget.zone], 
+        datecreation:[this.siteget.datecreation]
       })
          console.log('editForm',this.editForm,'this.siteget',this.siteget);
          
@@ -220,6 +221,7 @@ export class SitesComponent implements OnInit {
     ) 
 
   }
+
   editsite() {
     if (this.editForm.invalid) {
       this.messageservice.add({  severity: 'error',   summary: 'Error',   detail: 'Erreur lors de mofication d\'un site',    life: 3000 }) ;

@@ -252,18 +252,13 @@
             <div class="field col">
               <div class="form-group">
                 <label for="tel">Telephone</label>
-                <input type="text" pInputText formControlName="tel" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['tel'].errors }" />
-                <div *ngIf="submitted && f['tel'].errors" class="invalid-feedback">
-                  <div *ngIf="f['tel'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="tel" class="form-control" />
               </div>
             </div>
             <div class="field col">
               <div class="form-group">
                 <label for="adresse_site">Adresse Site</label>
-                <input type="text" pInputText formControlName="adresse_site"
-                  [ngClass]="{ 'is-invalid': submitted && f['adresse_site'].errors }" />
+                <input type="text" pInputText formControlName="adresse_site" />
               </div>
             </div>
           </div>
@@ -271,21 +266,13 @@
             <div class="field col">
               <div class="form-group">
                 <label for="numerofax">Numéro Fax</label>
-                <input type="text" pInputText formControlName="numerofax" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['numerofax'].errors }" />
-                <div *ngIf="submitted && f['numerofax'].errors" class="invalid-feedback">
-                  <div *ngIf="f['numerofax'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="numerofax" class="form-control" />
               </div>
             </div>
             <div class="field col">
               <div class="form-group">
                 <label for="codepostal_site"> Code Postal</label>
-                <input type="text" pInputText formControlName="codepostal_site" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['codepostal_site'].errors }" />
-                <div *ngIf="submitted && f['codepostal_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['codepostal_site'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="codepostal_site" class="form-control" />
               </div>
             </div>
           </div>
@@ -293,21 +280,13 @@
             <div class="field col">
               <div class="form-group">
                 <label for="manager_site"> Manager Site</label>
-                <input type="text" pInputText formControlName="manager_site" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['manager_site'].errors }" />
-                <div *ngIf="submitted && f['manager_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['manager_site'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="manager_site" class="form-control" />
               </div>
             </div>
             <div class="field col">
               <div class="form-group">
                 <label for="canalDistribSite"> Canal Distribution</label>
-                <input type="text" pInputText formControlName="canalDistribSite" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['canalDistribSite'].errors }" />
-                <div *ngIf="submitted && f['canalDistribSite'].errors" class="invalid-feedback">
-                  <div *ngIf="f['canalDistribSite'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="canalDistribSite" class="form-control" />
               </div>
             </div>
           </div>
@@ -315,21 +294,13 @@
             <div class="field col">
               <div class="form-group">
                 <label for="modepaimentSite"> Mode Paiment Site</label>
-                <input type="text" pInputText formControlName="modepaimentSite" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['modepaimentSite'].errors }" />
-                <div *ngIf="submitted && f['modepaimentSite'].errors" class="invalid-feedback">
-                  <div *ngIf="f['modepaimentSite'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="modepaimentSite" class="form-control" />
               </div>
             </div>
             <div class="field col">
               <div class="form-group">
                 <label for="conditionPaimentSite"> Condition Paiment Site</label>
-                <input type="text" pInputText formControlName="conditionPaimentSite" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['conditionPaimentSite'].errors }" />
-                <div *ngIf="submitted && f['conditionPaimentSite'].errors" class="invalid-feedback">
-                  <div *ngIf="f['conditionPaimentSite'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="conditionPaimentSite" class="form-control" />
               </div>
             </div>
           </div>
@@ -337,53 +308,43 @@
             <div class="field col">
               <div class="form-group">
                 <label for="latitude_site"> Latitude Site</label>
-                <input type="text" pInputText formControlName="latitude_site" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['latitude_site'].errors }" />
-                <div *ngIf="submitted && f['latitude_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['latitude_site'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="latitude_site" class="form-control" />
               </div>
             </div>
             <div class="field col">
               <div class="form-group">
                 <label for="longitude_site"> Longitude Site</label>
-                <input type="text" pInputText formControlName="longitude_site" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['longitude_site'].errors }" />
-                <div *ngIf="submitted && f['longitude_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['longitude_site'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <input type="text" pInputText formControlName="longitude_site" class="form-control"/>
               </div>
             </div>
 
             <div class="field col">
               <div class="form-group">
-                <label for="reference_erp_site"> Reference ERP</label>
-                <input type="text" pInputText formControlName="reference_erp_site" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['reference_erp_site'].errors }" />
-                <div *ngIf="submitted && f['reference_erp_site'].errors" class="invalid-feedback">
-                  <div *ngIf="f['reference_erp_site'].errors['required']"> Ce champ est obligatoire.</div>
-                </div>
+                <label for="reference_erp_site">Reference ERP</label>
+                <input type="text" pInputText formControlName="reference_erp_site" class="form-control" />
               </div>
-            </div> 
-        </div>
-        <div class="formgrid grid">
-			    <div class="field col">
-            <div class="form-group">
-              <label for="id_zone">Zone</label>
-              <p-dropdown   formControlName="id_zone"  class="form-control" optionValue="value" [options]="zones"  appendTo="body" ></p-dropdown>
- 
             </div>
-            </div>
-
           </div>
-       
-          </form>          
-        </ng-template>
-        <ng-template pTemplate="footer">
-          <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-          <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="editsite()" class="p-button-text"  > </button>
-        </ng-template>
-      </p-dialog>
-      
-    </div>
+          
+          <div class="formgrid grid">
+            <div class="field col">
+              <div class="form-group">
+                <label for="zone">Zone</label>
+                <p-dropdown [ngModel]="editForm.value.zone" id ="zone" namme ="zone" [formControl]="$any(editForm.controls['zone'])" class="form-control" optionValue="value" [options]="zones"
+                  appendTo="body"></p-dropdown>
+                </div>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
+          (click)="hideDialog()"></button>
+        <button type="submit" pButton pRipple label="Enregistrer" icon="pi pi-check" (click)="editsite()"
+          class="p-button-text"> </button>
+      </ng-template>
+    </p-dialog>
+
+  </div>
 </div>

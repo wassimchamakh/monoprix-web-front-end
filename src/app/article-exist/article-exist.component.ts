@@ -82,7 +82,7 @@ export class ArticleExistComponent implements OnInit {
   deleteselectedarticle() {
     if (this.selectedarticles && this.selectedarticles.length > 0) {
       this.confirmationService.confirm({
-        message: 'Are you sure you want to delete the selected Sites?', header: 'Delete Confirmation', icon: 'pi pi-info-circle',
+        message: 'Êtes-vous sûr(e) de vouloir supprimer les articles sélectionnés ?', header: 'Confirmation de suppression', icon: 'pi pi-info-circle',
         accept: () => {
           const deletedProductIds: number[] = [];
           const deleteErrors: any[] = [];
@@ -98,7 +98,7 @@ export class ArticleExistComponent implements OnInit {
                   // All delete requests completed successfully
                   this.loadArticles();
                   this.selectedarticles = [];
-                  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Products deleted successfully' });
+                  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'articles deleted successfully' });
                 }
               },
               (error) => {
@@ -108,7 +108,7 @@ export class ArticleExistComponent implements OnInit {
                   this.loadArticles();
                   this.selectedarticles = [];
                   const errorMessage = 'Error deleting some products: ' + deleteErrors.map((err) => err.message).join('; ');
-                  this.messageService.add({ severity: 'warn', summary: 'Partial success', detail: errorMessage });
+                  this.messageService.add({ severity: 'warn', summary: 'Warn', detail: errorMessage });
                 }
               }
             );
@@ -121,7 +121,6 @@ export class ArticleExistComponent implements OnInit {
   }
 
   deletearticle(id: number) {
-    console.log("bonjour");
     this.confirmationService.confirm({
       message: 'Voulez-vous supprimer ce site ?',
       header: 'Delete Confirmation',
@@ -130,16 +129,16 @@ export class ArticleExistComponent implements OnInit {
         this.articleservice.deletearticle(id).subscribe({
           next: (v) => {
             this.loadArticles();
-            this.messageService.add({ severity: 'info', summary: 'Confirmé', detail: 'Site supprimé' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Site supprimé' });
           }
         })
       }, reject: (type: any) => {
         switch (type) {
           case ConfirmEventType.REJECT:
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You have rejected' });
             break;
           case ConfirmEventType.CANCEL:
-            this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+            this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'You have cancelled' });
             break;
         }
       }
@@ -177,10 +176,10 @@ export class ArticleExistComponent implements OnInit {
     this.articleservice.updatearticle(this.artupd).subscribe({
       next: (v) => {
         this.loadArticles();
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User Modifié', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Article Modifié', life: 3000 });
         this.hideDialog();
       }, error: (e) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erreur lors de la modification de l\'user', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erreur lors de la modification de l\'article', life: 3000 });
       }
     })
 

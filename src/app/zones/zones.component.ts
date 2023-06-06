@@ -193,7 +193,7 @@ private _filterchipsedit(value: string): string[] {
     this.zoneservice.addZone(this.zone).subscribe({
       next: (v) => {
       this.submitted=true ; 
-      this.messageService.add({ severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
+      this.messageService.add({ severity: 'success',summary: 'Success',detail: 'zone ajouté',life: 3000 });
       this.hideDialog() ;
       this.loadzones() ;  
       this.zone= new zonesadd ; 
@@ -270,7 +270,7 @@ hideDialog() {
         this.zoneservice.deleteZoneById(id).subscribe({
           next: (v) => {
             this.loadzones();
-          this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'zone supprimé ' });
           }, error: (e) => {
           console.log('Error deleting user:', e);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Unable to delete record' });
@@ -280,10 +280,10 @@ hideDialog() {
       reject: (type: any) => {
           switch (type) {
               case ConfirmEventType.REJECT:
-                  this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Vous avez rejeté la demande.' });
+                  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Vous avez rejeté la demande.' });
                   break;
               case ConfirmEventType.CANCEL:
-                  this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'Vous avez annuler la demande.' });
+                  this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Vous avez annuler la demande.' });
                   break;
           }
       } 
@@ -318,7 +318,7 @@ hideDialog() {
                   this.loadzones();
                   this.selectedzone = [];
                   const errorMessage = 'Error deleting some zones: ' + deleteErrors.map((err) => err.message).join('; ');
-                  this.messageService.add({ severity: 'warn', summary: 'Partial success', detail: errorMessage});
+                  this.messageService.add({ severity: 'warn', summary: 'Warn', detail: errorMessage});
                 }
               }
             );

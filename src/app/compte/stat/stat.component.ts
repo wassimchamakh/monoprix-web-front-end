@@ -46,6 +46,4 @@ export class StatComponent implements OnInit {
       this.closeEvent.emit('close event') ; 
     }
 
-openedit(id:number) {}
-deleteMissionUser(id:number) {}
 }

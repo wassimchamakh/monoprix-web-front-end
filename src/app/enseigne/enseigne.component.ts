@@ -79,9 +79,9 @@ export class EnseigneComponent implements OnInit {
                           this.loadenseigne();
                           this.selectedens = [];
                           this.MessageService.add({
-                            severity: 'Succès',
-                            summary: 'Succès',
-                            detail: 'Products deleted Succèsfully'
+                            severity: 'Success',
+                            summary: 'Success',
+                            detail: 'Enseigne supprimée avec succès'
                           });
                         }
                       }, (error) => {
@@ -89,15 +89,15 @@ export class EnseigneComponent implements OnInit {
                         if ( deleteErrors.length === this.selectedens.length) {
                           this.loadenseigne();
                           this.selectedens = [];
-                          const errorMessage = 'Error en suppression de quelques zones: ' + deleteErrors.map((err) => err.message).join('; ');
-                          this.MessageService.add({ severity: 'warn',  summary: 'Partial Succès', detail: errorMessage  });
+                          const errorMessage = 'Error en suppression de quelques enseignes: ' + deleteErrors.map((err) => err.message).join('; ');
+                          this.MessageService.add({ severity: 'warn',  summary: 'Warn', detail: errorMessage  });
                         }
                       }
                   ); 
                 })
               }
         })
-      } else { this.MessageService.add({severity: 'warn',summary: 'Warning',detail: 'No zone selected' });
+      } else { this.MessageService.add({severity: 'warn',summary: 'Warn',detail: 'No enseigne selected' });
     }
     }
 
@@ -113,7 +113,7 @@ export class EnseigneComponent implements OnInit {
       next: (v) => {
       console.log(this.ens);
       this.submitted = true;
-      this.MessageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
+      this.MessageService.add({severity: 'success',summary: 'Success',detail: 'enseigne ajouté',life: 3000 });
       this.hideDialog();
       this.loadenseigne() ; 
       this.ens= new enseigne ; 

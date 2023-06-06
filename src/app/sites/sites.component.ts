@@ -119,7 +119,7 @@ export class SitesComponent implements OnInit {
                   // All delete requests completed successfully
                   this.loadSites();
                   this.selectedsites = [];
-                  this.messageservice.add({severity: 'success',summary: 'Success',detail: 'Site deleted successfully'});
+                  this.messageservice.add({severity: 'success',summary: 'Success',detail: 'Site Enseigne supprimée avec succès'});
                 }
               },
               (error) => {
@@ -128,8 +128,8 @@ export class SitesComponent implements OnInit {
                   // All delete requests completed (successfully or with errors)
                   this.loadSites();
                   this.selectedsites = [];
-                  const errorMessage = 'Error deleting some site: ' + deleteErrors.map((err) => err.message).join('; ');
-                  this.messageservice.add({ severity: 'warn', summary: 'Partial success', detail: errorMessage});
+                  const errorMessage = 'Erreur lors de la suppression du site: ' + deleteErrors.map((err) => err.message).join('; ');
+                  this.messageservice.add({ severity: 'warn', summary: 'Warn', detail: errorMessage});
                 }
               }
             );
@@ -147,15 +147,15 @@ export class SitesComponent implements OnInit {
       accept: () => {
     this.SiteService.deleteSiteById(id).subscribe({ next :(v) => {
       this.loadSites() ; 
-      this.messageservice.add({ severity: 'info', summary: 'Confirmé', detail: 'Site supprimé' }) ;}
+      this.messageservice.add({ severity: 'success', summary: 'Success', detail: 'Site supprimé' }) ;}
   })
       }, reject: (type:any) => {
         switch (type) {
             case ConfirmEventType.REJECT:
-                this.messageservice.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                this.messageservice.add({ severity: 'error', summary: 'Error', detail: 'You have rejected' });
                 break;
             case ConfirmEventType.CANCEL:
-                this.messageservice.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                this.messageservice.add({ severity: 'warn', summary: 'Warn', detail: 'You have cancelled' });
                 break;
         }
     } 

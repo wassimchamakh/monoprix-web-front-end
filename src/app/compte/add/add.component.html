@@ -70,7 +70,7 @@
                         </td>
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product,users.id)"></button>
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(users.id)"></button>
                                     <button pButton pRipple icon="pi pi-trash" (click)="delete1(users.id)" class="p-button-rounded p-button-warning"  ></button>
                                    <div  *ngIf="users.id_role.design_r=='commercial'">
                                     <p-button label="Details" (click)="showcomponent(users.id,users)" styleClass="p-button-text" ></p-button>

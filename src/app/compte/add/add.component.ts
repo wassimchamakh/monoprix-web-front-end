@@ -93,7 +93,7 @@ export class AddComponent  {
         this.productDialog = true;  
     }
 
-    editProduct(product: Product , id:number) :void{
+    editProduct( id:number) :void{
         this.productDialog1 = true;
         this.productService.getUserById(id).subscribe(user =>{             
           this.userget = user;
@@ -141,7 +141,7 @@ export class AddComponent  {
                           this.loadProducts();
                           this.selectedProducts = [];
                           this.messageService.add({
-                            severity: 'Succès',
+                            severity: 'success',
                             summary: 'Succès',
                             detail: 'Products deleted Succèsfully'
                           });
@@ -156,7 +156,7 @@ export class AddComponent  {
                           const errorMessage = 'Error deleting some products: ' + deleteErrors.map((err) => err.message).join('; ');
                           this.messageService.add({
                             severity: 'warn',
-                            summary: 'Partial Succès',
+                            summary: 'Warn',
                             detail: errorMessage
                           });
                         }
@@ -168,7 +168,7 @@ export class AddComponent  {
             } else {
               this.messageService.add({
                 severity: 'warn',
-                summary: 'Warning',
+                summary: 'Warn',
                 detail: 'No user selected'
               });
             }
@@ -238,7 +238,6 @@ delete1(id:number) {
         icon: 'pi pi-info-circle',
         accept: () => {
           const url = `${this.deleteurl}/${id}` ; 
-                  console.log(url) ; 
           this.http.delete(url).subscribe( {
             next:(v) => {
               let num =0
@@ -248,7 +247,7 @@ delete1(id:number) {
                 }
                 num++
               }
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Utilisateur Supprimé' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Utilisateur Supprimé' });
           }, error:(e) => {
             console.log('Error deleting user:', e);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Impossible de supprimer l/utilisateur.' }); }
@@ -257,10 +256,10 @@ delete1(id:number) {
         reject: (type:any) => {
             switch (type) {
                 case ConfirmEventType.REJECT:
-                    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Vous avez rejeté la demande.' });
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Vous avez rejeté la demande.' });
                     break;
                 case ConfirmEventType.CANCEL:
-                    this.messageService.add({ severity: 'warn', summary: 'Annuler', detail: 'Vous avez annuler la demande.' });
+                    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Vous avez annuler la demande.' });
                     break;
             }
         } 
@@ -278,9 +277,10 @@ delete1(id:number) {
       next: (v) => {
       console.log(this.user);
       this.submitted = true;
-      this.messageService.add({severity: 'Succès',summary: 'Succès',detail: 'User ajouté',life: 3000 });
+      this.messageService.add({severity: 'success',summary: 'Success',detail: 'User ajouté',life: 3000 });
       this.loadProducts() ; 
       this.hideDialog();
+      this.user= new Userput 
     },
     error: (e) => {
       console.log(e);
@@ -299,7 +299,7 @@ delete1(id:number) {
 this.userupd=this.editForm.value ; 
 console.log(this.userupd) ; 
   this.productService.updateUser(this.userupd).subscribe({next : (v) => {
-    this.messageService.add({severity: 'Succès',summary: 'Succès',detail: 'User Modifier',life: 3000 });
+    this.messageService.add({severity: 'success',summary: 'Success',detail: 'User Modifier',life: 3000 });
     this.loadProducts() ; 
     this.hideDialog();
   },

@@ -33,7 +33,7 @@ export class StatComponent implements OnInit {
   console.log(this.User) ; 
   this.UsermissService.getMissionByUser(this.User.id).subscribe(data => { this.MissionUser=data
   console.log(this.MissionUser)})
-  this.nbMiss=2 
+  this.nbMiss=4
   //this.statService.getnbMission().subscribe(data => {this.nbMiss=data})
   this.statService.getnbnewarticle().subscribe(data => {this.nbNewArt=data}) ; 
 

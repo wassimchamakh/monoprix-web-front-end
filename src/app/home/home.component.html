@@ -42,7 +42,7 @@
           <tr *ngFor="let i of [0, 1, 2, 3, 4]">
             <div *ngIf="listMiss?.length > i " >
             <td>{{listMiss[i].nom_miss}}</td>
-            <td>{{listMiss[i].date_miss}}</td>
+            <td>{{listMiss[i].date_miss | date:'dd/MM/yyyy'}}</td>
             <td><span pButton pRipple class="p-button-rounded p-button-warning" role="button" aria-disabled="true" style="font-size: 14px; width: 100px; display: flex; align-items: center;">{{listMiss[i].etat}}</span></td>
             </div>
           </tr>
